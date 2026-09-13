@@ -1,0 +1,393 @@
+/* vietnamese */
+@font-face {
+  font-family: 'Anton';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/assets/fonts/85c8ad5d-94bb-4cb9-b5a7-bd27690de9ec.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Anton';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/assets/fonts/a7a5de8d-c036-4fc7-ae68-25926903f9ca.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Anton';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/assets/fonts/a6a9681c-5823-4eb8-b5eb-3527367d2c75.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("/assets/fonts/11829582-64c3-4c7f-8e79-a016d9c72749.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("/assets/fonts/cbba393e-932d-4f2e-b904-ea160e2d19b6.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("/assets/fonts/8da45182-0985-47ad-8d5a-b1fa9876f128.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 500;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("/assets/fonts/11829582-64c3-4c7f-8e79-a016d9c72749.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 500;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("/assets/fonts/cbba393e-932d-4f2e-b904-ea160e2d19b6.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 500;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("/assets/fonts/8da45182-0985-47ad-8d5a-b1fa9876f128.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("/assets/fonts/11829582-64c3-4c7f-8e79-a016d9c72749.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("/assets/fonts/cbba393e-932d-4f2e-b904-ea160e2d19b6.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("/assets/fonts/8da45182-0985-47ad-8d5a-b1fa9876f128.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Caveat';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/assets/fonts/e8c4b2f4-4322-4e52-9469-4520b106da36.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Caveat';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/assets/fonts/c8ff7dd3-3543-419d-87c6-869e3abae4a2.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Caveat';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/assets/fonts/28be8236-4157-4d32-aea7-987172455ed7.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Caveat';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/assets/fonts/5238cf44-135e-4ede-b7d6-475cc663dd48.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Caveat';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/assets/fonts/e8c4b2f4-4322-4e52-9469-4520b106da36.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Caveat';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/assets/fonts/c8ff7dd3-3543-419d-87c6-869e3abae4a2.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Caveat';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/assets/fonts/28be8236-4157-4d32-aea7-987172455ed7.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Caveat';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/assets/fonts/5238cf44-135e-4ede-b7d6-475cc663dd48.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/assets/fonts/ac5b1570-cc52-49aa-ba34-7478615c960e.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/assets/fonts/8024e627-e578-4fd2-8d69-6341e1e5361f.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/assets/fonts/879ab070-21bb-4445-8896-53a548e9f1f8.woff2") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/assets/fonts/cb43380f-02a8-4556-bae4-9c96d1e95956.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/assets/fonts/9dfe9927-763f-413c-90fa-893c3522e2b0.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/assets/fonts/dcda0f38-fa88-4bc8-a67d-1e37778aee1e.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/assets/fonts/ac5b1570-cc52-49aa-ba34-7478615c960e.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/assets/fonts/8024e627-e578-4fd2-8d69-6341e1e5361f.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/assets/fonts/879ab070-21bb-4445-8896-53a548e9f1f8.woff2") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/assets/fonts/cb43380f-02a8-4556-bae4-9c96d1e95956.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/assets/fonts/9dfe9927-763f-413c-90fa-893c3522e2b0.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/assets/fonts/dcda0f38-fa88-4bc8-a67d-1e37778aee1e.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+
+  @keyframes gs-marquee { to { transform: translateX(-50%); } }
+  @keyframes gs-rec { 0%,100%{opacity:1} 50%{opacity:.25} }
+  @keyframes gs-rise { from{transform:translateY(110%)} to{transform:none} }
+  @keyframes gs-sweep { 0%{transform:translateX(-60%) rotate(15deg);opacity:.35} 50%{opacity:.6} 100%{transform:translateX(160%) rotate(15deg);opacity:.35} }
+  @keyframes gs-flicker { 0%,100%{opacity:1} 45%{opacity:.92} 50%{opacity:.75} 55%{opacity:.98} }
+  @keyframes gs-fade { from{opacity:0} to{opacity:1} }
+  @keyframes gs-load { 0%{transform:translateX(-100%) scaleX(.4)} 50%{transform:translateX(0) scaleX(.6)} 100%{transform:translateX(100%) scaleX(.4)} }
+  @keyframes gs-fadeup { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:none} }
+
+  body { margin:0; -webkit-font-smoothing:antialiased; background:#0a0a0a; color:#fafafa; }
+  ::selection { background: var(--accent, oklch(0.9 0.19 100)); color: var(--accent-fg, #0a0a0a); }
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: var(--accent, oklch(0.9 0.19 100)); }
+
+  .gs-rec-dot { animation: gs-rec 1.6s ease-in-out infinite; }
+  .gs-sweep { animation: gs-sweep 10s ease-in-out infinite; }
+  .gs-flicker { animation: gs-flicker 4s ease-in-out infinite; }
+  .gs-fadein { animation: gs-fade 1.2s ease-out both; }
+
+  .marquee { animation: gs-marquee 42s linear infinite; }
+  .marquee-wrap:hover .marquee { animation-play-state: paused; }
+
+  @keyframes gs-spin { to { transform: rotate(1turn); } }
+  .gs-reel { animation: gs-spin 2.2s linear infinite; animation-play-state: paused; }
+  .is-playing .gs-reel { animation-play-state: running; }
+
+  .rise { display:block; overflow:hidden; }
+  .rise > span { display:block; animation: gs-rise 1s cubic-bezier(.16,1,.3,1) both; }
+
+  .reveal { opacity:0; transform:translateY(40px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); }
+  .reveal-left { opacity:0; transform:translateX(-48px); transition:opacity 1s cubic-bezier(.16,1,.3,1), transform 1s cubic-bezier(.16,1,.3,1); }
+  .reveal-right { opacity:0; transform:translateX(48px); transition:opacity 1s cubic-bezier(.16,1,.3,1), transform 1s cubic-bezier(.16,1,.3,1); }
+  .reveal-scale { opacity:0; transform:scale(.94); transition:opacity 1s cubic-bezier(.16,1,.3,1), transform 1s cubic-bezier(.16,1,.3,1); }
+  .reveal-blur { opacity:0; filter:blur(14px); transform:scale(1.04); transition:opacity 1.2s cubic-bezier(.16,1,.3,1), filter 1.2s cubic-bezier(.16,1,.3,1), transform 1.2s cubic-bezier(.16,1,.3,1); }
+  [data-reveal].is-in .reveal, [data-reveal].is-in .reveal-left, [data-reveal].is-in .reveal-right, [data-reveal].is-in .reveal-scale, [data-reveal].is-in .reveal-blur { opacity:1; transform:none; filter:none; }
+  [data-reveal].is-in.reveal, [data-reveal].is-in.reveal-left, [data-reveal].is-in.reveal-right, [data-reveal].is-in.reveal-scale, [data-reveal].is-in.reveal-blur { opacity:1; transform:none; filter:none; }
+
+  [data-stagger] > * { opacity:0; }
+  [data-stagger].is-in > * { animation: gs-fadeup .9s cubic-bezier(.16,1,.3,1) both; opacity:1; }
+  [data-stagger].is-in > *:nth-child(2){ animation-delay:90ms; }
+  [data-stagger].is-in > *:nth-child(3){ animation-delay:180ms; }
+  [data-stagger].is-in > *:nth-child(4){ animation-delay:270ms; }
+
+  .hover-underline { position:relative; }
+  .hover-underline::after { content:""; position:absolute; left:0; bottom:-4px; height:1px; width:100%; background:currentColor; transform:scaleX(0); transform-origin:right; transition:transform .5s cubic-bezier(.16,1,.3,1); }
+  .hover-underline:hover::after { transform:scaleX(1); transform-origin:left; }
+
+  .image-zoom { overflow:hidden; }
+  .image-zoom img { transition: transform 1.2s cubic-bezier(.16,1,.3,1); }
+  .image-zoom:hover img { transform: scale(1.06); }
+
+  .yellow-tint { position:relative; isolation:isolate; }
+  .yellow-tint::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg, color-mix(in srgb, var(--accent) 34%, transparent), color-mix(in srgb, var(--accent) 20%, transparent) 40%, rgba(0,0,0,.55)); mix-blend-mode:multiply; pointer-events:none; z-index:1; }
+  .scanlines { position:relative; }
+  .scanlines::before { content:""; position:absolute; inset:0; background:repeating-linear-gradient(to bottom, rgba(0,0,0,0) 0, rgba(0,0,0,0) 2px, rgba(0,0,0,.35) 3px, rgba(0,0,0,0) 4px); mix-blend-mode:multiply; pointer-events:none; z-index:2; opacity:.35; }
+  .vignette { position:relative; }
+  .vignette::after { content:""; position:absolute; inset:0; background:radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,.85) 100%); pointer-events:none; z-index:3; }
+
+  .grain { position:fixed; inset:-50%; z-index:90; pointer-events:none; opacity:.10; mix-blend-mode:overlay; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' sc-camel-base-frequency='0.9' sc-camel-num-octaves='2'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E"); }
+
+  .glow-accent { filter: drop-shadow(0 0 18px color-mix(in srgb, var(--accent) 38%, transparent)); }
+  .glow-red { position:relative; }
+  .glow-red::after { content:""; position:absolute; inset:-.35em -.5em; background:radial-gradient(ellipse at center, rgba(220,38,38,.35) 0%, rgba(220,38,38,0) 70%); filter:blur(12px); pointer-events:none; z-index:-1; mix-blend-mode:screen; }
+
+  .hover-depth { transition: transform .45s cubic-bezier(.16,1,.3,1), box-shadow .45s cubic-bezier(.16,1,.3,1); }
+  .hover-depth:hover { transform: translateY(-6px); box-shadow: 0 24px 60px -20px rgba(0,0,0,.7), 0 0 0 1px rgba(255,212,0,.08); }
+  .hover-lift { transition: transform .5s cubic-bezier(.16,1,.3,1), box-shadow .5s cubic-bezier(.16,1,.3,1), filter .5s cubic-bezier(.16,1,.3,1); }
+  .hover-lift:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -18px rgba(0,0,0,.6); filter: brightness(1.05); }
+
+  .work-card img { transition: transform .5s cubic-bezier(.16,1,.3,1), filter .5s; filter: saturate(0) contrast(1.25); }
+  .work-card:hover img { transform: scale(1.05); filter: saturate(1) contrast(1.1); }
+  .work-tint { transition: opacity .4s; }
+  .work-card:hover .work-tint { opacity:0; }
+
+  .quote-card img { transition: transform 1.2s cubic-bezier(.16,1,.3,1); }
+  .quote-card:hover img { transform: scale(1.06); }
+  .quote-tint { transition: opacity .5s; }
+  .quote-card:hover .quote-tint { opacity:0; }
+
+  .studio-disc { transition: transform .7s cubic-bezier(.16,1,.3,1); }
+  .studio:hover .studio-disc { transform: scale(1.1) rotate(6deg); }
+  .studio img { transition: transform 1.2s cubic-bezier(.16,1,.3,1); }
+  .studio:hover img { transform: scale(1.06); }
+
+  @media (min-width:768px){
+    .stat:nth-child(even){ margin-top:64px; text-align:right; }
+    .stat:nth-child(even) .stat-num{ color: var(--accent); }
+    .story-row:nth-child(even) .story-media{ order:2; }
+    .studio:nth-child(even){ margin-top:96px; }
+  }
+  @media (max-width:767px){
+    .nav-links{ display:none !important; }
+    .hide-mobile{ display:none !important; }
+  }
