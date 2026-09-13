@@ -7,11 +7,11 @@
   /* --- reveal on scroll --- */
   var rev = document.querySelectorAll('[data-reveal]');
   if (!('IntersectionObserver' in window) || RM) {
-    rev.forEach(function (e) { e.classList.add('in'); e.style.opacity = 1; e.style.transform = 'none'; });
+    rev.forEach(function (e) { e.classList.add('is-in'); e.style.opacity = 1; e.style.transform = 'none'; });
   } else {
     var io = new IntersectionObserver(function (es) {
       es.forEach(function (e) {
-        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+        if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
       });
     }, { threshold: 0.1, rootMargin: '0px 0px -8% 0px' });
     rev.forEach(function (e) { io.observe(e); });
