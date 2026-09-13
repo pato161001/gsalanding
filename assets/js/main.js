@@ -106,6 +106,11 @@
     });
   }
 
-  /* --- kill any preloader left in the markup --- */
-  document.querySelectorAll('[data-preloader], #preloader, .preloader').forEach(function (p) { p.remove(); });
+  /* --- dismiss the loader --- */
+  var loader = document.querySelector('#gs-loader, [data-preloader], #preloader, .preloader');
+  if (loader) {
+    loader.style.opacity = 0;
+    loader.style.pointerEvents = 'none';
+    setTimeout(function () { loader.remove(); }, 700);
+  }
 })();
