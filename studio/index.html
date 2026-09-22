@@ -120,7 +120,7 @@
 
   <!-- PAGE HERO -->
   <section id="top" style="position:relative;height:100svh;min-height:760px;overflow:hidden;">
-    <img src="assets/studio-recording.jpg" alt="" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+    <img src="../assets/studio-recording.jpg" alt="" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
     <div data-videofade="" aria-hidden="true" style="position:absolute;inset:0;overflow:hidden;pointer-events:none;opacity:0;transition:opacity 1.2s ease;background:#000;">
       <div data-videohost="" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:max(100vw,178vh,1352px);height:max(100vh,760px,56.25vw);">
         <div style="width:100%;height:100%;"></div>
@@ -373,15 +373,15 @@ class Component extends DCLogic {
     const heroTags = ["Recording", "Music production", "Mix & master", "Film music", "Ad music", "Dolby Atmos 7.1.4"];
 
     const blocks = [
-      { id: "recording", name: "Recording", img: "assets/studio-recording.jpg", imgAlt: "Guitarist tracking an acoustic take in the live room", tags: ["Albums & EPs", "Live multitrack", "Session musicians"],
+      { id: "recording", name: "Recording", img: "../assets/studio-recording.jpg", imgAlt: "Guitarist tracking an acoustic take in the live room", tags: ["Albums & EPs", "Live multitrack", "Session musicians"],
         body: "From full albums and EPs to live multitrack recordings, we offer the space, gear and people to bring your music to life. Our expansive backline and roster of session musicians help fill any gaps. All six studios are interconnected, allowing bands to record live while keeping every instrument cleanly isolated." },
-      { id: "production", name: "Music Production", img: "assets/studio-production.jpg", imgAlt: "Producer and artist building an arrangement in the production room", tags: ["Arrangement", "Sound design", "EPs & albums"],
+      { id: "production", name: "Music Production", img: "../assets/studio-production.jpg", imgAlt: "Producer and artist building an arrangement in the production room", tags: ["Arrangement", "Sound design", "EPs & albums"],
         body: "Whether you're starting with just a set of lyrics or a fully formed idea, we help shape it into a finished track. We work with solo artists, composers and bands, from developing arrangements and sounds to producing complete EPs and albums, bringing the right creative and technical expertise to every project." },
-      { id: "mix", name: "Mix & Master", img: "assets/studio-mix-master.jpg", imgAlt: "Engineer mixing at the Neumann-monitored desk in Studio A", tags: ["Dolby Atmos 7.1.4", "Stereo", "Neumann partner"],
+      { id: "mix", name: "Mix & Master", img: "../assets/studio-mix-master.jpg", imgAlt: "Engineer mixing at the Neumann-monitored desk in Studio A", tags: ["Dolby Atmos 7.1.4", "Stereo", "Neumann partner"],
         body: "Our flagship mix and master space is built for precision, with Dolby Atmos 7.1.4 monitoring and a Neumann-designed monitoring setup. As a Neumann partner, we bring world-class monitoring and immersive audio expertise to every project, from detailed stereo mixes to fully immersive Dolby Atmos productions." },
-      { id: "film", name: "Film Music & Sound Design", img: "assets/studio-film.jpg", imgAlt: "Percussion session for a film score in the live room", tags: ["Background score", "Foley", "Location sound", "Mixing"],
+      { id: "film", name: "Film Music & Sound Design", img: "../assets/studio-film.jpg", imgAlt: "Percussion session for a film score in the live room", tags: ["Background score", "Foley", "Location sound", "Mixing"],
         body: "Our exceptional group of sound designers, location sound engineers, background score composers, foley artists and mixing engineers, in conjunction with our state-of-the-art facilities, can produce sound quality that meets international standards. We meticulously select the talent that aligns with your project's needs, ensuring you receive excellent value for your investment." },
-      { id: "ads", name: "Ad Music & Sound Design", img: "assets/studio-ads.jpg", imgAlt: "Team reviewing a campaign mix in the control room", tags: ["Jingles", "MOGOs", "Brand anthems", "Campaigns"],
+      { id: "ads", name: "Ad Music & Sound Design", img: "../assets/studio-ads.jpg", imgAlt: "Team reviewing a campaign mix in the control room", tags: ["Jingles", "MOGOs", "Brand anthems", "Campaigns"],
         body: "Gray Spark Audio has extensive experience crafting music and sound that elevates stories for some of the world's leading brands. From powerful campaigns for SBI and Samsung, to global sports anthems for the ICC World Cup, and dynamic soundtracks for KIA, our work blends creativity with precision \u2014 audio that not only complements visuals but resonates deeply with audiences worldwide." }
     ].map((b, i) => ({ ...b, num: pad(i + 1) }));
 

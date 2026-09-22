@@ -112,7 +112,7 @@
 
   <!-- PAGE HERO -->
   <section id="top" style="position:relative;height:100svh;min-height:760px;overflow:hidden;">
-    <img src="assets/studio-a-live-room.jpg" alt="" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+    <img src="../assets/studio-a-live-room.jpg" alt="" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
     <div data-videofade="" aria-hidden="true" style="position:absolute;inset:0;overflow:hidden;pointer-events:none;opacity:0;transition:opacity 1.2s ease;background:#000;">
       <div data-videohost="" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:max(100vw,178vh,1352px);height:max(100vh,760px,56.25vw);">
         <div style="width:100%;height:100%;"></div>
@@ -282,7 +282,7 @@
           </div>
         </div>
         <div class="reveal-right tinted-shot" style="position:relative;aspect-ratio:1;border:1px solid var(--border);overflow:hidden;background:#000;">
-          <img src="assets/mic-locker.jpg" alt="A large-diaphragm condenser on the boom, lit by candlelight against the stone wall" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <img src="../assets/mic-locker.jpg" alt="A large-diaphragm condenser on the boom, lit by candlelight against the stone wall" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
         </div>
       </div>
     </div>
@@ -405,30 +405,30 @@ class Component extends DCLogic {
     ];
 
     const rooms = [
-      { n: "A", name: "Studio A", note: "the flagship", img: "assets/studio-a-live-room.jpg", imgAlt: "Studio A live room",
+      { n: "A", name: "Studio A", note: "the flagship", img: "../assets/studio-a-live-room.jpg", imgAlt: "Studio A live room",
         body: "The largest room on the floor and the one everything else routes into. Built as a Neumann-powered Dolby Atmos room in partnership with Neumann and Sennheiser \u2014 from speaker selection and placement through to calibration and long-term support. It runs live film and OTT work, independent releases, advertising and branded content.",
         specs: ["Spacious", "State of the art", "Outboard gear", "Mastering suite", "Dolby Atmos 7.1.4", "7.1 & 5.1 mixing"] },
-      { n: "B", name: "Studio B", note: "one mic, one take", img: "assets/vo-studio-b.jpg", imgAlt: "Studio B \u2014 the dead vocal room and editing desk",
+      { n: "B", name: "Studio B", note: "one mic, one take", img: "../assets/vo-studio-b.jpg", imgAlt: "Studio B \u2014 the dead vocal room and editing desk",
         body: "The compact room, built tight and dead for voice. Vocal takes, dubbing, ADR and voice-over days live here, with editing handled in the same space so a session can be cut and approved without moving rooms.",
         specs: ["Compact", "Vocal recording", "Dubbing", "Editing"] },
-      { n: "C", name: "Studio C", note: "the ideas room", img: "assets/studio-c-room.jpg", imgAlt: "Studio C artist and programming room",
+      { n: "C", name: "Studio C", note: "the ideas room", img: "../assets/studio-c-room.jpg", imgAlt: "Studio C artist and programming room",
         body: "An artist room and programming suite \u2014 where arrangements get built, beats get written and a rough idea becomes something worth tracking properly next door.",
         specs: ["Artist room", "Programming suite"] },
-      { n: "XYZ", name: "Studios X, Y & Z", note: "class in session", img: "assets/studio-xyz-room.jpg", imgAlt: "Academy studios X, Y and Z",
+      { n: "XYZ", name: "Studios X, Y & Z", note: "class in session", img: "../assets/studio-xyz-room.jpg", imgAlt: "Academy studios X, Y and Z",
         body: "Three dedicated studio spaces for Academy students \u2014 spacious, equipped for production, and sitting inside a working facility so students learn next door to real sessions.",
         specs: ["Dedicated Academy spaces", "Spacious", "Equipped for production"] }
     ];
 
     const gallery = [
-      { img: "assets/studio-a-live-room.jpg", hint: "Wide shot \u2014 Studio A", span: "span 2", row: "span 2" },
-      { img: "assets/studio-engineer-desk.jpg", hint: "Console detail", span: "span 1", row: "span 1" },
-      { img: "assets/studio-recording.jpg", hint: "Mics up for an acoustic take", span: "span 1", row: "span 1" },
-      { img: "assets/studio-film.jpg", hint: "Percussion session in the live room", span: "span 1", row: "span 2" },
-      { img: "assets/studio-gear-desk.jpg", hint: "Outboard rack", span: "span 1", row: "span 1" },
-      { img: "assets/studio-b-room.jpg", hint: "Vocal booth", span: "span 1", row: "span 1" },
-      { img: "assets/studio-ads.jpg", hint: "Session in progress", span: "span 2", row: "span 1" },
-      { img: "assets/studio-mix-master.jpg", hint: "Monitors and the Atmos array", span: "span 1", row: "span 1" },
-      { img: "assets/ai-about-room.jpg", hint: "The console and lounge", span: "span 1", row: "span 1" }
+      { img: "../assets/studio-a-live-room.jpg", hint: "Wide shot \u2014 Studio A", span: "span 2", row: "span 2" },
+      { img: "../assets/studio-engineer-desk.jpg", hint: "Console detail", span: "span 1", row: "span 1" },
+      { img: "../assets/studio-recording.jpg", hint: "Mics up for an acoustic take", span: "span 1", row: "span 1" },
+      { img: "../assets/studio-film.jpg", hint: "Percussion session in the live room", span: "span 1", row: "span 2" },
+      { img: "../assets/studio-gear-desk.jpg", hint: "Outboard rack", span: "span 1", row: "span 1" },
+      { img: "../assets/studio-b-room.jpg", hint: "Vocal booth", span: "span 1", row: "span 1" },
+      { img: "../assets/studio-ads.jpg", hint: "Session in progress", span: "span 2", row: "span 1" },
+      { img: "../assets/studio-mix-master.jpg", hint: "Monitors and the Atmos array", span: "span 1", row: "span 1" },
+      { img: "../assets/ai-about-room.jpg", hint: "The console and lounge", span: "span 1", row: "span 1" }
     ];
 
     const micTags = ["Large-diaphragm condensers", "Ribbons", "Dynamics", "Matched stereo pairs", "Neumann partner"];
@@ -443,12 +443,12 @@ class Component extends DCLogic {
     ].map((e, i) => ({ ...e, num: pad(i + 1) }));
 
     const T = [
-      { n: "01", tag: "Front of house", title: "You come in through the lounge, not a lobby.", body: "Artists, producers and clients share the same first room \u2014 coffee, couches and a door straight onto the floor.", img: "assets/studio-control-room.jpg", imgAlt: "The Gray Spark control room seen on entry" },
-      { n: "02", tag: "Studio A \u2014 live room", title: "The flagship room, built to be played in.", body: "A Neumann-powered Dolby Atmos 7.1.4 room with a live floor big enough for a rhythm section and a mastering suite next door.", img: "assets/studio-a-live-room.jpg", imgAlt: "Studio A live room" },
-      { n: "03", tag: "Studio B \u2014 vocal booth", title: "One mic, one take, no bleed.", body: "Compact and dead quiet \u2014 vocals, dubbing and editing, with a sightline straight to the engineer.", img: "assets/studio-b-room.jpg", imgAlt: "Studio B vocal booth" },
-      { n: "04", tag: "Studio C \u2014 ideas room", title: "Where the session starts before it starts.", body: "An artist and programming room for writing, arranging and demoing without burning floor time.", img: "assets/studio-c-room.jpg", imgAlt: "Studio C artist and programming room" },
-      { n: "05", tag: "Studios X, Y & Z", title: "Class in session, all day.", body: "Three rooms dedicated to Academy students \u2014 fully equipped for production, so learning happens on real gear.", img: "assets/studio-xyz-room.jpg", imgAlt: "Academy studios X, Y and Z" },
-      { n: "06", tag: "The racks", title: "Fifteen years of gear, all patchable.", body: "Outboard racks, monitoring and a machine room that keeps every room fed from the same signal path.", img: "assets/studio-gear-desk.jpg", imgAlt: "Outboard racks and studio desk" }
+      { n: "01", tag: "Front of house", title: "You come in through the lounge, not a lobby.", body: "Artists, producers and clients share the same first room \u2014 coffee, couches and a door straight onto the floor.", img: "../assets/studio-control-room.jpg", imgAlt: "The Gray Spark control room seen on entry" },
+      { n: "02", tag: "Studio A \u2014 live room", title: "The flagship room, built to be played in.", body: "A Neumann-powered Dolby Atmos 7.1.4 room with a live floor big enough for a rhythm section and a mastering suite next door.", img: "../assets/studio-a-live-room.jpg", imgAlt: "Studio A live room" },
+      { n: "03", tag: "Studio B \u2014 vocal booth", title: "One mic, one take, no bleed.", body: "Compact and dead quiet \u2014 vocals, dubbing and editing, with a sightline straight to the engineer.", img: "../assets/studio-b-room.jpg", imgAlt: "Studio B vocal booth" },
+      { n: "04", tag: "Studio C \u2014 ideas room", title: "Where the session starts before it starts.", body: "An artist and programming room for writing, arranging and demoing without burning floor time.", img: "../assets/studio-c-room.jpg", imgAlt: "Studio C artist and programming room" },
+      { n: "05", tag: "Studios X, Y & Z", title: "Class in session, all day.", body: "Three rooms dedicated to Academy students \u2014 fully equipped for production, so learning happens on real gear.", img: "../assets/studio-xyz-room.jpg", imgAlt: "Academy studios X, Y and Z" },
+      { n: "06", tag: "The racks", title: "Fifteen years of gear, all patchable.", body: "Outboard racks, monitoring and a machine room that keeps every room fed from the same signal path.", img: "../assets/studio-gear-desk.jpg", imgAlt: "Outboard racks and studio desk" }
     ];
     // One ambient walkthrough clip runs behind the whole reel; swap per-room ids
     // into T when the individual room films are shot.
