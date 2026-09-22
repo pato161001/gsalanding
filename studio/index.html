@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Studio — GraySpark Audio</title>
+<script src="../vendor/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+<script src="../vendor/image-slot.js"></script>
+<style>
+  @keyframes gs-rec { 0%,100%{opacity:1} 50%{opacity:.25} }
+  @keyframes gs-sweep { 0%{transform:translateX(-60%) rotate(15deg);opacity:.35} 50%{opacity:.6} 100%{transform:translateX(160%) rotate(15deg);opacity:.35} }
+  .gs-sweep { animation: gs-sweep 10s ease-in-out infinite; }
+  @keyframes gs-rise { from{transform:translateY(110%)} to{transform:none} }
+  @keyframes gs-fade { from{opacity:0} to{opacity:1} }
+  @keyframes gs-fadeup { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:none} }
+  @keyframes gs-marquee { to { transform: translateX(-50%); } }
+  .tinted-shot img { filter: grayscale(.4) contrast(1.02) brightness(.86) sepia(.14); transition: filter .5s cubic-bezier(.16,1,.3,1); }
+  .tinted-shot::after { content:""; position:absolute; inset:0; background:var(--accent); mix-blend-mode:color; opacity:.1; transition:opacity .5s cubic-bezier(.16,1,.3,1); pointer-events:none; }
+  .tinted-shot:hover img { filter: none; }
+  .tinted-shot:hover::after { opacity: 0; }
+  body { margin:0; -webkit-font-smoothing:antialiased; background:#15272E; color:#F7F0E2; }
+  ::selection { background: var(--accent, #6F8F74); color: var(--accent-fg, #10201c); }
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: var(--accent, #6F8F74); }
+  .gs-rec-dot { animation: gs-rec 1.6s ease-in-out infinite; }
+  .gs-fadein { animation: gs-fade 1.2s ease-out both; }
+  .marquee { animation: gs-marquee 48s linear infinite; }
+  .marquee-wrap:hover .marquee { animation-play-state: paused; }
+  .rise { display:block; overflow:hidden; }
+  .rise > span { display:block; animation: gs-rise 1s cubic-bezier(.16,1,.3,1) both; }
+  .reveal { opacity:0; transform:translateY(40px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); }
+  .reveal-left { opacity:0; transform:translateX(-48px); transition:opacity 1s cubic-bezier(.16,1,.3,1), transform 1s cubic-bezier(.16,1,.3,1); }
+  .reveal-right { opacity:0; transform:translateX(48px); transition:opacity 1s cubic-bezier(.16,1,.3,1), transform 1s cubic-bezier(.16,1,.3,1); }
+  .reveal-scale { opacity:0; transform:scale(.94); transition:opacity 1s cubic-bezier(.16,1,.3,1), transform 1s cubic-bezier(.16,1,.3,1); }
+  [data-reveal].is-in .reveal, [data-reveal].is-in .reveal-left, [data-reveal].is-in .reveal-right, [data-reveal].is-in .reveal-scale { opacity:1; transform:none; filter:none; }
+  [data-reveal].is-in.reveal, [data-reveal].is-in.reveal-left, [data-reveal].is-in.reveal-right, [data-reveal].is-in.reveal-scale { opacity:1; transform:none; filter:none; }
+  [data-stagger] > * { opacity:0; }
+  [data-stagger].is-in > * { animation: gs-fadeup .9s cubic-bezier(.16,1,.3,1) both; opacity:1; }
+  [data-stagger].is-in > *:nth-child(2){ animation-delay:80ms; }
+  [data-stagger].is-in > *:nth-child(3){ animation-delay:160ms; }
+  [data-stagger].is-in > *:nth-child(4){ animation-delay:240ms; }
+  [data-stagger].is-in > *:nth-child(5){ animation-delay:320ms; }
+  .hover-underline { position:relative; }
+  .hover-underline::after { content:""; position:absolute; left:0; bottom:-4px; height:1px; width:100%; background:currentColor; transform:scaleX(0); transform-origin:right; transition:transform .5s cubic-bezier(.16,1,.3,1); }
+  .hover-underline:hover::after { transform:scaleX(1); transform-origin:left; }
+  .yellow-tint { position:relative; isolation:isolate; }
+  .yellow-tint::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg, color-mix(in srgb, var(--accent) 30%, transparent), rgba(0,0,0,.6)); mix-blend-mode:multiply; pointer-events:none; z-index:1; }
+  .scanlines { position:relative; }
+  .scanlines::before { content:""; position:absolute; inset:0; background:repeating-linear-gradient(to bottom, rgba(0,0,0,0) 0, rgba(0,0,0,0) 2px, rgba(0,0,0,.35) 3px, rgba(0,0,0,0) 4px); mix-blend-mode:multiply; pointer-events:none; z-index:2; opacity:.35; }
+  .vignette { position:relative; }
+  .vignette::after { content:""; position:absolute; inset:0; background:radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,.85) 100%); pointer-events:none; z-index:3; }
+  .grain { position:fixed; inset:-50%; z-index:90; pointer-events:none; opacity:.10; mix-blend-mode:overlay; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E"); }
+  .glow-accent { filter: drop-shadow(0 0 18px color-mix(in srgb, var(--accent) 38%, transparent)); }
+  .hover-lift { transition: transform .5s cubic-bezier(.16,1,.3,1), box-shadow .5s cubic-bezier(.16,1,.3,1), filter .5s; }
+  .hover-lift:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -18px rgba(0,0,0,.6); filter: brightness(1.05); }
+  .hover-depth { transition: transform .45s cubic-bezier(.16,1,.3,1), box-shadow .45s; }
+  .hover-depth:hover { transform: translateY(-6px); box-shadow: 0 24px 60px -20px rgba(0,0,0,.7); }
+  .svc-row { transition: background .45s; }
+  .svc-row:hover { background: rgba(255,255,255,.03); }
+  .svc-row:hover .svc-arrow { transform: translateX(10px); }
+  .svc-arrow { transition: transform .45s cubic-bezier(.16,1,.3,1); }
+  .work-card img { transition: transform .5s cubic-bezier(.16,1,.3,1), filter .5s; filter: saturate(.15) contrast(1.15); }
+  .work-card:hover img { transform: scale(1.05); filter: saturate(1) contrast(1.05); }
+  .work-tint { transition: opacity .4s; }
+  .work-card:hover .work-tint { opacity:0; }
+  @media (max-width:900px){
+    .nav-links{ display:none !important; }
+    .hide-mobile{ display:none !important; }
+    .two-col{ grid-template-columns:1fr !important; }
+    .foot-grid{ grid-template-columns:1fr 1fr !important; }
+  }
+</style>
+<script>
+(function(){
+  function promote(){
+    document.querySelectorAll("img[data-src]").forEach(function(i){
+      var v = i.getAttribute("data-src");
+      if (v && v.indexOf("{{") < 0 && i.getAttribute("src") !== v) i.setAttribute("src", v);
+    });
+  }
+  new MutationObserver(promote).observe(document.documentElement, { childList:true, subtree:true, attributes:true, attributeFilter:["data-src"] });
+  document.addEventListener("DOMContentLoaded", promote);
+  promote();
+})();
+</script>
+</helmet>
+
+<div id="gs-root" style="--bg:#15272E;--fg:#F7F0E2;--surface:#122127;--surface2:#2b3d43;--muted:#8fa0a3;--muted2:#a8b6b8;--border:#2f424a;--accent:#6F8F74;--accent-fg:#10201c;--display:'Anton',sans-serif;--body:'Archivo',ui-sans-serif,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;--script:'Caveat',cursive; background:var(--bg); color:var(--fg); font-family:var(--body); min-height:100vh; overflow-x:clip; position:relative;">
+
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- NAV -->
+  <header style="position:fixed;top:0;left:0;right:0;z-index:50;background:color-mix(in srgb, var(--bg) 72%, transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);">
+    <div style="max-width:1440px;margin:0 auto;padding:0 24px;height:72px;display:flex;align-items:center;justify-content:space-between;gap:24px;">
+      <a href="../index.html" style="display:flex;align-items:baseline;gap:10px;line-height:1;text-transform:uppercase;">
+        <span style="font-family:var(--display);font-size:25px;letter-spacing:.01em;color:var(--fg);">GraySpark</span>
+        <span style="font-family:var(--display);font-size:16px;letter-spacing:.28em;color:var(--muted);">Audio</span>
+      </a>
+      <nav class="nav-links" style="display:flex;gap:26px;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.25em;color:var(--muted);">
+        <a href="../studio/index.html" class="hover-underline" style="color:var(--accent);">Studio</a>
+        <a href="../ai-audio/index.html" class="hover-underline">AI Audio</a>
+        <a href="../voice-over/index.html" class="hover-underline">Voice Over</a>
+        <a href="../facility/index.html" class="hover-underline">Facility</a>
+        <a href="../blog/index.html" class="hover-underline">Blog</a>
+        <a href="../pr/index.html" class="hover-underline">PR</a>
+        <a href="../contact/index.html" class="hover-underline">Contact</a>
+      </nav>
+      <a href="#book" style="display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:var(--accent-fg);font-family:var(--mono);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.2em;padding:12px 16px;" style-hover="filter:brightness(1.1)">
+        <span class="gs-rec-dot" style="width:6px;height:6px;border-radius:50%;background:var(--accent-fg);"></span>Book now
+      </a>
+    </div>
+  </header>
+
+  <!-- PAGE HERO -->
+  <section id="top" style="position:relative;height:100svh;min-height:760px;overflow:hidden;">
+    <img src="assets/studio-recording.jpg" alt="" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+    <div data-videofade="" aria-hidden="true" style="position:absolute;inset:0;overflow:hidden;pointer-events:none;opacity:0;transition:opacity 1.2s ease;background:#000;">
+      <div data-videohost="" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:max(100vw,178vh,1352px);height:max(100vh,760px,56.25vw);">
+        <div style="width:100%;height:100%;"></div>
+      </div>
+    </div>
+    <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;mix-blend-mode:multiply;background:linear-gradient(180deg, rgba(255,180,60,.32), rgba(120,60,10,.5));"></div>
+    <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,.85) 100%);"></div>
+    <div class="gs-sweep" aria-hidden="true" style="position:absolute;inset:0;z-index:5;pointer-events:none;background:linear-gradient(105deg, transparent 30%, rgba(255,180,0,.18) 45%, rgba(255,80,0,.12) 55%, transparent 70%);filter:blur(30px);transform-origin:center;"></div>
+
+    <div class="gs-fadein" style="position:absolute;top:96px;left:24px;z-index:10;display:flex;align-items:center;gap:12px;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.3em;color:var(--accent);background:rgba(10,10,10,.55);padding:10px 14px;backdrop-filter:blur(4px);">
+      <span class="gs-rec-dot" style="width:10px;height:10px;border-radius:50%;background:var(--accent);"></span>
+      <a href="../index.html">Home</a><span style="color:rgba(255,255,255,.45);">/</span><span style="color:#fff;">Services &mdash; Studio</span>
+    </div>
+    <div class="gs-fadein hide-mobile" style="position:absolute;top:96px;right:24px;z-index:10;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.3em;color:#fff;text-align:right;background:rgba(10,10,10,.55);padding:10px 14px;backdrop-filter:blur(4px);">Recording &middot; Mix &middot; Master<br><span style="color:var(--accent);">Dolby Atmos 7.1.4</span></div>
+
+    <div style="position:absolute;left:0;right:0;bottom:0;z-index:10;padding:0 24px 28px;max-width:1440px;margin:0 auto;">
+      <h1 style="font-family:var(--display);text-transform:uppercase;letter-spacing:-.01em;line-height:.88;font-size:clamp(44px,9vw,152px);margin:0;text-shadow:0 2px 24px rgba(0,0,0,.55);">
+        <span class="rise"><span>From idea to</span></span>
+        <span class="rise"><span><span class="glow-accent" style="color:var(--accent);font-style:italic;">finished</span> work.</span></span>
+      </h1>
+      <div style="margin-top:32px;display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:32px;">
+        <p class="gs-fadein" style="max-width:52ch;font-size:clamp(16px,1.4vw,20px);line-height:1.7;color:rgba(255,255,255,.78);margin:0;text-wrap:pretty;">Recording, music production, mixing, mastering and sound design &mdash; the people, spaces and expertise to take your project from idea to finished work.</p>
+        <div class="gs-fadein" style="display:flex;flex-wrap:wrap;gap:8px;max-width:46ch;justify-content:flex-end;">
+          <sc-for list="{{ heroTags }}" as="t" hint-placeholder-count="4">
+            <span style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.24em;color:#fff;border:1px solid rgba(255,255,255,.55);padding:8px 12px;">{{ t }}</span>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+    <div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent);z-index:10;"></div>
+  </section>
+
+  <!-- SERVICE BLOCKS -->
+  <section id="services" style="padding:96px 24px;border-bottom:1px solid var(--border);">
+    <div style="max-width:1440px;margin:0 auto;">
+      <div data-reveal style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:56px;">
+        <div class="reveal">
+          <p style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.25em;color:var(--accent);margin:0 0 12px;">01 / What we do</p>
+          <h2 style="font-family:var(--display);text-transform:uppercase;font-size:clamp(40px,6vw,96px);line-height:.95;letter-spacing:-.01em;margin:0;">Five services,<br>one <span style="color:var(--accent);">floor.</span></h2>
+        </div>
+        <p class="reveal" style="font-family:var(--script);font-size:30px;color:var(--accent);transform:rotate(-2deg);margin:0;">all six rooms interconnected &darr;</p>
+      </div>
+
+      <div data-reveal style="border-top:1px solid var(--border);">
+        <sc-for list="{{ blocks }}" as="b">
+          <div id="{{ b.id }}" class="svc-row" style="display:grid;grid-template-columns:64px 1fr;gap:24px;align-items:start;border-bottom:1px solid var(--border);padding:44px 16px;scroll-margin-top:96px;">
+            <span style="font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--accent);padding-top:10px;">{{ b.num }}</span>
+            <div class="two-col" style="display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:40px;align-items:start;">
+              <div style="min-width:0;">
+                <p style="font-family:var(--display);text-transform:uppercase;font-size:clamp(26px,3.4vw,50px);line-height:1;letter-spacing:-.01em;margin:0;">{{ b.name }}</p>
+                <div style="margin-top:18px;height:1px;width:56px;background:var(--accent);"></div>
+                <p style="margin:20px 0 0;color:color-mix(in srgb, var(--fg) 68%, transparent);line-height:1.85;font-size:15px;text-wrap:pretty;">{{ b.body }}</p>
+                <div style="margin-top:22px;display:flex;flex-wrap:wrap;gap:8px;">
+                  <sc-for list="{{ b.tags }}" as="t" hint-placeholder-count="3">
+                    <span style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.24em;color:var(--muted2);border:1px solid var(--border);padding:6px 10px;">{{ t }}</span>
+                  </sc-for>
+                </div>
+              </div>
+              <div class="tinted-shot" style="position:relative;aspect-ratio:4/3;border:1px solid var(--border);overflow:hidden;background:#000;">
+                <sc-if value="{{ b.img }}" hint-placeholder-val="{{ false }}">
+                  <img data-src="{{ b.img }}" alt="{{ b.imgAlt }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+                </sc-if>
+                <span style="position:absolute;top:12px;left:12px;font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.28em;color:var(--accent);background:color-mix(in srgb, var(--bg) 78%, transparent);padding:5px 9px;pointer-events:none;">&#9679; {{ b.num }}</span>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO BY STYLE -->
+  <section id="work" style="padding:96px 0;border-bottom:1px solid var(--border);background:var(--surface);">
+    <div style="max-width:1440px;margin:0 auto;padding:0 24px;">
+      <div data-reveal style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:40px;">
+        <div class="reveal">
+          <p style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.25em;color:var(--accent);margin:0 0 12px;">02 / Portfolio</p>
+          <h2 style="font-family:var(--display);text-transform:uppercase;font-size:clamp(40px,6vw,96px);line-height:.95;letter-spacing:-.01em;margin:0;">Sorted by <span style="color:var(--accent);font-style:italic;">style.</span></h2>
+        </div>
+        <p class="reveal" style="font-family:var(--script);font-size:30px;color:var(--accent);transform:rotate(-2deg);margin:0;">pick a lane &rarr;</p>
+      </div>
+
+      <div data-reveal style="display:flex;flex-wrap:wrap;gap:8px;border-bottom:1px solid var(--border);padding-bottom:24px;margin-bottom:40px;">
+        <sc-for list="{{ styleTabs }}" as="t" hint-placeholder-count="6">
+          <button type="button" data-style="{{ t.key }}" onClick="{{ pickStyle }}" style="{{ t.style }}">{{ t.label }} <span style="opacity:.55;">{{ t.count }}</span></button>
+        </sc-for>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(340px,100%),1fr));gap:20px;">
+        <sc-for list="{{ shownWork }}" as="w" hint-placeholder-count="6">
+          <div class="work-card hover-depth" data-yt="{{ w.yt }}" onClick="{{ openVideo }}" style="position:relative;aspect-ratio:16/10;overflow:hidden;background:var(--surface2);border:1px solid var(--border);cursor:{{ w.cursor }};">
+            <sc-if value="{{ w.hasVideo }}">
+              <img data-src="{{ w.img }}" alt="{{ w.title }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+            </sc-if>
+            <sc-if value="{{ w.noVideo }}">
+              <image-slot id="{{ w.slot }}" shape="rect" fit="cover" placeholder="{{ w.slotHint }}" style="position:absolute;inset:0;width:100%;height:100%;"></image-slot>
+            </sc-if>
+            <div class="work-tint" aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;background:color-mix(in srgb, var(--accent) 26%, transparent);mix-blend-mode:multiply;"></div>
+            <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(0deg,color-mix(in srgb, var(--bg) 94%, transparent) 0%,transparent 58%);"></div>
+            <div style="position:absolute;left:0;right:0;bottom:0;padding:16px;pointer-events:none;">
+              <p style="font-family:var(--display);font-size:22px;text-transform:uppercase;line-height:1.05;margin:0;">{{ w.title }}</p>
+              <p style="margin:8px 0 0;font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.24em;color:var(--accent);">{{ w.tag }}</p>
+            </div>
+            <span style="position:absolute;top:12px;right:12px;font-family:var(--mono);font-size:9px;letter-spacing:.2em;color:var(--accent);background:color-mix(in srgb, var(--bg) 78%, transparent);padding:5px 9px;pointer-events:none;">{{ w.badge }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <p style="margin:28px 0 0;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.28em;color:var(--muted);">{{ workNote }}</p>
+    </div>
+  </section>
+
+  <!-- PRODUCTISED BLOCKS -->
+  <section id="packages" style="padding:96px 24px;border-bottom:1px solid var(--border);">
+    <div style="max-width:1440px;margin:0 auto;">
+      <div data-reveal style="margin-bottom:48px;">
+        <p class="reveal" style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.25em;color:var(--accent);margin:0 0 12px;">03 / Book a package</p>
+        <h2 class="reveal" style="font-family:var(--display);text-transform:uppercase;font-size:clamp(40px,6vw,96px);line-height:.95;letter-spacing:-.01em;margin:0;max-width:22ch;">Know what you need? <span style="color:var(--accent);">Start here.</span></h2>
+      </div>
+      <div data-reveal data-stagger style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:1px;background:var(--border);border:1px solid var(--border);">
+        <sc-for list="{{ packages }}" as="p" hint-placeholder-count="5">
+          <div class="hover-lift" style="background:var(--bg);padding:32px 28px;display:flex;flex-direction:column;gap:18px;min-height:300px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.3em;color:var(--accent);">{{ p.num }}</span>
+              <span class="gs-rec-dot" style="width:8px;height:8px;border-radius:50%;background:var(--accent);"></span>
+            </div>
+            <p style="font-family:var(--display);text-transform:uppercase;font-size:clamp(22px,2.2vw,30px);line-height:1.05;margin:0;">{{ p.name }}</p>
+            <div style="height:1px;width:48px;background:var(--accent);"></div>
+            <p style="margin:0;color:color-mix(in srgb, var(--fg) 66%, transparent);line-height:1.75;font-size:14px;text-wrap:pretty;">{{ p.body }}</p>
+            <a href="#book" style="margin:auto 0 0;display:inline-flex;align-items:center;gap:10px;border:1px solid var(--accent);color:var(--accent);padding:12px 18px;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.25em;align-self:flex-start;transition:background .3s,color .3s;" style-hover="background:var(--accent);color:var(--accent-fg);">Enquire &rarr;</a>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOK NOW / FORM -->
+  <section id="book" style="padding:96px 24px;border-bottom:1px solid var(--border);background:var(--surface);scroll-margin-top:72px;">
+    <div data-reveal class="two-col" style="max-width:1440px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:64px;align-items:start;">
+      <div class="reveal-left">
+        <p style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.25em;color:var(--accent);margin:0 0 20px;">04 / Book now</p>
+        <h2 style="font-family:var(--display);text-transform:uppercase;font-size:clamp(40px,6vw,104px);line-height:.9;letter-spacing:-.01em;margin:0;max-width:14ch;">Tell us about the <span style="color:var(--accent);">session.</span></h2>
+        <p style="margin:28px 0 0;max-width:48ch;color:color-mix(in srgb, var(--fg) 70%, transparent);line-height:1.8;font-size:15px;text-wrap:pretty;">Send us the shape of the project and we&rsquo;ll come back with a room, a team and a timeline. If it&rsquo;s easier to just talk, call the studio &mdash; someone is usually on the floor.</p>
+        <div style="margin-top:36px;display:flex;flex-direction:column;gap:12px;">
+          <a href="tel:+919823044556" class="hover-underline" style="align-self:flex-start;font-family:var(--display);font-size:clamp(22px,2.4vw,32px);text-transform:uppercase;">+91 98230 44556</a>
+          <a href="mailto:hello@graysparkaudio.com" class="hover-underline" style="align-self:flex-start;font-family:var(--mono);font-size:12px;letter-spacing:.12em;color:var(--muted2);">hello@graysparkaudio.com</a>
+        </div>
+      </div>
+
+      <form class="reveal-right" onsubmit="return false" style="display:flex;flex-direction:column;gap:24px;border:1px solid var(--border);padding:36px 32px;background:var(--bg);">
+        <sc-for list="{{ formFields }}" as="f" hint-placeholder-count="5">
+          <label style="display:flex;flex-direction:column;gap:10px;">
+            <span style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.26em;color:var(--muted);">{{ f.label }}</span>
+            <input type="text" placeholder="{{ f.placeholder }}" style="background:transparent;border:none;border-bottom:1px solid var(--border);padding:12px 0;font-family:var(--body);font-size:15px;color:var(--fg);outline:none;transition:border-color .3s;" style-focus="border-color:var(--accent)">
+          </label>
+        </sc-for>
+        <label style="display:flex;flex-direction:column;gap:10px;">
+          <span style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.26em;color:var(--muted);">What are we making?</span>
+          <select style="background:var(--bg);border:none;border-bottom:1px solid var(--border);padding:12px 0;font-family:var(--body);font-size:15px;color:var(--fg);outline:none;">
+            <sc-for list="{{ formServices }}" as="o" hint-placeholder-count="6">
+              <option value="{{ o }}">{{ o }}</option>
+            </sc-for>
+          </select>
+        </label>
+        <label style="display:flex;flex-direction:column;gap:10px;">
+          <span style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.26em;color:var(--muted);">Anything else</span>
+          <textarea rows="3" placeholder="Reference tracks, timeline, budget range&hellip;" style="background:transparent;border:none;border-bottom:1px solid var(--border);padding:12px 0;font-family:var(--body);font-size:15px;color:var(--fg);outline:none;resize:vertical;transition:border-color .3s;" style-focus="border-color:var(--accent)"></textarea>
+        </label>
+        <button type="submit" style="margin-top:8px;display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--accent);color:var(--accent-fg);border:none;padding:18px 24px;font-family:var(--mono);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.24em;cursor:pointer;transition:filter .3s;" style-hover="filter:brightness(1.12)">
+          <span class="gs-rec-dot" style="width:6px;height:6px;border-radius:50%;background:var(--accent-fg);"></span>Send enquiry
+        </button>
+        <p style="margin:0;font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.24em;color:var(--muted);">Demo form &mdash; not wired to a backend yet</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="padding:80px 24px 48px;">
+    <div style="max-width:1440px;margin:0 auto;">
+      <div data-reveal class="foot-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:40px;">
+        <div>
+          <p style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.25em;color:var(--muted);margin:0 0 16px;">Location</p>
+          <p style="font-size:15px;line-height:1.7;max-width:26ch;margin:0;">3rd Floor, Shere-E-Punjab,<br>Baner Road, Baner,<br>Pune, MH 411045</p>
+        </div>
+        <div>
+          <p style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.25em;color:var(--muted);margin:0 0 16px;">Connect</p>
+          <a href="mailto:hello@graysparkaudio.com" class="hover-underline" style="display:inline-block;font-size:15px;">hello@graysparkaudio.com</a><br>
+          <a href="tel:+919823044556" class="hover-underline" style="display:inline-block;font-size:15px;margin-top:8px;">+91 98230 44556</a>
+        </div>
+        <div>
+          <p style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.25em;color:var(--muted);margin:0 0 16px;">Pages</p>
+          <div style="display:flex;flex-direction:column;gap:8px;font-size:14px;">
+            <a href="../index.html" class="hover-underline" style="align-self:flex-start;">Home</a>
+            <a href="../ai-audio/index.html" class="hover-underline" style="align-self:flex-start;">AI Audio</a>
+            <a href="../voice-over/index.html" class="hover-underline" style="align-self:flex-start;">Voice Over</a>
+            <a href="../facility/index.html" class="hover-underline" style="align-self:flex-start;">Our Facility</a>
+          </div>
+        </div>
+        <div>
+          <p style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.25em;color:var(--muted);margin:0 0 16px;">More</p>
+          <div style="display:flex;flex-direction:column;gap:8px;font-size:14px;">
+            <a href="../blog/index.html" class="hover-underline" style="align-self:flex-start;">Blogs</a>
+            <a href="../pr/index.html" class="hover-underline" style="align-self:flex-start;">PR &amp; Awards</a>
+            <a href="../contact/index.html" class="hover-underline" style="align-self:flex-start;">Contact us</a>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:72px;padding-top:32px;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.3em;color:var(--muted);">
+        <span>&copy; 2026 Gray Spark Audio &mdash; Est. 2011 Pune</span>
+        <span style="color:var(--accent);">&#9679; All systems nominal</span>
+      </div>
+    </div>
+  </footer>
+
+  <div id="gs-lightbox" onClick="{{ closeVideo }}" style="display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.92);align-items:center;justify-content:center;padding:24px;">
+    <div onClick="{{ stopProp }}" style="position:relative;width:min(1100px,92vw);aspect-ratio:16/9;background:#000;box-shadow:0 40px 120px rgba(0,0,0,.6);">
+      <div id="gs-lightframe" style="position:absolute;inset:0;width:100%;height:100%;"></div>
+      <button type="button" onClick="{{ closeVideo }}" aria-label="Close" style="position:absolute;top:-16px;right:-16px;width:44px;height:44px;border-radius:50%;background:var(--accent);color:var(--accent-fg);border:none;cursor:pointer;font-family:var(--mono);font-size:15px;font-weight:700;">&#10005;</button>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;palette&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;Sage on ink&quot;,&quot;options&quot;:[&quot;Original (voltage yellow)&quot;,&quot;Clay on ink&quot;,&quot;Sage on ink&quot;,&quot;Clay on slate&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Theme&quot;}}">
+class Component extends DCLogic {
+  state = { style: "all" };
+  pad(i) { return String(i).padStart(2, "0"); }
+  yt(id) { return "https://img.youtube.com/vi/" + id + "/hqdefault.jpg"; }
+
+  getWork() {
+    return [
+      { title: "Easy Wanderlings", tag: "Rec \u00b7 Mix \u00b7 Master", styles: ["indie"], yt: "-3V4OpteifI" },
+      { title: "Fursat \u2014 Pawandeep Rajan", tag: "Mix \u00b7 Master", styles: ["indie", "hindie"], yt: "H62wQEns5DU" },
+      { title: "Hindi Medium \u2014 Fakiri", tag: "Recording \u00b7 Post", styles: ["hindie"], yt: "E8eQFhBiIiE" },
+      { title: "Sacred Games", tag: "Recording \u00b7 Netflix", styles: ["film", "sound-design"], yt: "gSyY8Aav2e0" },
+      { title: "Ajeeb Daastaans", tag: "Recording \u00b7 Netflix", styles: ["film"], yt: "eRbgl2gJQYg" },
+      { title: "Tango Malhar", tag: "Film sound \u00b7 Music", styles: ["film"], yt: "YQ_Aq46VEE4" },
+      { title: "Clash of Clans", tag: "Rec \u00b7 Production \u00b7 Mix", styles: ["ads", "sound-design"], yt: "FIPBJuogkr0" },
+      { title: "Britannia", tag: "Sound design", styles: ["ads", "sound-design"], yt: "RYo6ppCmFu4" },
+      { title: "ICC Champions Trophy", tag: "Ad music \u00b7 Sound design", styles: ["ads"], slot: "gs-st-icc", slotHint: "Drop an ICC still" },
+      { title: "KIA", tag: "Ad music \u00b7 Sound design", styles: ["ads"], slot: "gs-st-kia", slotHint: "Drop a KIA still" },
+      { title: "Varshangalkku Shesham", tag: "Film music \u00b7 Sound design", styles: ["film"], slot: "gs-st-varsha", slotHint: "Drop a film still" },
+      { title: "Cover sessions \u2014 vol. 01", tag: "Cover song production", styles: ["cover"], slot: "gs-st-cover1", slotHint: "Drop a cover-session still" },
+      { title: "Cover sessions \u2014 vol. 02", tag: "Cover song production", styles: ["cover"], slot: "gs-st-cover2", slotHint: "Drop a cover-session still" }
+    ];
+  }
+
+  getData() {
+    const pad = this.pad.bind(this);
+
+    const heroTags = ["Recording", "Music production", "Mix & master", "Film music", "Ad music", "Dolby Atmos 7.1.4"];
+
+    const blocks = [
+      { id: "recording", name: "Recording", img: "assets/studio-recording.jpg", imgAlt: "Guitarist tracking an acoustic take in the live room", tags: ["Albums & EPs", "Live multitrack", "Session musicians"],
+        body: "From full albums and EPs to live multitrack recordings, we offer the space, gear and people to bring your music to life. Our expansive backline and roster of session musicians help fill any gaps. All six studios are interconnected, allowing bands to record live while keeping every instrument cleanly isolated." },
+      { id: "production", name: "Music Production", img: "assets/studio-production.jpg", imgAlt: "Producer and artist building an arrangement in the production room", tags: ["Arrangement", "Sound design", "EPs & albums"],
+        body: "Whether you're starting with just a set of lyrics or a fully formed idea, we help shape it into a finished track. We work with solo artists, composers and bands, from developing arrangements and sounds to producing complete EPs and albums, bringing the right creative and technical expertise to every project." },
+      { id: "mix", name: "Mix & Master", img: "assets/studio-mix-master.jpg", imgAlt: "Engineer mixing at the Neumann-monitored desk in Studio A", tags: ["Dolby Atmos 7.1.4", "Stereo", "Neumann partner"],
+        body: "Our flagship mix and master space is built for precision, with Dolby Atmos 7.1.4 monitoring and a Neumann-designed monitoring setup. As a Neumann partner, we bring world-class monitoring and immersive audio expertise to every project, from detailed stereo mixes to fully immersive Dolby Atmos productions." },
+      { id: "film", name: "Film Music & Sound Design", img: "assets/studio-film.jpg", imgAlt: "Percussion session for a film score in the live room", tags: ["Background score", "Foley", "Location sound", "Mixing"],
+        body: "Our exceptional group of sound designers, location sound engineers, background score composers, foley artists and mixing engineers, in conjunction with our state-of-the-art facilities, can produce sound quality that meets international standards. We meticulously select the talent that aligns with your project's needs, ensuring you receive excellent value for your investment." },
+      { id: "ads", name: "Ad Music & Sound Design", img: "assets/studio-ads.jpg", imgAlt: "Team reviewing a campaign mix in the control room", tags: ["Jingles", "MOGOs", "Brand anthems", "Campaigns"],
+        body: "Gray Spark Audio has extensive experience crafting music and sound that elevates stories for some of the world's leading brands. From powerful campaigns for SBI and Samsung, to global sports anthems for the ICC World Cup, and dynamic soundtracks for KIA, our work blends creativity with precision \u2014 audio that not only complements visuals but resonates deeply with audiences worldwide." }
+    ].map((b, i) => ({ ...b, num: pad(i + 1) }));
+
+    const packages = [
+      { name: "Studio A \u2014 day booking", body: "The flagship room for a full day: live tracking, outboard, mastering suite and a Neumann-powered Dolby Atmos 7.1.4 setup, with an engineer on the desk." },
+      { name: "Studio B \u2014 day booking", body: "The compact room for vocals, dubbing and editing. Ideal for voice-over days, ADR sessions and focused overdubs." },
+      { name: "Mix & master", body: "Per-track or per-release mixing and mastering, delivered in stereo or fully immersive Dolby Atmos \u2014 with revisions built into the process." },
+      { name: "Beat production", body: "Original production from a brief or a reference \u2014 arrangement, sounds and a finished, mix-ready instrumental." },
+      { name: "Cover song production", body: "A full cover production: arrangement, session players where needed, vocal recording, mix and master." }
+    ].map((p, i) => ({ ...p, num: pad(i + 1) }));
+
+    const formFields = [
+      { label: "Your name", placeholder: "Who are we talking to?" },
+      { label: "Email", placeholder: "you@studio.com" },
+      { label: "Phone", placeholder: "+91" },
+      { label: "Project / artist name", placeholder: "What's it called?" }
+    ];
+
+    const formServices = ["Recording", "Music production", "Mix & master", "Film music & sound design", "Ad music & sound design", "Studio A day booking", "Studio B day booking", "Beat production", "Cover song production", "Not sure yet"];
+
+    return { heroTags, blocks, packages, formFields, formServices };
+  }
+
+  renderVals() {
+    const pad = this.pad.bind(this);
+    const yt = this.yt.bind(this);
+    const all = this.getWork();
+    const active = this.state.style;
+
+    const TABS = [
+      { key: "all", label: "All" },
+      { key: "indie", label: "Indie" },
+      { key: "hindie", label: "Hindie" },
+      { key: "cover", label: "Cover songs" },
+      { key: "film", label: "Film" },
+      { key: "ads", label: "Ads" },
+      { key: "sound-design", label: "Sound design" }
+    ];
+    const base = "font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.22em;padding:12px 18px;cursor:pointer;transition:background .3s,color .3s,border-color .3s;border:1px solid ";
+    const styleTabs = TABS.map((t) => {
+      const n = t.key === "all" ? all.length : all.filter((w) => w.styles.indexOf(t.key) > -1).length;
+      const on = active === t.key;
+      return {
+        ...t,
+        count: pad(n),
+        style: base + (on ? "var(--accent);background:var(--accent);color:var(--accent-fg);" : "var(--border);background:transparent;color:var(--muted2);")
+      };
+    });
+
+    const filtered = active === "all" ? all : all.filter((w) => w.styles.indexOf(active) > -1);
+    const shownWork = filtered.map((w, i) => ({
+      ...w,
+      hasVideo: !!w.yt,
+      noVideo: !w.yt,
+      img: w.yt ? yt(w.yt) : "",
+      cursor: w.yt ? "pointer" : "default",
+      badge: w.yt ? "\u25B6 " + pad(i + 1) : "\u25CF " + pad(i + 1),
+      slot: w.slot || "",
+      slotHint: w.slotHint || "Drop an image"
+    }));
+
+    const missing = filtered.filter((w) => !w.yt).length;
+    const workNote = missing > 0
+      ? "Showing " + pad(filtered.length) + " projects \u2014 " + pad(missing) + " awaiting final work links and stills."
+      : "Showing " + pad(filtered.length) + " projects \u2014 click any card to play the reel.";
+
+    return Object.assign({}, this.getData(), {
+      styleTabs, shownWork, workNote,
+      pickStyle: (e) => this.setState({ style: e.currentTarget.getAttribute("data-style") }),
+      stopProp: (e) => e.stopPropagation(),
+      openVideo: (e) => this._openVideo(e.currentTarget.getAttribute("data-yt")),
+      closeVideo: () => this._closeVideo()
+    });
+  }
+
+  _ytReady() {
+    if (this._ytPromise) return this._ytPromise;
+    this._ytPromise = new Promise((resolve) => {
+      if (window.YT && window.YT.Player) { resolve(window.YT); return; }
+      const prev = window.onYouTubeIframeAPIReady;
+      window.onYouTubeIframeAPIReady = () => { if (typeof prev === "function") try { prev(); } catch (e) {} resolve(window.YT); };
+      if (!document.getElementById("gs-yt-api")) {
+        const s = document.createElement("script");
+        s.id = "gs-yt-api";
+        s.src = "https://www.youtube.com/iframe_api";
+        document.head.appendChild(s);
+      }
+    });
+    return this._ytPromise;
+  }
+
+  // Muted ambient hero video, same treatment as the home page: plays while the
+  // hero is on screen, pauses off screen, loops.
+  _setupHeroVideo(id) {
+    const sec = document.getElementById("top");
+    if (!sec || !id) return;
+    const host = sec.querySelector("[data-videohost]");
+    const fade = sec.querySelector("[data-videofade]");
+    if (!host || !host.firstElementChild || host.getAttribute("data-wired")) return;
+    host.setAttribute("data-wired", "1");
+    let vis = true, player = null;
+    new IntersectionObserver((entries) => entries.forEach((en) => {
+      vis = en.isIntersecting;
+      if (player) { try { vis ? player.playVideo() : player.pauseVideo(); } catch (e) {} }
+    }), { threshold: 0 }).observe(sec);
+    this._ytReady().then((YT) => {
+      new YT.Player(host.firstElementChild, {
+        videoId: id,
+        width: "100%",
+        height: "100%",
+        playerVars: { autoplay: 0, mute: 1, controls: 0, rel: 0, playsinline: 1, modestbranding: 1, iv_load_policy: 3, disablekb: 1 },
+        events: {
+          onReady: (e) => {
+            try { e.target.mute(); } catch (err) {}
+            const f = e.target.getIframe();
+            if (f) f.style.cssText += ";width:100%;height:100%;position:absolute;top:0;left:0;pointer-events:none;border:0;";
+            player = e.target;
+            if (vis) { try { e.target.playVideo(); } catch (err) {} }
+          },
+          onStateChange: (e) => {
+            if (e.data === 1 && fade) fade.style.opacity = "1";
+            if (e.data === 0) { try { e.target.seekTo(0); e.target.playVideo(); } catch (err) {} }
+          }
+        }
+      });
+    });
+  }
+
+  componentDidMount() {
+    this._setupHeroVideo(this.props.heroVideoId ?? "gyTD9ICFeok");
+    // Reveal-on-scroll: re-scanned on scroll/resize so sections rendered after
+    // mount (and tall blocks that never cross a percentage threshold) still fire.
+    const sweepReveals = () => {
+      const vh = window.innerHeight;
+      document.querySelectorAll("[data-reveal]:not(.is-in)").forEach((el) => {
+        const r = el.getBoundingClientRect();
+        if (r.top < vh * 0.92 && r.bottom > 0) el.classList.add("is-in");
+      });
+    };
+    sweepReveals();
+    this._sweepReveals = sweepReveals;
+    window.addEventListener("scroll", sweepReveals, { passive: true });
+    window.addEventListener("resize", sweepReveals);
+    requestAnimationFrame(sweepReveals);
+    window.addEventListener("keydown", (e) => { if (e.key === "Escape") this._closeVideo(); });
+    this._applyPalette();
+  }
+
+  componentDidUpdate() { this._applyPalette(); }
+
+  _ytReady() {
+    if (this._ytPromise) return this._ytPromise;
+    this._ytPromise = new Promise((resolve) => {
+      if (window.YT && window.YT.Player) { resolve(window.YT); return; }
+      const prev = window.onYouTubeIframeAPIReady;
+      window.onYouTubeIframeAPIReady = () => { if (typeof prev === "function") try { prev(); } catch (e) {} resolve(window.YT); };
+      if (!document.getElementById("gs-yt-api")) {
+        const s = document.createElement("script");
+        s.id = "gs-yt-api";
+        s.src = "https://www.youtube.com/iframe_api";
+        document.head.appendChild(s);
+      }
+    });
+    return this._ytPromise;
+  }
+
+  _openVideo(id) {
+    if (!id) return;
+    const box = document.getElementById("gs-lightbox");
+    const host = document.getElementById("gs-lightframe");
+    if (box) box.style.display = "flex";
+    if (!host) return;
+    this._ytReady().then((YT) => {
+      if (!box || box.style.display === "none") return;
+      host.innerHTML = "";
+      const mount = document.createElement("div");
+      mount.style.cssText = "width:100%;height:100%;";
+      host.appendChild(mount);
+      if (this._player && this._player.destroy) { try { this._player.destroy(); } catch (e) {} }
+      this._player = new YT.Player(mount, {
+        videoId: id,
+        playerVars: { autoplay: 1, rel: 0, playsinline: 1, modestbranding: 1 },
+        events: { onReady: (e) => { try { e.target.playVideo(); } catch (err) {} } }
+      });
+    });
+  }
+
+  _closeVideo() {
+    const box = document.getElementById("gs-lightbox");
+    const host = document.getElementById("gs-lightframe");
+    if (this._player && this._player.destroy) { try { this._player.destroy(); } catch (e) {} }
+    this._player = null;
+    if (host) host.innerHTML = "";
+    if (box) box.style.display = "none";
+  }
+
+  _palettes() {
+    return {
+      "Original (voltage yellow)": { "--bg": "#0a0a0a", "--fg": "#fafafa", "--surface": "#0d0d0d", "--surface2": "#242424", "--muted": "#8f8f8f", "--muted2": "#a6a6a6", "--border": "#333", "--accent": "oklch(0.9 0.19 100)", "--accent-fg": "#0a0a0a" },
+      "Clay on ink": { "--bg": "#15272E", "--fg": "#F7F0E2", "--surface": "#122127", "--surface2": "#2b3d43", "--muted": "#8fa0a3", "--muted2": "#a8b6b8", "--border": "#2f424a", "--accent": "#A2664B", "--accent-fg": "#F7F0E2" },
+      "Sage on ink": { "--bg": "#15272E", "--fg": "#F7F0E2", "--surface": "#122127", "--surface2": "#2b3d43", "--muted": "#8fa0a3", "--muted2": "#a8b6b8", "--border": "#2f424a", "--accent": "#6F8F74", "--accent-fg": "#10201c" },
+      "Clay on slate": { "--bg": "#2b3636", "--fg": "#F7F0E2", "--surface": "#26312f", "--surface2": "#3f4e4f", "--muted": "#9aa6a4", "--muted2": "#b3bdbb", "--border": "#3c4a48", "--accent": "#A2664B", "--accent-fg": "#F7F0E2" }
+    };
+  }
+
+  _applyPalette() {
+    const root = document.getElementById("gs-root");
+    if (!root) return;
+    const map = this._palettes();
+    const p = map[this.props.palette] || map["Sage on ink"];
+    Object.entries(p).forEach(([k, v]) => root.style.setProperty(k, v));
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Voice Over — GraySpark Audio</title>
+<script src="../vendor/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+<script src="../vendor/image-slot.js"></script>
+<style>
+  @keyframes gs-rec { 0%,100%{opacity:1} 50%{opacity:.25} }
+  @keyframes gs-sweep { 0%{transform:translateX(-60%) rotate(15deg);opacity:.35} 50%{opacity:.6} 100%{transform:translateX(160%) rotate(15deg);opacity:.35} }
+  .gs-sweep { animation: gs-sweep 10s ease-in-out infinite; }
+  @keyframes gs-rise { from{transform:translateY(110%)} to{transform:none} }
+  @keyframes gs-fade { from{opacity:0} to{opacity:1} }
+  @keyframes gs-fadeup { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:none} }
+  .tinted-shot img { filter: grayscale(.4) contrast(1.02) brightness(.86) sepia(.14); transition: filter .5s cubic-bezier(.16,1,.3,1); }
+  .tinted-shot::after { content:""; position:absolute; inset:0; background:var(--accent); mix-blend-mode:color; opacity:.1; transition:opacity .5s cubic-bezier(.16,1,.3,1); pointer-events:none; }
+  .tinted-shot:hover img { filter: none; }
+  .tinted-shot:hover::after { opacity: 0; }
+  body { margin:0; -webkit-font-smoothing:antialiased; background:#15272E; color:#F7F0E2; }
+  ::selection { background: var(--accent, #6F8F74); color: var(--accent-fg, #10201c); }
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: var(--accent, #6F8F74); }
+  .gs-rec-dot { animation: gs-rec 1.6s ease-in-out infinite; }
+  .gs-fadein { animation: gs-fade 1.2s ease-out both; }
+  .rise { display:block; overflow:hidden; }
+  .rise > span { display:block; animation: gs-rise 1s cubic-bezier(.16,1,.3,1) both; }
+  .reveal { opacity:0; transform:translateY(40px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); }
+  .reveal-left { opacity:0; transform:translateX(-48px); transition:opacity 1s cubic-bezier(.16,1,.3,1), transform 1s cubic-bezier(.16,1,.3,1); }
+  .reveal-right { opacity:0; transform:translateX(48px); transition:opacity 1s cubic-bezier(.16,1,.3,1), transform 1s cubic-bezier(.16,1,.3,1); }
+  .reveal-scale { opacity:0; transform:scale(.94); transition:opacity 1s cubic-bezier(.16,1,.3,1), transform 1s cubic-bezier(.16,1,.3,1); }
+  [data-reveal].is-in .reveal, [data-reveal].is-in .reveal-left, [data-reveal].is-in .reveal-right, [data-reveal].is-in .reveal-scale { opacity:1; transform:none; filter:none; }
+  [data-reveal].is-in.reveal, [data-reveal].is-in.reveal-left, [data-reveal].is-in.reveal-right, [data-reveal].is-in.reveal-scale { opacity:1; transform:none; filter:none; }
+  [data-stagger] > * { opacity:0; }
+  [data-stagger].is-in > * { animation: gs-fadeup .9s cubic-bezier(.16,1,.3,1) both; opacity:1; }
+  [data-stagger].is-in > *:nth-child(2){ animation-delay:80ms; }
+  [data-stagger].is-in > *:nth-child(3){ animation-delay:160ms; }
+  [data-stagger].is-in > *:nth-child(4){ animation-delay:240ms; }
+  .hover-underline { position:relative; }
+  .hover-underline::after { content:""; position:absolute; left:0; bottom:-4px; height:1px; width:100%; background:currentColor; transform:scaleX(0); transform-origin:right; transition:transform .5s cubic-bezier(.16,1,.3,1); }
+  .hover-underline:hover::after { transform:scaleX(1); transform-origin:left; }
+  .yellow-tint { position:relative; isolation:isolate; }
+  .yellow-tint::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg, color-mix(in srgb, var(--accent) 30%, transparent), rgba(0,0,0,.6)); mix-blend-mode:multiply; pointer-events:none; z-index:1; }
+  .scanlines { position:relative; }
+  .scanlines::before { content:""; position:absolute; inset:0; background:repeating-linear-gradient(to bottom, rgba(0,0,0,0) 0, rgba(0,0,0,0) 2px, rgba(0,0,0,.35) 3px, rgba(0,0,0,0) 4px); mix-blend-mode:multiply; pointer-events:none; z-index:2; opacity:.35; }
+  .vignette { position:relative; }
+  .vignette::after { content:""; position:absolute; inset:0; background:radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,.85) 100%); pointer-events:none; z-index:3; }
+  .grain { position:fixed; inset:-50%; z-index:90; pointer-events:none; opacity:.10; mix-blend-mode:overlay; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E"); }
+  .glow-accent { filter: drop-shadow(0 0 18px color-mix(in srgb, var(--accent) 38%, transparent)); }
+  .hover-lift { transition: transform .5s cubic-bezier(.16,1,.3,1), box-shadow .5s cubic-bezier(.16,1,.3,1), filter .5s; }
+  .hover-lift:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -18px rgba(0,0,0,.6); filter: brightness(1.05); }
+  .vo-card { transition: border-color .35s, background .35s; }
+  .vo-card:hover { border-color: var(--accent); background: rgba(255,255,255,.03); }
+  @media (max-width:900px){
+    .nav-links{ display:none !important; }
+    .hide-mobile{ display:none !important; }
+    .two-col{ grid-template-columns:1fr !important; }
+    .foot-grid{ grid-template-columns:1fr 1fr !important; }
+  }
+</style>
+</helmet>
+
+<div id="gs-root" style="--bg:#15272E;--fg:#F7F0E2;--surface:#122127;--surface2:#2b3d43;--muted:#8fa0a3;--muted2:#a8b6b8;--border:#2f424a;--accent:#6F8F74;--accent-fg:#10201c;--display:'Anton',sans-serif;--body:'Archivo',ui-sans-serif,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;--script:'Caveat',cursive; background:var(--bg); color:var(--fg); font-family:var(--body); min-height:100vh; overflow-x:clip; position:relative;">
+
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- NAV -->
+  <header style="position:fixed;top:0;left:0;right:0;z-index:50;background:color-mix(in srgb, var(--bg) 72%, transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);">
+    <div style="max-width:1440px;margin:0 auto;padding:0 24px;height:72px;display:flex;align-items:center;justify-content:space-between;gap:24px;">
+      <a href="../index.html" style="display:flex;align-items:baseline;gap:10px;line-height:1;text-transform:uppercase;">
+        <span style="font-family:var(--display);font-size:25px;letter-spacing:.01em;color:var(--fg);">GraySpark</span>
+        <span style="font-family:var(--display);font-size:16px;letter-spacing:.28em;color:var(--muted);">Audio</span>
+      </a>
+      <nav class="nav-links" style="display:flex;gap:26px;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.25em;color:var(--muted);">
+        <a href="../studio/index.html" class="hover-underline">Studio</a>
+        <a href="../ai-audio/index.html" class="hover-underline">AI Audio</a>
+        <a href="../voice-over/index.html" class="hover-underline" style="color:var(--accent);">Voice Over</a>
+        <a href="../facility/index.html" class="hover-underline">Facility</a>
+        <a href="../blog/index.html" class="hover-underline">Blog</a>
+        <a href="../pr/index.html" class="hover-underline">PR</a>
+        <a href="../contact/index.html" class="hover-underline">Contact</a>
+      </nav>
+      <a href="#brief" style="display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:var(--accent-fg);font-family:var(--mono);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.2em;padding:12px 16px;" style-hover="filter:brightness(1.1)">
+        <span class="gs-rec-dot" style="width:6px;height:6px;border-radius:50%;background:var(--accent-fg);"></span>Send a script
+      </a>
+    </div>
+  </header>
+
+  <!-- PAGE HERO -->
+  <section id="top" style="position:relative;height:100svh;min-height:760px;overflow:hidden;">
+    <img src="assets/vo-studio-b.jpg" alt="" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+    <div data-videofade="" aria-hidden="true" style="position:absolute;inset:0;overflow:hidden;pointer-events:none;opacity:0;transition:opacity 1.2s ease;background:#000;">
+      <div data-videohost="" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:max(100vw,178vh,1352px);height:max(100vh,760px,56.25vw);">
+        <div style="width:100%;height:100%;"></div>
+      </div>
+    </div>
+    <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;mix-blend-mode:multiply;background:linear-gradient(180deg, rgba(255,180,60,.32), rgba(120,60,10,.5));"></div>
+    <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,.85) 100%);"></div>
+    <div class="gs-sweep" aria-hidden="true" style="position:absolute;inset:0;z-index:5;pointer-events:none;background:linear-gradient(105deg, transparent 30%, rgba(255,180,0,.18) 45%, rgba(255,80,0,.12) 55%, transparent 70%);filter:blur(30px);transform-origin:center;"></div>
+
+    <div class="gs-fadein" style="position:absolute;top:96px;left:24px;z-index:10;display:flex;align-items:center;gap:12px;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.3em;color:var(--accent);background:rgba(10,10,10,.55);padding:10px 14px;backdrop-filter:blur(4px);">
+      <span class="gs-rec-dot" style="width:10px;height:10px;border-radius:50%;background:var(--accent);"></span>
+      <a href="../index.html">Home</a><span style="color:rgba(255,255,255,.45);">/</span><span style="color:#fff;">Voice Over Select</span>
+    </div>
+    <div class="gs-fadein hide-mobile" style="position:absolute;top:96px;right:24px;z-index:10;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.3em;color:#fff;text-align:right;background:rgba(10,10,10,.55);padding:10px 14px;backdrop-filter:blur(4px);">Casting &middot; Direction<br><span style="color:var(--accent);">Delivered to spec</span></div>
+
+    <div style="position:absolute;left:0;right:0;bottom:0;z-index:10;padding:0 24px 28px;max-width:1440px;margin:0 auto;">
+      <h1 style="font-family:var(--display);text-transform:uppercase;letter-spacing:-.01em;line-height:.88;font-size:clamp(44px,9vw,152px);margin:0;text-shadow:0 2px 24px rgba(0,0,0,.55);">
+        <span class="rise"><span>Cast the</span></span>
+        <span class="rise"><span><span class="glow-accent" style="color:var(--accent);font-style:italic;">right</span> voice.</span></span>
+      </h1>
+      <div style="margin-top:32px;display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:32px;">
+        <p class="gs-fadein" style="max-width:52ch;font-size:clamp(16px,1.4vw,20px);line-height:1.7;color:rgba(255,255,255,.78);margin:0;text-wrap:pretty;">Shortlist voices by language, tone and age, hear them on your own script, then record the final read in a studio built for voice &mdash; directed, edited and delivered to spec.</p>
+        <div class="gs-fadein" style="display:flex;flex-wrap:wrap;gap:8px;max-width:46ch;justify-content:flex-end;">
+          <sc-for list="{{ heroTags }}" as="t" hint-placeholder-count="4">
+            <span style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.24em;color:#fff;border:1px solid rgba(255,255,255,.55);padding:8px 12px;">{{ t }}</span>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+    <div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent);z-index:10;"></div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how" style="padding:88px 24px;border-bottom:1px solid var(--border);">
+    <div style="max-width:1440px;margin:0 auto;">
+      <div data-reveal style="margin-bottom:48px;">
+        <p class="reveal" style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.25em;color:var(--accent);margin:0 0 12px;">01 / How it works</p>
+        <h2 class="reveal" style="font-family:var(--display);text-transform:uppercase;font-size:clamp(36px,5.6vw,88px);line-height:.95;letter-spacing:-.01em;margin:0;max-width:20ch;">Brief to final read in <span style="color:var(--accent);">four steps.</span></h2>
+      </div>
+      <div data-reveal data-stagger style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:1px;background:var(--border);border:1px solid var(--border);">
+        <sc-for list="{{ steps }}" as="s" hint-placeholder-count="4">
+          <div style="background:var(--bg);padding:32px 28px;display:flex;flex-direction:column;gap:16px;min-height:260px;">
+            <span style="font-family:var(--display);font-size:44px;line-height:1;color:var(--accent);">{{ s.num }}</span>
+            <p style="margin:0;font-family:var(--display);text-transform:uppercase;font-size:22px;line-height:1.05;">{{ s.name }}</p>
+            <div style="height:1px;width:40px;background:var(--accent);"></div>
+            <p style="margin:0;color:color-mix(in srgb, var(--fg) 66%, transparent);line-height:1.75;font-size:14px;text-wrap:pretty;">{{ s.body }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROSTER -->
+  <section id="roster" style="padding:88px 24px;border-bottom:1px solid var(--border);background:var(--surface);">
+    <div style="max-width:1440px;margin:0 auto;">
+      <div data-reveal style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:36px;">
+        <div class="reveal">
+          <p style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.25em;color:var(--accent);margin:0 0 12px;">02 / The roster</p>
+          <h2 style="font-family:var(--display);text-transform:uppercase;font-size:clamp(36px,5.6vw,88px);line-height:.95;letter-spacing:-.01em;margin:0;">Filter, then <span style="color:var(--accent);font-style:italic;">listen.</span></h2>
+        </div>
+        <p class="reveal" style="font-family:var(--script);font-size:30px;color:var(--accent);transform:rotate(-2deg);margin:0;">shortlist as you go &rarr;</p>
+      </div>
+
+      <div data-reveal style="display:flex;flex-wrap:wrap;gap:8px;border-bottom:1px solid var(--border);padding-bottom:24px;margin-bottom:32px;">
+        <sc-for list="{{ langTabs }}" as="t" hint-placeholder-count="6">
+          <button type="button" data-lang="{{ t.key }}" onClick="{{ pickLang }}" style="{{ t.style }}">{{ t.label }} <span style="opacity:.55;">{{ t.count }}</span></button>
+        </sc-for>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(320px,100%),1fr));gap:16px;">
+        <sc-for list="{{ shownVoices }}" as="v" hint-placeholder-count="6">
+          <div class="vo-card" style="border:1px solid var(--border);background:var(--bg);padding:22px;display:flex;flex-direction:column;gap:16px;">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;">
+              <div style="min-width:0;">
+                <p style="margin:0;font-family:var(--display);text-transform:uppercase;font-size:26px;line-height:1;">{{ v.code }}</p>
+                <p style="margin:8px 0 0;font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.24em;color:var(--accent);">{{ v.lang }}</p>
+              </div>
+              <button type="button" aria-label="Play sample" style="width:42px;height:42px;flex:none;border-radius:50%;background:transparent;border:1px solid var(--accent);color:var(--accent);cursor:pointer;font-size:12px;transition:background .3s,color .3s;" style-hover="background:var(--accent);color:var(--accent-fg);">&#9654;</button>
+            </div>
+            <div style="display:flex;align-items:flex-end;gap:2px;height:32px;">
+              <sc-for list="{{ v.bars }}" as="b" hint-placeholder-count="40">
+                <span style="{{ b.style }}"></span>
+              </sc-for>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;">
+              <sc-for list="{{ v.tags }}" as="t" hint-placeholder-count="3">
+                <span style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.2em;color:var(--muted2);border:1px solid var(--border);padding:5px 9px;">{{ t }}</span>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <p style="margin:28px 0 0;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.26em;color:var(--muted);">{{ rosterNote }}</p>
+    </div>
+  </section>
+
+  <!-- STUDIO B -->
+  <section id="room" style="padding:88px 24px;border-bottom:1px solid var(--border);">
+    <div data-reveal class="two-col" style="max-width:1440px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:64px;align-items:center;">
+      <div class="reveal-left">
+        <p style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.25em;color:var(--accent);margin:0 0 20px;">03 / The room</p>
+        <h2 style="font-family:var(--display);text-transform:uppercase;font-size:clamp(34px,5vw,80px);line-height:.94;letter-spacing:-.01em;margin:0;max-width:16ch;">Studio B, built <span style="color:var(--accent);font-style:italic;">dead</span> for voice.</h2>
+        <p style="margin:28px 0 0;max-width:50ch;color:color-mix(in srgb, var(--fg) 70%, transparent);line-height:1.85;font-size:15px;text-wrap:pretty;">Vocal recording, dubbing and editing in one compact, acoustically tight room &mdash; so a voice-over day can be tracked, cut and approved without moving. For remote sessions we patch you in live to direct the read yourself.</p>
+        <ul style="margin:28px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;">
+          <sc-for list="{{ roomSpecs }}" as="sp" hint-placeholder-count="4">
+            <li style="display:flex;align-items:center;gap:12px;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.22em;color:var(--muted2);">
+              <span style="width:5px;height:5px;flex:none;background:var(--accent);"></span>{{ sp }}
+            </li>
+          </sc-for>
+        </ul>
+        <a href="../facility/index.html" class="hover-underline" style="margin-top:28px;display:inline-flex;align-self:flex-start;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.26em;color:var(--accent);">See the full facility &rarr;</a>
+      </div>
+      <div class="reveal-right tinted-shot" style="position:relative;aspect-ratio:4/3;border:1px solid var(--border);overflow:hidden;background:#000;">
+        <img src="assets/vo-studio-b.jpg" alt="Studio B — the dead vocal booth, editing desk and monitors" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+      </div>
+    </div>
+  </section>
+
+  <!-- USE CASES -->
+  <section id="uses" style="padding:88px 24px;border-bottom:1px solid var(--border);background:var(--surface);">
+    <div style="max-width:1440px;margin:0 auto;">
+      <div data-reveal style="margin-bottom:40px;">
+        <p class="reveal" style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.25em;color:var(--accent);margin:0 0 12px;">04 / What we record</p>
+        <h2 class="reveal" style="font-family:var(--display);text-transform:uppercase;font-size:clamp(36px,5.6vw,88px);line-height:.95;letter-spacing:-.01em;margin:0;">Every kind of <span style="color:var(--accent);">read.</span></h2>
+      </div>
+      <div data-reveal style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:1px;background:var(--border);border:1px solid var(--border);">
+        <sc-for list="{{ uses }}" as="u" hint-placeholder-count="6">
+          <div class="hover-lift" style="background:var(--bg);padding:28px 24px;display:flex;flex-direction:column;gap:12px;">
+            <span style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.3em;color:var(--accent);">{{ u.num }}</span>
+            <p style="margin:0;font-family:var(--display);text-transform:uppercase;font-size:20px;line-height:1.05;">{{ u.name }}</p>
+            <p style="margin:0;color:color-mix(in srgb, var(--fg) 64%, transparent);line-height:1.7;font-size:13px;text-wrap:pretty;">{{ u.body }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- BRIEF FORM -->
+  <section id="brief" style="padding:88px 24px;border-bottom:1px solid var(--border);scroll-margin-top:72px;">
+    <div data-reveal class="two-col" style="max-width:1440px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:64px;align-items:start;">
+      <div class="reveal-left">
+        <p style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.25em;color:var(--accent);margin:0 0 20px;">05 / Send a script</p>
+        <h2 style="font-family:var(--display);text-transform:uppercase;font-size:clamp(38px,6vw,104px);line-height:.9;letter-spacing:-.01em;margin:0;max-width:14ch;">Free <span style="color:var(--accent);">audition</span> on your script.</h2>
+        <p style="margin:28px 0 0;max-width:50ch;color:color-mix(in srgb, var(--fg) 72%, transparent);line-height:1.85;font-size:16px;text-wrap:pretty;">Send us the script and the brief. We&rsquo;ll come back with a shortlist reading your actual words &mdash; not a generic showreel &mdash; so you can hear the decision before you make it.</p>
+        <div style="margin-top:36px;display:flex;flex-direction:column;gap:12px;">
+          <a href="tel:+919823044556" class="hover-underline" style="align-self:flex-start;font-family:var(--display);font-size:clamp(22px,2.4vw,32px);text-transform:uppercase;">+91 98230 44556</a>
+          <a href="mailto:hello@graysparkaudio.com" class="hover-underline" style="align-self:flex-start;font-family:var(--mono);font-size:12px;letter-spacing:.12em;color:var(--muted2);">hello@graysparkaudio.com</a>
+        </div>
+      </div>
+
+      <form class="reveal-right" onsubmit="return false" style="display:flex;flex-direction:column;gap:24px;border:1px solid var(--border);padding:36px 32px;background:var(--surface);">
+        <sc-for list="{{ formFields }}" as="f" hint-placeholder-count="3">
+          <label style="display:flex;flex-direction:column;gap:10px;">
+            <span style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.26em;color:var(--muted);">{{ f.label }}</span>
+            <input type="text" placeholder="{{ f.placeholder }}" style="background:transparent;border:none;border-bottom:1px solid var(--border);padding:12px 0;font-family:var(--body);font-size:15px;color:var(--fg);outline:none;transition:border-color .3s;" style-focus="border-color:var(--accent)">
+          </label>
+        </sc-for>
+        <label style="display:flex;flex-direction:column;gap:10px;">
+          <span style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.26em;color:var(--muted);">Language</span>
+          <select style="background:var(--surface);border:none;border-bottom:1px solid var(--border);padding:12px 0;font-family:var(--body);font-size:15px;color:var(--fg);outline:none;">
+            <sc-for list="{{ formLangs }}" as="o" hint-placeholder-count="6">
+              <option value="{{ o }}">{{ o }}</option>
+            </sc-for>
+          </select>
+        </label>
+        <label style="display:flex;flex-direction:column;gap:10px;">
+          <span style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.26em;color:var(--muted);">The script &amp; brief</span>
+          <textarea rows="3" placeholder="Paste the script, or describe the tone you're after&hellip;" style="background:transparent;border:none;border-bottom:1px solid var(--border);padding:12px 0;font-family:var(--body);font-size:15px;color:var(--fg);outline:none;resize:vertical;transition:border-color .3s;" style-focus="border-color:var(--accent)"></textarea>
+        </label>
+        <button type="submit" style="margin-top:8px;display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--accent);color:var(--accent-fg);border:none;padding:18px 24px;font-family:var(--mono);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.24em;cursor:pointer;transition:filter .3s;" style-hover="filter:brightness(1.12)">
+          <span class="gs-rec-dot" style="width:6px;height:6px;border-radius:50%;background:var(--accent-fg);"></span>Request auditions
+        </button>
+        <p style="margin:0;font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.24em;color:var(--muted);">Demo form &mdash; not wired to a backend yet</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="padding:80px 24px 48px;">
+    <div style="max-width:1440px;margin:0 auto;">
+      <div data-reveal class="foot-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:40px;">
+        <div>
+          <p style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.25em;color:var(--muted);margin:0 0 16px;">Location</p>
+          <p style="font-size:15px;line-height:1.7;max-width:26ch;margin:0;">3rd Floor, Shere-E-Punjab,<br>Baner Road, Baner,<br>Pune, MH 411045</p>
+        </div>
+        <div>
+          <p style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.25em;color:var(--muted);margin:0 0 16px;">Connect</p>
+          <a href="mailto:hello@graysparkaudio.com" class="hover-underline" style="display:inline-block;font-size:15px;">hello@graysparkaudio.com</a><br>
+          <a href="tel:+919823044556" class="hover-underline" style="display:inline-block;font-size:15px;margin-top:8px;">+91 98230 44556</a>
+        </div>
+        <div>
+          <p style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.25em;color:var(--muted);margin:0 0 16px;">Pages</p>
+          <div style="display:flex;flex-direction:column;gap:8px;font-size:14px;">
+            <a href="../index.html" class="hover-underline" style="align-self:flex-start;">Home</a>
+            <a href="../studio/index.html" class="hover-underline" style="align-self:flex-start;">Studio</a>
+            <a href="../ai-audio/index.html" class="hover-underline" style="align-self:flex-start;">AI Audio</a>
+            <a href="../facility/index.html" class="hover-underline" style="align-self:flex-start;">Our Facility</a>
+          </div>
+        </div>
+        <div>
+          <p style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.25em;color:var(--muted);margin:0 0 16px;">More</p>
+          <div style="display:flex;flex-direction:column;gap:8px;font-size:14px;">
+            <a href="../blog/index.html" class="hover-underline" style="align-self:flex-start;">Blogs</a>
+            <a href="../pr/index.html" class="hover-underline" style="align-self:flex-start;">PR &amp; Awards</a>
+            <a href="../contact/index.html" class="hover-underline" style="align-self:flex-start;">Contact us</a>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:72px;padding-top:32px;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.3em;color:var(--muted);">
+        <span>&copy; 2026 Gray Spark Audio &mdash; Est. 2011 Pune</span>
+        <span style="color:var(--accent);">&#9679; All systems nominal</span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;palette&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;Sage on ink&quot;,&quot;options&quot;:[&quot;Original (voltage yellow)&quot;,&quot;Clay on ink&quot;,&quot;Sage on ink&quot;,&quot;Clay on slate&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Theme&quot;}}">
+class Component extends DCLogic {
+  state = { lang: "all" };
+  pad(i) { return String(i).padStart(2, "0"); }
+
+  bars(n, seed) {
+    const out = [];
+    let s = seed;
+    for (let i = 0; i < n; i++) {
+      s = (s * 9301 + 49297) % 233280;
+      const r = s / 233280;
+      const arc = Math.sin((i / n) * Math.PI) * 0.55 + 0.3;
+      const phrase = Math.sin((i / n) * Math.PI * 5) * 0.16;
+      const h = Math.max(0.1, Math.min(1, arc + phrase + (r - 0.5) * 0.24)) * 100;
+      out.push({ style: "flex:1;min-width:1px;border-radius:1px;height:" + h.toFixed(1) + "%;background:color-mix(in srgb, var(--accent) 65%, transparent);" });
+    }
+    return out;
+  }
+
+  getVoices() {
+    return [
+      { code: "VOS 014", langKey: "hindi", lang: "Hindi", tags: ["Male", "30s", "Warm", "Narrative"] },
+      { code: "VOS 021", langKey: "hindi", lang: "Hindi", tags: ["Female", "20s", "Bright", "Commercial"] },
+      { code: "VOS 033", langKey: "english", lang: "English \u2014 Indian", tags: ["Female", "30s", "Authoritative", "Corporate"] },
+      { code: "VOS 038", langKey: "english", lang: "English \u2014 Neutral", tags: ["Male", "40s", "Gravel", "Trailer"] },
+      { code: "VOS 042", langKey: "marathi", lang: "Marathi", tags: ["Male", "50s", "Characterful", "Documentary"] },
+      { code: "VOS 047", langKey: "marathi", lang: "Marathi", tags: ["Female", "30s", "Conversational", "Radio"] },
+      { code: "VOS 055", langKey: "tamil", lang: "Tamil", tags: ["Female", "20s", "Energetic", "Commercial"] },
+      { code: "VOS 061", langKey: "tamil", lang: "Tamil", tags: ["Male", "30s", "Calm", "E-learning"] },
+      { code: "VOS 068", langKey: "telugu", lang: "Telugu", tags: ["Male", "40s", "Deep", "Promo"] },
+      { code: "VOS 072", langKey: "bengali", lang: "Bengali", tags: ["Female", "40s", "Literary", "Audiobook"] },
+      { code: "VOS 079", langKey: "english", lang: "English \u2014 Indian", tags: ["Male", "20s", "Youthful", "Social"] },
+      { code: "VOS 084", langKey: "hindi", lang: "Hindi", tags: ["Female", "40s", "Maternal", "Narrative"] }
+    ];
+  }
+
+  getData() {
+    const pad = this.pad.bind(this);
+
+    const heroTags = ["Casting", "Directed reads", "Multi-language", "Remote sessions", "Delivered to spec"];
+
+    const steps = [
+      { name: "Brief", body: "Send the script, the tone you're after and the deadline. If you only have a rough idea of the voice, that's enough to start." },
+      { name: "Shortlist", body: "We come back with voices matched on language, age and tone \u2014 reading your actual script, not a generic showreel." },
+      { name: "Record", body: "The final read is tracked in Studio B, directed line by line. Join the session remotely and direct it yourself if you'd rather." },
+      { name: "Deliver", body: "Edited, cleaned and mastered to your spec and naming convention, delivered wherever your files already live." }
+    ].map((s, i) => ({ ...s, num: pad(i + 1) }));
+
+    const roomSpecs = ["Compact, acoustically tight", "Vocal recording & dubbing", "Editing in the same room", "Remote direction patch-in"];
+
+    const uses = [
+      { name: "TV & radio ads", body: "Brand reads timed to the cut, delivered in every length you need." },
+      { name: "Corporate & explainer", body: "Clear, authoritative narration for internal film and product video." },
+      { name: "E-learning", body: "Long-form modules kept consistent in tone across a whole course." },
+      { name: "Audiobooks", body: "Chaptered narration, proofed for names and technical terms." },
+      { name: "Dubbing & ADR", body: "Lip-sync dubbing and replacement dialogue for film and series." },
+      { name: "IVR & announcements", body: "Phone systems, in-store and transit announcements, on brand." }
+    ].map((u, i) => ({ ...u, num: pad(i + 1) }));
+
+    const formFields = [
+      { label: "Your name", placeholder: "Who are we talking to?" },
+      { label: "Email", placeholder: "you@company.com" },
+      { label: "Company / project", placeholder: "What's it for?" }
+    ];
+    const formLangs = ["Hindi", "English \u2014 Indian", "English \u2014 Neutral", "Marathi", "Tamil", "Telugu", "Bengali", "Multiple languages", "Not sure yet"];
+
+    return { heroTags, steps, roomSpecs, uses, formFields, formLangs };
+  }
+
+  renderVals() {
+    const pad = this.pad.bind(this);
+    const all = this.getVoices();
+    const active = this.state.lang;
+
+    const TABS = [
+      { key: "all", label: "All" },
+      { key: "hindi", label: "Hindi" },
+      { key: "english", label: "English" },
+      { key: "marathi", label: "Marathi" },
+      { key: "tamil", label: "Tamil" },
+      { key: "telugu", label: "Telugu" },
+      { key: "bengali", label: "Bengali" }
+    ];
+    const base = "font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.22em;padding:12px 18px;cursor:pointer;transition:background .3s,color .3s,border-color .3s;border:1px solid ";
+    const langTabs = TABS.map((t) => {
+      const n = t.key === "all" ? all.length : all.filter((v) => v.langKey === t.key).length;
+      const on = active === t.key;
+      return { ...t, count: pad(n), style: base + (on ? "var(--accent);background:var(--accent);color:var(--accent-fg);" : "var(--border);background:transparent;color:var(--muted2);") };
+    });
+
+    const filtered = active === "all" ? all : all.filter((v) => v.langKey === active);
+    const shownVoices = filtered.map((v, i) => ({ ...v, bars: this.bars(40, 13 + i * 17) }));
+
+    return Object.assign({}, this.getData(), {
+      langTabs, shownVoices,
+      rosterNote: "Showing " + pad(filtered.length) + " of " + pad(all.length) + " voices \u2014 coded roster; full names and reels shared on shortlist.",
+      pickLang: (e) => this.setState({ lang: e.currentTarget.getAttribute("data-lang") })
+    });
+  }
+
+  _ytReady() {
+    if (this._ytPromise) return this._ytPromise;
+    this._ytPromise = new Promise((resolve) => {
+      if (window.YT && window.YT.Player) { resolve(window.YT); return; }
+      const prev = window.onYouTubeIframeAPIReady;
+      window.onYouTubeIframeAPIReady = () => { if (typeof prev === "function") try { prev(); } catch (e) {} resolve(window.YT); };
+      if (!document.getElementById("gs-yt-api")) {
+        const s = document.createElement("script");
+        s.id = "gs-yt-api";
+        s.src = "https://www.youtube.com/iframe_api";
+        document.head.appendChild(s);
+      }
+    });
+    return this._ytPromise;
+  }
+
+  // Muted ambient hero video, same treatment as the home page: plays while the
+  // hero is on screen, pauses off screen, loops.
+  _setupHeroVideo(id) {
+    const sec = document.getElementById("top");
+    if (!sec || !id) return;
+    const host = sec.querySelector("[data-videohost]");
+    const fade = sec.querySelector("[data-videofade]");
+    if (!host || !host.firstElementChild || host.getAttribute("data-wired")) return;
+    host.setAttribute("data-wired", "1");
+    let vis = true, player = null;
+    new IntersectionObserver((entries) => entries.forEach((en) => {
+      vis = en.isIntersecting;
+      if (player) { try { vis ? player.playVideo() : player.pauseVideo(); } catch (e) {} }
+    }), { threshold: 0 }).observe(sec);
+    this._ytReady().then((YT) => {
+      new YT.Player(host.firstElementChild, {
+        videoId: id,
+        width: "100%",
+        height: "100%",
+        playerVars: { autoplay: 0, mute: 1, controls: 0, rel: 0, playsinline: 1, modestbranding: 1, iv_load_policy: 3, disablekb: 1 },
+        events: {
+          onReady: (e) => {
+            try { e.target.mute(); } catch (err) {}
+            const f = e.target.getIframe();
+            if (f) f.style.cssText += ";width:100%;height:100%;position:absolute;top:0;left:0;pointer-events:none;border:0;";
+            player = e.target;
+            if (vis) { try { e.target.playVideo(); } catch (err) {} }
+          },
+          onStateChange: (e) => {
+            if (e.data === 1 && fade) fade.style.opacity = "1";
+            if (e.data === 0) { try { e.target.seekTo(0); e.target.playVideo(); } catch (err) {} }
+          }
+        }
+      });
+    });
+  }
+
+  componentDidMount() {
+    this._setupHeroVideo(this.props.heroVideoId ?? "gyTD9ICFeok");
+    // Reveal-on-scroll: re-scanned on scroll/resize so sections rendered after
+    // mount (and tall blocks that never cross a percentage threshold) still fire.
+    const sweepReveals = () => {
+      const vh = window.innerHeight;
+      document.querySelectorAll("[data-reveal]:not(.is-in)").forEach((el) => {
+        const r = el.getBoundingClientRect();
+        if (r.top < vh * 0.92 && r.bottom > 0) el.classList.add("is-in");
+      });
+    };
+    sweepReveals();
+    this._sweepReveals = sweepReveals;
+    window.addEventListener("scroll", sweepReveals, { passive: true });
+    window.addEventListener("resize", sweepReveals);
+    requestAnimationFrame(sweepReveals);
+    this._applyPalette();
+  }
+
+  componentDidUpdate() { this._applyPalette(); }
+
+  _palettes() {
+    return {
+      "Original (voltage yellow)": { "--bg": "#0a0a0a", "--fg": "#fafafa", "--surface": "#0d0d0d", "--surface2": "#242424", "--muted": "#8f8f8f", "--muted2": "#a6a6a6", "--border": "#333", "--accent": "oklch(0.9 0.19 100)", "--accent-fg": "#0a0a0a" },
+      "Clay on ink": { "--bg": "#15272E", "--fg": "#F7F0E2", "--surface": "#122127", "--surface2": "#2b3d43", "--muted": "#8fa0a3", "--muted2": "#a8b6b8", "--border": "#2f424a", "--accent": "#A2664B", "--accent-fg": "#F7F0E2" },
+      "Sage on ink": { "--bg": "#15272E", "--fg": "#F7F0E2", "--surface": "#122127", "--surface2": "#2b3d43", "--muted": "#8fa0a3", "--muted2": "#a8b6b8", "--border": "#2f424a", "--accent": "#6F8F74", "--accent-fg": "#10201c" },
+      "Clay on slate": { "--bg": "#2b3636", "--fg": "#F7F0E2", "--surface": "#26312f", "--surface2": "#3f4e4f", "--muted": "#9aa6a4", "--muted2": "#b3bdbb", "--border": "#3c4a48", "--accent": "#A2664B", "--accent-fg": "#F7F0E2" }
+    };
+  }
+
+  _applyPalette() {
+    const root = document.getElementById("gs-root");
+    if (!root) return;
+    const map = this._palettes();
+    const p = map[this.props.palette] || map["Sage on ink"];
+    Object.entries(p).forEach(([k, v]) => root.style.setProperty(k, v));
+  }
+}
+</script>
+</body>
+</html>

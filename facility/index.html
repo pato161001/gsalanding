@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Our Facility — GraySpark Audio</title>
+<script src="../vendor/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+<script src="../vendor/image-slot.js"></script>
+<style>
+  @keyframes gs-rec { 0%,100%{opacity:1} 50%{opacity:.25} }
+  @keyframes gs-sweep { 0%{transform:translateX(-60%) rotate(15deg);opacity:.35} 50%{opacity:.6} 100%{transform:translateX(160%) rotate(15deg);opacity:.35} }
+  .gs-sweep { animation: gs-sweep 10s ease-in-out infinite; }
+  @keyframes gs-rise { from{transform:translateY(110%)} to{transform:none} }
+  @keyframes gs-fade { from{opacity:0} to{opacity:1} }
+  @keyframes gs-fadeup { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:none} }
+  .tinted-shot img { filter: grayscale(.4) contrast(1.02) brightness(.86) sepia(.14); transition: filter .5s cubic-bezier(.16,1,.3,1); }
+  .tinted-shot::after { content:""; position:absolute; inset:0; background:var(--accent); mix-blend-mode:color; opacity:.1; transition:opacity .5s cubic-bezier(.16,1,.3,1); pointer-events:none; }
+  .tinted-shot:hover img { filter: none; }
+  .tinted-shot:hover::after { opacity: 0; }
+  body { margin:0; -webkit-font-smoothing:antialiased; background:#15272E; color:#F7F0E2; }
+  ::selection { background: var(--accent, #6F8F74); color: var(--accent-fg, #10201c); }
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: var(--accent, #6F8F74); }
+  .gs-rec-dot { animation: gs-rec 1.6s ease-in-out infinite; }
+  .gs-fadein { animation: gs-fade 1.2s ease-out both; }
+  .rise { display:block; overflow:hidden; }
+  .rise > span { display:block; animation: gs-rise 1s cubic-bezier(.16,1,.3,1) both; }
+  .reveal { opacity:0; transform:translateY(40px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); }
+  .reveal-left { opacity:0; transform:translateX(-48px); transition:opacity 1s cubic-bezier(.16,1,.3,1), transform 1s cubic-bezier(.16,1,.3,1); }
+  .reveal-right { opacity:0; transform:translateX(48px); transition:opacity 1s cubic-bezier(.16,1,.3,1), transform 1s cubic-bezier(.16,1,.3,1); }
+  .reveal-scale { opacity:0; transform:scale(.94); transition:opacity 1s cubic-bezier(.16,1,.3,1), transform 1s cubic-bezier(.16,1,.3,1); }
+  [data-reveal].is-in .reveal, [data-reveal].is-in .reveal-left, [data-reveal].is-in .reveal-right, [data-reveal].is-in .reveal-scale { opacity:1; transform:none; filter:none; }
+  [data-reveal].is-in.reveal, [data-reveal].is-in.reveal-left, [data-reveal].is-in.reveal-right, [data-reveal].is-in.reveal-scale { opacity:1; transform:none; filter:none; }
+  [data-stagger] > * { opacity:0; }
+  [data-stagger].is-in > * { animation: gs-fadeup .9s cubic-bezier(.16,1,.3,1) both; opacity:1; }
+  [data-stagger].is-in > *:nth-child(2){ animation-delay:80ms; }
+  [data-stagger].is-in > *:nth-child(3){ animation-delay:160ms; }
+  [data-stagger].is-in > *:nth-child(4){ animation-delay:240ms; }
+  [data-stagger].is-in > *:nth-child(5){ animation-delay:320ms; }
+  [data-stagger].is-in > *:nth-child(6){ animation-delay:400ms; }
+  .hover-underline { position:relative; }
+  .hover-underline::after { content:""; position:absolute; left:0; bottom:-4px; height:1px; width:100%; background:currentColor; transform:scaleX(0); transform-origin:right; transition:transform .5s cubic-bezier(.16,1,.3,1); }
+  .hover-underline:hover::after { transform:scaleX(1); transform-origin:left; }
+  .yellow-tint { position:relative; isolation:isolate; }
+  .yellow-tint::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg, color-mix(in srgb, var(--accent) 30%, transparent), rgba(0,0,0,.6)); mix-blend-mode:multiply; pointer-events:none; z-index:1; }
+  .scanlines { position:relative; }
+  .scanlines::before { content:""; position:absolute; inset:0; background:repeating-linear-gradient(to bottom, rgba(0,0,0,0) 0, rgba(0,0,0,0) 2px, rgba(0,0,0,.35) 3px, rgba(0,0,0,0) 4px); mix-blend-mode:multiply; pointer-events:none; z-index:2; opacity:.35; }
+  .vignette { position:relative; }
+  .vignette::after { content:""; position:absolute; inset:0; background:radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,.85) 100%); pointer-events:none; z-index:3; }
+  .grain { position:fixed; inset:-50%; z-index:90; pointer-events:none; opacity:.10; mix-blend-mode:overlay; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E"); }
+  .glow-accent { filter: drop-shadow(0 0 18px color-mix(in srgb, var(--accent) 38%, transparent)); }
+  .hover-lift { transition: transform .5s cubic-bezier(.16,1,.3,1), box-shadow .5s cubic-bezier(.16,1,.3,1), filter .5s; }
+  .hover-lift:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -18px rgba(0,0,0,.6); filter: brightness(1.05); }
+  @media (min-width:901px){
+    .room:nth-child(even) .room-media{ order:2; }
+  }
+  @media (max-width:900px){
+    .nav-links{ display:none !important; }
+    .hide-mobile{ display:none !important; }
+    .two-col{ grid-template-columns:1fr !important; }
+    .room-grid{ grid-template-columns:1fr !important; }
+    .foot-grid{ grid-template-columns:1fr 1fr !important; }
+  }
+</style>
+<script>
+(function(){
+  function promote(){
+    document.querySelectorAll("img[data-src]").forEach(function(i){
+      var v = i.getAttribute("data-src");
+      if (v && v.indexOf("{{") < 0 && i.getAttribute("src") !== v) i.setAttribute("src", v);
+    });
+  }
+  new MutationObserver(promote).observe(document.documentElement, { childList:true, subtree:true, attributes:true, attributeFilter:["data-src"] });
+  document.addEventListener("DOMContentLoaded", promote);
+  promote();
+})();
+</script>
+</helmet>
+
+<div id="gs-root" style="--bg:#15272E;--fg:#F7F0E2;--surface:#122127;--surface2:#2b3d43;--muted:#8fa0a3;--muted2:#a8b6b8;--border:#2f424a;--accent:#6F8F74;--accent-fg:#10201c;--display:'Anton',sans-serif;--body:'Archivo',ui-sans-serif,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;--script:'Caveat',cursive; background:var(--bg); color:var(--fg); font-family:var(--body); min-height:100vh; overflow-x:clip; position:relative;">
+
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- NAV -->
+  <header style="position:fixed;top:0;left:0;right:0;z-index:50;background:color-mix(in srgb, var(--bg) 72%, transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);">
+    <div style="max-width:1440px;margin:0 auto;padding:0 24px;height:72px;display:flex;align-items:center;justify-content:space-between;gap:24px;">
+      <a href="../index.html" style="display:flex;align-items:baseline;gap:10px;line-height:1;text-transform:uppercase;">
+        <span style="font-family:var(--display);font-size:25px;letter-spacing:.01em;color:var(--fg);">GraySpark</span>
+        <span style="font-family:var(--display);font-size:16px;letter-spacing:.28em;color:var(--muted);">Audio</span>
+      </a>
+      <nav class="nav-links" style="display:flex;gap:26px;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.25em;color:var(--muted);">
+        <a href="../studio/index.html" class="hover-underline">Studio</a>
+        <a href="../ai-audio/index.html" class="hover-underline">AI Audio</a>
+        <a href="../voice-over/index.html" class="hover-underline">Voice Over</a>
+        <a href="../facility/index.html" class="hover-underline" style="color:var(--accent);">Facility</a>
+        <a href="../blog/index.html" class="hover-underline">Blog</a>
+        <a href="../pr/index.html" class="hover-underline">PR</a>
+        <a href="../contact/index.html" class="hover-underline">Contact</a>
+      </nav>
+      <a href="../contact/index.html" style="display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:var(--accent-fg);font-family:var(--mono);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.2em;padding:12px 16px;" style-hover="filter:brightness(1.1)">
+        <span class="gs-rec-dot" style="width:6px;height:6px;border-radius:50%;background:var(--accent-fg);"></span>Book a walkthrough
+      </a>
+    </div>
+  </header>
+
+  <!-- PAGE HERO -->
+  <section id="top" style="position:relative;height:100svh;min-height:760px;overflow:hidden;">
+    <img src="assets/studio-a-live-room.jpg" alt="" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+    <div data-videofade="" aria-hidden="true" style="position:absolute;inset:0;overflow:hidden;pointer-events:none;opacity:0;transition:opacity 1.2s ease;background:#000;">
+      <div data-videohost="" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:max(100vw,178vh,1352px);height:max(100vh,760px,56.25vw);">
+        <div style="width:100%;height:100%;"></div>
+      </div>
+    </div>
+    <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;mix-blend-mode:multiply;background:linear-gradient(180deg, rgba(255,180,60,.32), rgba(120,60,10,.5));"></div>
+    <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,.85) 100%);"></div>
+    <div class="gs-sweep" aria-hidden="true" style="position:absolute;inset:0;z-index:5;pointer-events:none;background:linear-gradient(105deg, transparent 30%, rgba(255,180,0,.18) 45%, rgba(255,80,0,.12) 55%, transparent 70%);filter:blur(30px);transform-origin:center;"></div>
+
+    <div class="gs-fadein" style="position:absolute;top:96px;left:24px;z-index:10;display:flex;align-items:center;gap:12px;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.3em;color:var(--accent);background:rgba(10,10,10,.55);padding:10px 14px;backdrop-filter:blur(4px);">
+      <span class="gs-rec-dot" style="width:10px;height:10px;border-radius:50%;background:var(--accent);"></span>
+      <a href="../index.html">Home</a><span style="color:rgba(255,255,255,.45);">/</span><span style="color:#fff;">Our facility</span>
+    </div>
+    <div class="gs-fadein hide-mobile" style="position:absolute;top:96px;right:24px;z-index:10;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.3em;color:#fff;text-align:right;background:rgba(10,10,10,.55);padding:10px 14px;backdrop-filter:blur(4px);">6 studios &middot; 5000 sq. ft.<br><span style="color:var(--accent);">Dolby Atmos 7.1.4</span></div>
+
+    <div style="position:absolute;left:0;right:0;bottom:0;z-index:10;padding:0 24px 28px;max-width:1440px;margin:0 auto;">
+      <h1 style="font-family:var(--display);text-transform:uppercase;letter-spacing:-.01em;line-height:.88;font-size:clamp(44px,9vw,152px);margin:0;text-shadow:0 2px 24px rgba(0,0,0,.55);">
+        <span class="rise"><span>5000 sq. ft.</span></span>
+        <span class="rise"><span><span class="glow-accent" style="color:var(--accent);font-style:italic;">Six</span> rooms.</span></span>
+      </h1>
+      <div style="margin-top:32px;display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:32px;">
+        <p class="gs-fadein" style="max-width:52ch;font-size:clamp(16px,1.4vw,20px);line-height:1.7;color:rgba(255,255,255,.78);margin:0;text-wrap:pretty;">A music production and audio post facility in Baner, Pune &mdash; six interconnected studio spaces, so a band can play live with every instrument cleanly isolated.</p>
+        <div class="gs-fadein" style="display:flex;flex-wrap:wrap;gap:28px;justify-content:flex-end;">
+          <sc-for list="{{ facts }}" as="f">
+            <div style="text-align:right;">
+              <p style="margin:0;font-family:var(--display);font-size:clamp(28px,3vw,44px);line-height:1;color:var(--accent);">{{ f.num }}</p>
+              <p style="margin:6px 0 0;font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.24em;color:rgba(255,255,255,.6);">{{ f.label }}</p>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+    <div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent);z-index:10;"></div>
+  </section>
+
+  <!-- ROOMS -->
+  <section id="rooms" style="padding:96px 24px;border-bottom:1px solid var(--border);">
+    <div style="max-width:1440px;margin:0 auto;">
+      <div data-reveal style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:64px;">
+        <div class="reveal">
+          <p style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.25em;color:var(--accent);margin:0 0 12px;">01 / The rooms</p>
+          <h2 style="font-family:var(--display);text-transform:uppercase;font-size:clamp(40px,6vw,96px);line-height:.95;letter-spacing:-.01em;margin:0;">Every room<br>tuned for a <span style="color:var(--accent);">job.</span></h2>
+        </div>
+        <p class="reveal" style="font-family:var(--script);font-size:30px;color:var(--accent);transform:rotate(-2deg);margin:0;">all interconnected &darr;</p>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:96px;">
+        <sc-for list="{{ rooms }}" as="r">
+          <div class="room" data-reveal>
+            <div class="room-grid" style="display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:48px;align-items:center;">
+              <div class="room-media reveal-scale tinted-shot" style="position:relative;aspect-ratio:4/3;border:1px solid var(--border);overflow:hidden;background:#000;">
+                <sc-if value="{{ r.img }}" hint-placeholder-val="{{ false }}">
+                  <img data-src="{{ r.img }}" alt="{{ r.imgAlt }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+                </sc-if>
+                <span style="position:absolute;top:16px;left:16px;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.3em;color:var(--accent);background:color-mix(in srgb, var(--bg) 80%, transparent);padding:6px 10px;pointer-events:none;">&#9679; {{ r.n }}</span>
+              </div>
+              <div class="reveal">
+                <p style="margin:0;font-family:var(--script);font-size:30px;color:var(--accent);transform:rotate(-2deg);">{{ r.note }}</p>
+                <h3 style="margin:8px 0 0;font-family:var(--display);text-transform:uppercase;font-size:clamp(32px,4.4vw,64px);line-height:1;letter-spacing:-.01em;">{{ r.name }}</h3>
+                <div style="margin-top:20px;height:1px;width:64px;background:var(--accent);"></div>
+                <p style="margin:22px 0 0;max-width:46ch;color:color-mix(in srgb, var(--fg) 70%, transparent);line-height:1.8;font-size:15px;text-wrap:pretty;">{{ r.body }}</p>
+                <ul style="margin:26px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr));gap:10px;">
+                  <sc-for list="{{ r.specs }}" as="sp" hint-placeholder-count="4">
+                    <li style="display:flex;align-items:center;gap:12px;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.22em;color:var(--muted2);">
+                      <span style="width:5px;height:5px;flex:none;background:var(--accent);"></span>{{ sp }}
+                    </li>
+                  </sc-for>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIDEO TOUR (sticky scroll reel) -->
+  <section id="tour" style="position:relative;border-bottom:1px solid var(--border);height:600vh;">
+    <div style="position:sticky;top:0;height:100vh;width:100%;overflow:hidden;background:#000;">
+      <div style="position:absolute;inset:0;">
+        <sc-for list="{{ tour }}" as="c">
+          <div data-layer="" style="position:absolute;inset:0;opacity:0;transition:opacity .7s ease;">
+            <sc-if value="{{ c.img }}" hint-placeholder-val="{{ false }}">
+              <img data-src="{{ c.img }}" alt="{{ c.imgAlt }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+      <div data-videofade="" aria-hidden="true" style="position:absolute;inset:0;overflow:hidden;pointer-events:none;opacity:0;transition:opacity .8s ease;background:#000;">
+        <div data-videohost="" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:max(100vw,178vh,1352px);height:max(100vh,760px,56.25vw);">
+          <div style="width:100%;height:100%;"></div>
+        </div>
+      </div>
+      <div class="yellow-tint scanlines vignette" aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;"></div>
+      <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg, rgba(10,10,10,.6) 0%, rgba(10,10,10,.1) 30%, rgba(10,10,10,.2) 60%, rgba(10,10,10,.92) 100%);"></div>
+      <div aria-hidden="true" style="position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent);z-index:10;"></div>
+      <div style="position:absolute;top:24px;left:24px;z-index:20;display:flex;align-items:center;gap:12px;">
+        <span class="gs-rec-dot" style="width:10px;height:10px;border-radius:50%;background:var(--accent);"></span>
+        <span style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.3em;color:var(--accent);">● PLAY — studio tour</span>
+      </div>
+      <div style="position:absolute;top:24px;right:24px;z-index:20;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.3em;color:rgba(255,255,255,.7);text-align:right;">Room <span data-counter="">01</span> / 06<br><span style="color:var(--accent);">walkthrough · 5000 sq. ft.</span></div>
+      <div class="hide-mobile" style="position:absolute;top:96px;left:24px;z-index:20;">
+        <p style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.3em;color:var(--accent);margin:0 0 8px;">02 / Studio tour</p>
+        <p style="font-family:var(--script);font-size:30px;color:var(--accent);transform:rotate(-2deg);margin:0;">walk the floor ↓</p>
+      </div>
+      <button type="button" data-sec="tour" onClick="{{ toggleSound }}" aria-label="Toggle sound" style="position:absolute;top:80px;right:24px;z-index:30;display:flex;align-items:center;gap:10px;background:rgba(10,10,10,.55);border:1px solid var(--accent);color:var(--accent);padding:10px 18px;cursor:pointer;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.3em;backdrop-filter:blur(4px);transition:background .3s ease,color .3s ease;" style-hover="background:var(--accent);color:var(--accent-fg);">● <span data-soundlabel="">unmute</span></button>
+      <div style="position:absolute;left:0;right:0;bottom:0;z-index:20;padding:0 24px 72px;max-width:1440px;margin:0 auto;">
+        <div style="display:grid;grid-template-columns:auto 1fr;gap:40px;align-items:flex-end;">
+          <div data-numeral="" class="hide-mobile" style="font-family:var(--display);font-size:clamp(56px,9vw,116px);line-height:1;color:var(--accent);margin:0;text-shadow:0 2px 24px rgba(0,0,0,.55);">01</div>
+          <div data-caps="" style="position:relative;min-height:220px;">
+            <sc-for list="{{ tour }}" as="c" hint-placeholder-count="6">
+              <div data-cap="" style="position:absolute;inset:0;opacity:0;transition:all .7s ease;">
+                <p style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.3em;color:var(--accent);margin:0 0 16px;">{{ c.tag }}</p>
+                <h3 style="font-family:var(--display);text-transform:uppercase;line-height:.95;letter-spacing:-.01em;font-size:clamp(30px,4.4vw,64px);margin:0;max-width:24ch;text-shadow:0 2px 24px rgba(0,0,0,.55);">{{ c.title }}</h3>
+                <p style="margin:20px 0 0;max-width:54ch;color:rgba(255,255,255,.82);line-height:1.7;font-size:clamp(14px,1.2vw,16px);text-wrap:pretty;">{{ c.body }}</p>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <div style="margin-top:36px;display:flex;align-items:center;gap:12px;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.25em;color:rgba(255,255,255,.6);">
+          <sc-for list="{{ tour }}" as="c" hint-placeholder-count="6">
+            <div style="display:flex;align-items:center;gap:10px;flex:1;min-width:0;">
+              <span data-railnum="" style="color:rgba(255,255,255,.4);">{{ c.railnum }}</span>
+              <div style="position:relative;flex:1;height:1px;background:rgba(255,255,255,.15);overflow:hidden;"><span data-railbar="" style="position:absolute;top:0;bottom:0;left:0;width:0;background:var(--accent);transition:width .5s;"></span></div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- GALLERY -->
+  <section id="gallery" style="padding:96px 24px;border-bottom:1px solid var(--border);">
+    <div style="max-width:1440px;margin:0 auto;">
+      <div data-reveal style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:40px;">
+        <div class="reveal">
+          <p style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.25em;color:var(--accent);margin:0 0 12px;">03 / Gallery</p>
+          <h2 style="font-family:var(--display);text-transform:uppercase;font-size:clamp(40px,6vw,96px);line-height:.95;letter-spacing:-.01em;margin:0;">Inside the <span style="color:var(--accent);font-style:italic;">rooms.</span></h2>
+        </div>
+        <p class="reveal" style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.26em;color:var(--muted);max-width:26ch;text-align:right;margin:0;">nine frames from<br>the working floor</p>
+      </div>
+      <div data-reveal style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(260px,100%),1fr));grid-auto-rows:200px;gap:12px;">
+        <sc-for list="{{ gallery }}" as="g">
+          <div class="tinted-shot" style="position:relative;border:1px solid var(--border);overflow:hidden;background:#000;grid-column:{{ g.span }};grid-row:{{ g.row }};">
+            <sc-if value="{{ g.img }}" hint-placeholder-val="{{ false }}">
+              <img data-src="{{ g.img }}" alt="{{ g.hint }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- MICS -->
+  <section id="mics" style="padding:96px 24px;border-bottom:1px solid var(--border);background:var(--surface);">
+    <div style="max-width:1440px;margin:0 auto;">
+      <div data-reveal class="two-col" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:64px;align-items:start;">
+        <div class="reveal-left">
+          <p style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.25em;color:var(--accent);margin:0 0 20px;">04 / Microphones</p>
+          <h2 style="font-family:var(--display);text-transform:uppercase;font-size:clamp(34px,5vw,80px);line-height:.94;letter-spacing:-.01em;margin:0;max-width:16ch;">The right mic, <span style="color:var(--accent);font-style:italic;">moved</span> properly.</h2>
+          <p style="margin:28px 0 0;max-width:50ch;color:color-mix(in srgb, var(--fg) 70%, transparent);line-height:1.85;font-size:15px;text-wrap:pretty;">A locker built over fifteen years &mdash; large-diaphragm condensers for vocals, ribbons for brass and guitar cabs, dynamics for drums, and matched pairs for rooms and orchestral work. As a Neumann partner, our monitoring and mic selection is specified alongside the manufacturer.</p>
+          <div style="margin-top:32px;display:flex;flex-wrap:wrap;gap:8px;">
+            <sc-for list="{{ micTags }}" as="t" hint-placeholder-count="4">
+              <span style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.24em;color:var(--accent);border:1px solid var(--accent);padding:8px 12px;">{{ t }}</span>
+            </sc-for>
+          </div>
+        </div>
+        <div class="reveal-right tinted-shot" style="position:relative;aspect-ratio:1;border:1px solid var(--border);overflow:hidden;background:#000;">
+          <img src="assets/mic-locker.jpg" alt="A large-diaphragm condenser on the boom, lit by candlelight against the stone wall" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EQUIPMENT LIST -->
+  <section id="equipment" style="padding:96px 24px;border-bottom:1px solid var(--border);">
+    <div style="max-width:1440px;margin:0 auto;">
+      <div data-reveal style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:48px;">
+        <div class="reveal">
+          <p style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.25em;color:var(--accent);margin:0 0 12px;">05 / Equipment</p>
+          <h2 style="font-family:var(--display);text-transform:uppercase;font-size:clamp(40px,6vw,96px);line-height:.95;letter-spacing:-.01em;margin:0;">What&rsquo;s on the <span style="color:var(--accent);">floor.</span></h2>
+        </div>
+        <a href="../contact/index.html" class="reveal" style="display:inline-flex;align-items:center;gap:10px;border:1px solid var(--accent);color:var(--accent);padding:14px 22px;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.25em;transition:background .3s,color .3s;" style-hover="background:var(--accent);color:var(--accent-fg);">Request the full list &rarr;</a>
+      </div>
+      <div data-reveal data-stagger style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:1px;background:var(--border);border:1px solid var(--border);">
+        <sc-for list="{{ equipment }}" as="e" hint-placeholder-count="6">
+          <div style="background:var(--bg);padding:32px 28px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+              <span style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.3em;color:var(--accent);">{{ e.num }}</span>
+              <span style="width:8px;height:8px;border-radius:50%;background:var(--accent);"></span>
+            </div>
+            <p style="margin:0;font-family:var(--display);text-transform:uppercase;font-size:22px;line-height:1.05;">{{ e.name }}</p>
+            <ul style="margin:20px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;">
+              <sc-for list="{{ e.items }}" as="it" hint-placeholder-count="4">
+                <li style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.2em;color:var(--muted2);padding-bottom:10px;border-bottom:1px solid var(--border);">{{ it }}</li>
+              </sc-for>
+            </ul>
+          </div>
+        </sc-for>
+      </div>
+      <p style="margin:28px 0 0;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.26em;color:var(--muted);">Category structure in place &mdash; import the full line-by-line list from the studio&rsquo;s master equipment sheet.</p>
+    </div>
+  </section>
+
+  <!-- INSTAGRAM -->
+  <section id="instagram" style="padding:96px 24px;border-bottom:1px solid var(--border);background:var(--surface);">
+    <div style="max-width:1440px;margin:0 auto;">
+      <div data-reveal style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:40px;">
+        <div class="reveal">
+          <p style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.25em;color:var(--accent);margin:0 0 12px;">06 / Instagram</p>
+          <h2 style="font-family:var(--display);text-transform:uppercase;font-size:clamp(34px,5vw,80px);line-height:.95;letter-spacing:-.01em;margin:0;">From the floor, <span style="color:var(--accent);font-style:italic;">daily.</span></h2>
+        </div>
+        <a href="https://www.instagram.com/graysparkaudio/" target="_blank" rel="noopener" class="reveal" style="display:inline-flex;align-items:center;gap:10px;border:1px solid var(--accent);color:var(--accent);padding:14px 22px;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.25em;transition:background .3s,color .3s;" style-hover="background:var(--accent);color:var(--accent-fg);">@graysparkaudio &rarr;</a>
+      </div>
+      <div data-reveal style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(200px,45%),1fr));gap:12px;">
+        <sc-for list="{{ insta }}" as="i" hint-placeholder-count="4">
+          <div style="position:relative;aspect-ratio:1;border:1px solid var(--border);overflow:hidden;">
+            <image-slot id="{{ i.slot }}" shape="rect" fit="cover" placeholder="{{ i.hint }}" style="position:absolute;inset:0;width:100%;height:100%;"></image-slot>
+          </div>
+        </sc-for>
+      </div>
+      <p style="margin:24px 0 0;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.26em;color:var(--muted);">Static grid for now &mdash; swap for a live Instagram embed when the feed token is ready.</p>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section data-reveal style="padding:88px 24px;border-bottom:1px solid var(--border);background:var(--accent);color:var(--accent-fg);">
+    <div class="reveal" style="max-width:1440px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:40px;">
+      <div>
+        <p style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.28em;margin:0 0 16px;">Come see it</p>
+        <h2 style="font-family:var(--display);text-transform:uppercase;font-size:clamp(32px,5vw,80px);line-height:.94;letter-spacing:-.01em;margin:0;max-width:20ch;">Book a walkthrough. We&rsquo;ll play a track on the mains.</h2>
+      </div>
+      <a href="../contact/index.html" style="display:inline-flex;align-items:center;gap:12px;border:2px solid var(--accent-fg);padding:20px 30px;font-family:var(--display);font-size:22px;text-transform:uppercase;transition:background .3s,color .3s;" style-hover="background:var(--accent-fg);color:var(--accent)">Get in touch &rarr;</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="padding:80px 24px 48px;">
+    <div style="max-width:1440px;margin:0 auto;">
+      <div data-reveal class="foot-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:40px;">
+        <div>
+          <p style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.25em;color:var(--muted);margin:0 0 16px;">Location</p>
+          <p style="font-size:15px;line-height:1.7;max-width:26ch;margin:0;">3rd Floor, Shere-E-Punjab,<br>Baner Road, Baner,<br>Pune, MH 411045</p>
+        </div>
+        <div>
+          <p style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.25em;color:var(--muted);margin:0 0 16px;">Connect</p>
+          <a href="mailto:hello@graysparkaudio.com" class="hover-underline" style="display:inline-block;font-size:15px;">hello@graysparkaudio.com</a><br>
+          <a href="tel:+919823044556" class="hover-underline" style="display:inline-block;font-size:15px;margin-top:8px;">+91 98230 44556</a>
+        </div>
+        <div>
+          <p style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.25em;color:var(--muted);margin:0 0 16px;">Pages</p>
+          <div style="display:flex;flex-direction:column;gap:8px;font-size:14px;">
+            <a href="../index.html" class="hover-underline" style="align-self:flex-start;">Home</a>
+            <a href="../studio/index.html" class="hover-underline" style="align-self:flex-start;">Studio</a>
+            <a href="../ai-audio/index.html" class="hover-underline" style="align-self:flex-start;">AI Audio</a>
+            <a href="../voice-over/index.html" class="hover-underline" style="align-self:flex-start;">Voice Over</a>
+          </div>
+        </div>
+        <div>
+          <p style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.25em;color:var(--muted);margin:0 0 16px;">More</p>
+          <div style="display:flex;flex-direction:column;gap:8px;font-size:14px;">
+            <a href="../blog/index.html" class="hover-underline" style="align-self:flex-start;">Blogs</a>
+            <a href="../pr/index.html" class="hover-underline" style="align-self:flex-start;">PR &amp; Awards</a>
+            <a href="../contact/index.html" class="hover-underline" style="align-self:flex-start;">Contact us</a>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:72px;padding-top:32px;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.3em;color:var(--muted);">
+        <span>&copy; 2026 Gray Spark Audio &mdash; Est. 2011 Pune</span>
+        <span style="color:var(--accent);">&#9679; All systems nominal</span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;palette&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;Sage on ink&quot;,&quot;options&quot;:[&quot;Original (voltage yellow)&quot;,&quot;Clay on ink&quot;,&quot;Sage on ink&quot;,&quot;Clay on slate&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Theme&quot;}}">
+class Component extends DCLogic {
+  pad(i) { return String(i).padStart(2, "0"); }
+
+  getData() {
+    const pad = this.pad.bind(this);
+
+    const facts = [
+      { num: "5000", label: "sq. ft. facility" },
+      { num: "06", label: "studio spaces" },
+      { num: "7.1.4", label: "Dolby Atmos in Studio A" },
+      { num: "2011", label: "established" }
+    ];
+
+    const rooms = [
+      { n: "A", name: "Studio A", note: "the flagship", img: "assets/studio-a-live-room.jpg", imgAlt: "Studio A live room",
+        body: "The largest room on the floor and the one everything else routes into. Built as a Neumann-powered Dolby Atmos room in partnership with Neumann and Sennheiser \u2014 from speaker selection and placement through to calibration and long-term support. It runs live film and OTT work, independent releases, advertising and branded content.",
+        specs: ["Spacious", "State of the art", "Outboard gear", "Mastering suite", "Dolby Atmos 7.1.4", "7.1 & 5.1 mixing"] },
+      { n: "B", name: "Studio B", note: "one mic, one take", img: "assets/vo-studio-b.jpg", imgAlt: "Studio B \u2014 the dead vocal room and editing desk",
+        body: "The compact room, built tight and dead for voice. Vocal takes, dubbing, ADR and voice-over days live here, with editing handled in the same space so a session can be cut and approved without moving rooms.",
+        specs: ["Compact", "Vocal recording", "Dubbing", "Editing"] },
+      { n: "C", name: "Studio C", note: "the ideas room", img: "assets/studio-c-room.jpg", imgAlt: "Studio C artist and programming room",
+        body: "An artist room and programming suite \u2014 where arrangements get built, beats get written and a rough idea becomes something worth tracking properly next door.",
+        specs: ["Artist room", "Programming suite"] },
+      { n: "XYZ", name: "Studios X, Y & Z", note: "class in session", img: "assets/studio-xyz-room.jpg", imgAlt: "Academy studios X, Y and Z",
+        body: "Three dedicated studio spaces for Academy students \u2014 spacious, equipped for production, and sitting inside a working facility so students learn next door to real sessions.",
+        specs: ["Dedicated Academy spaces", "Spacious", "Equipped for production"] }
+    ];
+
+    const gallery = [
+      { img: "assets/studio-a-live-room.jpg", hint: "Wide shot \u2014 Studio A", span: "span 2", row: "span 2" },
+      { img: "assets/studio-engineer-desk.jpg", hint: "Console detail", span: "span 1", row: "span 1" },
+      { img: "assets/studio-recording.jpg", hint: "Mics up for an acoustic take", span: "span 1", row: "span 1" },
+      { img: "assets/studio-film.jpg", hint: "Percussion session in the live room", span: "span 1", row: "span 2" },
+      { img: "assets/studio-gear-desk.jpg", hint: "Outboard rack", span: "span 1", row: "span 1" },
+      { img: "assets/studio-b-room.jpg", hint: "Vocal booth", span: "span 1", row: "span 1" },
+      { img: "assets/studio-ads.jpg", hint: "Session in progress", span: "span 2", row: "span 1" },
+      { img: "assets/studio-mix-master.jpg", hint: "Monitors and the Atmos array", span: "span 1", row: "span 1" },
+      { img: "assets/ai-about-room.jpg", hint: "The console and lounge", span: "span 1", row: "span 1" }
+    ];
+
+    const micTags = ["Large-diaphragm condensers", "Ribbons", "Dynamics", "Matched stereo pairs", "Neumann partner"];
+
+    const equipment = [
+      { name: "Monitoring", items: ["Neumann monitoring \u2014 Studio A", "Dolby Atmos 7.1.4 array", "Nearfield & midfield pairs", "Calibrated by Neumann"] },
+      { name: "Microphones", items: ["Large-diaphragm condensers", "Ribbon microphones", "Dynamic microphones", "Matched stereo pairs"] },
+      { name: "Preamps & channel strips", items: ["Analog preamps", "Channel strips", "Multi-channel front ends"] },
+      { name: "Outboard", items: ["Compressors & limiters", "EQs", "Reverbs & delays", "Mastering chain \u2014 Studio A"] },
+      { name: "Instruments & backline", items: ["Expansive backline", "Drum kits & percussion", "Keys & synths", "Indian classical instruments"] },
+      { name: "DAWs & software", items: ["Industry-standard DAWs", "Dolby Atmos renderer", "Post & restoration suites", "Scoring tools"] }
+    ].map((e, i) => ({ ...e, num: pad(i + 1) }));
+
+    const T = [
+      { n: "01", tag: "Front of house", title: "You come in through the lounge, not a lobby.", body: "Artists, producers and clients share the same first room \u2014 coffee, couches and a door straight onto the floor.", img: "assets/studio-control-room.jpg", imgAlt: "The Gray Spark control room seen on entry" },
+      { n: "02", tag: "Studio A \u2014 live room", title: "The flagship room, built to be played in.", body: "A Neumann-powered Dolby Atmos 7.1.4 room with a live floor big enough for a rhythm section and a mastering suite next door.", img: "assets/studio-a-live-room.jpg", imgAlt: "Studio A live room" },
+      { n: "03", tag: "Studio B \u2014 vocal booth", title: "One mic, one take, no bleed.", body: "Compact and dead quiet \u2014 vocals, dubbing and editing, with a sightline straight to the engineer.", img: "assets/studio-b-room.jpg", imgAlt: "Studio B vocal booth" },
+      { n: "04", tag: "Studio C \u2014 ideas room", title: "Where the session starts before it starts.", body: "An artist and programming room for writing, arranging and demoing without burning floor time.", img: "assets/studio-c-room.jpg", imgAlt: "Studio C artist and programming room" },
+      { n: "05", tag: "Studios X, Y & Z", title: "Class in session, all day.", body: "Three rooms dedicated to Academy students \u2014 fully equipped for production, so learning happens on real gear.", img: "assets/studio-xyz-room.jpg", imgAlt: "Academy studios X, Y and Z" },
+      { n: "06", tag: "The racks", title: "Fifteen years of gear, all patchable.", body: "Outboard racks, monitoring and a machine room that keeps every room fed from the same signal path.", img: "assets/studio-gear-desk.jpg", imgAlt: "Outboard racks and studio desk" }
+    ];
+    // One ambient walkthrough clip runs behind the whole reel; swap per-room ids
+    // into T when the individual room films are shot.
+    const tour = T.map((c, i) => ({ ...c, railnum: pad(i + 1), yt: c.yt || "gyTD9ICFeok" }));
+
+    const insta = [
+      { slot: "gs-ig-1", hint: "Instagram post 01" },
+      { slot: "gs-ig-2", hint: "Instagram post 02" },
+      { slot: "gs-ig-3", hint: "Instagram post 03" },
+      { slot: "gs-ig-4", hint: "Instagram post 04" }
+    ];
+
+    return { facts, rooms, tour, gallery, micTags, equipment, insta };
+  }
+
+  renderVals() {
+    return Object.assign({}, this.getData(), {
+      toggleSound: (e) => { e.stopPropagation(); this._toggleSound(e.currentTarget.getAttribute("data-sec")); }
+    });
+  }
+
+  _ytReady() {
+    if (this._ytPromise) return this._ytPromise;
+    this._ytPromise = new Promise((resolve) => {
+      if (window.YT && window.YT.Player) { resolve(window.YT); return; }
+      const prev = window.onYouTubeIframeAPIReady;
+      window.onYouTubeIframeAPIReady = () => { if (typeof prev === "function") try { prev(); } catch (e) {} resolve(window.YT); };
+      if (!document.getElementById("gs-yt-api")) {
+        const s = document.createElement("script");
+        s.id = "gs-yt-api";
+        s.src = "https://www.youtube.com/iframe_api";
+        document.head.appendChild(s);
+      }
+    });
+    return this._ytPromise;
+  }
+
+  // Muted ambient hero video, same treatment as the home page: plays while the
+  // hero is on screen, pauses off screen, loops.
+  _setupHeroVideo(id) {
+    const sec = document.getElementById("top");
+    if (!sec || !id) return;
+    const host = sec.querySelector("[data-videohost]");
+    const fade = sec.querySelector("[data-videofade]");
+    if (!host || !host.firstElementChild || host.getAttribute("data-wired")) return;
+    host.setAttribute("data-wired", "1");
+    let vis = true, player = null;
+    new IntersectionObserver((entries) => entries.forEach((en) => {
+      vis = en.isIntersecting;
+      if (player) { try { vis ? player.playVideo() : player.pauseVideo(); } catch (e) {} }
+    }), { threshold: 0 }).observe(sec);
+    this._ytReady().then((YT) => {
+      new YT.Player(host.firstElementChild, {
+        videoId: id,
+        width: "100%",
+        height: "100%",
+        playerVars: { autoplay: 0, mute: 1, controls: 0, rel: 0, playsinline: 1, modestbranding: 1, iv_load_policy: 3, disablekb: 1 },
+        events: {
+          onReady: (e) => {
+            try { e.target.mute(); } catch (err) {}
+            const f = e.target.getIframe();
+            if (f) f.style.cssText += ";width:100%;height:100%;position:absolute;top:0;left:0;pointer-events:none;border:0;";
+            player = e.target;
+            if (vis) { try { e.target.playVideo(); } catch (err) {} }
+          },
+          onStateChange: (e) => {
+            if (e.data === 1 && fade) fade.style.opacity = "1";
+            if (e.data === 0) { try { e.target.seekTo(0); e.target.playVideo(); } catch (err) {} }
+          }
+        }
+      });
+    });
+  }
+
+  _setupAmbient(secId, firstId) {
+    const sec = document.getElementById(secId);
+    if (!sec) return;
+    const host = sec.querySelector("[data-videohost]");
+    const fade = sec.querySelector("[data-videofade]");
+    if (!host || !host.firstElementChild) return;
+    if (host.getAttribute("data-wired")) return;
+    host.setAttribute("data-wired", "1");
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        this._vis[secId] = en.isIntersecting;
+        const rec = this._players[secId];
+        if (rec && rec.ready) { try { en.isIntersecting ? rec.player.playVideo() : rec.player.pauseVideo(); } catch (e) {} }
+      });
+    }, { threshold: 0 });
+    io.observe(sec);
+
+    this._ytReady().then((YT) => {
+      new YT.Player(host.firstElementChild, {
+        videoId: firstId,
+        width: "100%",
+        height: "100%",
+        playerVars: { autoplay: 0, mute: 1, controls: 0, rel: 0, playsinline: 1, modestbranding: 1, iv_load_policy: 3, disablekb: 1 },
+        events: {
+          onReady: (e) => {
+            try { e.target.mute(); } catch (err) {}
+            const f = e.target.getIframe();
+            if (f) f.style.cssText += ";width:100%;height:100%;position:absolute;top:0;left:0;pointer-events:none;border:0;";
+            this._players[secId] = { player: e.target, ready: true, fade: fade };
+            const st = this._story && this._story[secId];
+            if (st) {
+              const ch = st.chapters[st.active];
+              if (ch && ch.yt) { try { this._vis[secId] ? e.target.loadVideoById(ch.yt) : e.target.cueVideoById(ch.yt); } catch (err) {} }
+              else if (fade) fade.style.opacity = "0";
+              return;
+            }
+            if (this._vis[secId]) { try { e.target.playVideo(); } catch (err) {} }
+          },
+          onStateChange: (e) => {
+            const st = this._story && this._story[secId];
+            const ch = st && st.chapters[st.active];
+            if (e.data === 1 && fade && (!st || (ch && ch.yt))) fade.style.opacity = "1";
+            if (e.data === 0) { try { e.target.seekTo(0); e.target.playVideo(); } catch (err) {} }
+          }
+        }
+      });
+    });
+  }
+
+  _toggleSound(secId) {
+    const rec = this._players && this._players[secId];
+    if (!rec || !rec.ready) return;
+    const sec = document.getElementById(secId);
+    const label = sec && sec.querySelector("[data-soundlabel]");
+    try {
+      if (rec.player.isMuted()) { rec.player.unMute(); if (label) label.textContent = "mute"; }
+      else { rec.player.mute(); if (label) label.textContent = "unmute"; }
+    } catch (e) {}
+  }
+
+  _buildStory(id, chapters) {
+    const sec = document.getElementById(id);
+    if (!sec) return;
+    const layers = [...sec.querySelectorAll("[data-layer]")];
+    const caps = [...sec.querySelectorAll("[data-cap]")];
+    const nums = [...sec.querySelectorAll("[data-railnum]")];
+    const bars = [...sec.querySelectorAll("[data-railbar]")];
+    const numeral = sec.querySelector("[data-numeral]");
+    const counter = sec.querySelector("[data-counter]");
+    const fade = sec.querySelector("[data-videofade]");
+    const pad = this.pad.bind(this);
+    this._story = this._story || {};
+    this._story[id] = { chapters: chapters, active: 0 };
+    let raf = 0;
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        raf = 0;
+        const rect = sec.getBoundingClientRect();
+        const total = sec.offsetHeight - window.innerHeight;
+        const scrolled = Math.min(Math.max(-rect.top, 0), total);
+        const p = total > 0 ? scrolled / total : 0;
+        const active = Math.min(chapters.length - 1, Math.floor(p * chapters.length * 0.999));
+        if (this._story[id].active !== active) {
+          this._story[id].active = active;
+          const rec = this._players && this._players[id];
+          const ch = chapters[active];
+          if (rec && rec.ready) {
+            if (ch.yt) { let cur = ""; try { cur = (rec.player.getVideoData() || {}).video_id || ""; } catch (e) {} if (cur !== ch.yt) { try { rec.player.loadVideoById(ch.yt); } catch (e) {} } }
+            else { try { rec.player.pauseVideo(); } catch (e) {} if (fade) fade.style.opacity = "0"; }
+          } else if (!ch.yt && fade) fade.style.opacity = "0";
+        }
+        layers.forEach((el, i) => { el.style.opacity = i === active ? "1" : "0"; });
+        caps.forEach((el, i) => { el.style.opacity = i === active ? "1" : "0"; el.style.transform = "translateY(" + (i === active ? 0 : 24) + "px)"; el.style.filter = "blur(" + (i === active ? 0 : 6) + "px)"; });
+        nums.forEach((el, i) => { el.style.color = i === active ? "var(--accent)" : "rgba(255,255,255,0.4)"; });
+        bars.forEach((el, i) => { el.style.width = i < active ? "100%" : i === active ? Math.min(100, Math.max(0, (p * chapters.length - i) * 100)) + "%" : "0%"; });
+        if (numeral) numeral.textContent = chapters[active].n;
+        if (counter) counter.textContent = pad(active + 1);
+      });
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    onScroll();
+  }
+
+  componentDidMount() {
+    this._players = this._players || {};
+    this._vis = this._vis || {};
+    const tourData = this.getData().tour;
+    this._buildStory("tour", tourData);
+    const firstTourYt = tourData.find((c) => c.yt);
+    if (firstTourYt) this._setupAmbient("tour", firstTourYt.yt);
+    this._setupHeroVideo(this.props.heroVideoId ?? "gyTD9ICFeok");
+    // Reveal-on-scroll: re-scanned on scroll/resize so sections rendered after
+    // mount (and tall blocks that never cross a percentage threshold) still fire.
+    const sweepReveals = () => {
+      const vh = window.innerHeight;
+      document.querySelectorAll("[data-reveal]:not(.is-in)").forEach((el) => {
+        const r = el.getBoundingClientRect();
+        if (r.top < vh * 0.92 && r.bottom > 0) el.classList.add("is-in");
+      });
+    };
+    sweepReveals();
+    this._sweepReveals = sweepReveals;
+    window.addEventListener("scroll", sweepReveals, { passive: true });
+    window.addEventListener("resize", sweepReveals);
+    requestAnimationFrame(sweepReveals);
+    this._applyPalette();
+  }
+
+  componentDidUpdate() { this._applyPalette(); }
+
+  _palettes() {
+    return {
+      "Original (voltage yellow)": { "--bg": "#0a0a0a", "--fg": "#fafafa", "--surface": "#0d0d0d", "--surface2": "#242424", "--muted": "#8f8f8f", "--muted2": "#a6a6a6", "--border": "#333", "--accent": "oklch(0.9 0.19 100)", "--accent-fg": "#0a0a0a" },
+      "Clay on ink": { "--bg": "#15272E", "--fg": "#F7F0E2", "--surface": "#122127", "--surface2": "#2b3d43", "--muted": "#8fa0a3", "--muted2": "#a8b6b8", "--border": "#2f424a", "--accent": "#A2664B", "--accent-fg": "#F7F0E2" },
+      "Sage on ink": { "--bg": "#15272E", "--fg": "#F7F0E2", "--surface": "#122127", "--surface2": "#2b3d43", "--muted": "#8fa0a3", "--muted2": "#a8b6b8", "--border": "#2f424a", "--accent": "#6F8F74", "--accent-fg": "#10201c" },
+      "Clay on slate": { "--bg": "#2b3636", "--fg": "#F7F0E2", "--surface": "#26312f", "--surface2": "#3f4e4f", "--muted": "#9aa6a4", "--muted2": "#b3bdbb", "--border": "#3c4a48", "--accent": "#A2664B", "--accent-fg": "#F7F0E2" }
+    };
+  }
+
+  _applyPalette() {
+    const root = document.getElementById("gs-root");
+    if (!root) return;
+    const map = this._palettes();
+    const p = map[this.props.palette] || map["Sage on ink"];
+    Object.entries(p).forEach(([k, v]) => root.style.setProperty(k, v));
+  }
+}
+</script>
+</body>
+</html>
