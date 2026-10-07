@@ -57,6 +57,10 @@ script block — every host resolves directory indexes on its own.
   logic. It is vendored deliberately so the site has no install step.
 - Hero background videos are muted YouTube embeds, autoplayed while the hero is
   on screen. IDs are set per page via `heroVideoId`.
+- On the home and facility pages, a reel's YouTube player is only created when
+  its section comes within a screen of view, and photos below the hero use
+  `loading="lazy"`, so phones load the hero first. Photos in `assets/` are
+  compressed to max 1800px, JPEG quality 80.
 - **Mobile layer.** Every page links `vendor/mobile.css` and `vendor/mobile.js`
   right after `support.js`. All of it sits behind `max-width: 900px` (with extra
   phone tweaks at 640px and 380px), so desktop is untouched. Below 900px:
@@ -79,4 +83,12 @@ script block — every host resolves directory indexes on its own.
 ## Outstanding
 
 - Client logos in the brand marquee are wordmarks; real SVG logos still to drop in.
-- Portfolio and facility photography still on placeholders.
+- Home portfolio reel: each project shows a still while its video loads. Video
+  projects use the YouTube thumbnail automatically; ICC, KIA and Dex use interim
+  studio photos (`img:` in the `P` array in `index.html`) — swap in the real
+  stills there.
+- Other `<image-slot>` placeholders (facility Instagram grid, blog/PR covers,
+  studio work cards, contact map) still need real images. Images dropped into a
+  slot in the design tool are saved to a hidden `.image-slots.state.json` file
+  beside the page; that file isn't part of this folder, so dropped images don't
+  show on the live site. Replace each slot with an `<img>` instead.

@@ -11,6 +11,8 @@
 <body>
 <x-dc>
 <helmet>
+<link rel="preconnect" href="https://www.youtube.com">
+<link rel="preconnect" href="https://i.ytimg.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Archivo:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Caveat:wght@400;700&amp;display=swap" rel="stylesheet">
@@ -89,26 +91,46 @@
   .svc-arrow { transition: transform .45s cubic-bezier(.16,1,.3,1); }
   .svc-row:hover .svc-name { color: var(--accent); }
   .svc-name { transition: color .45s; }
-  .studio-disc { transition: opacity .5s cubic-bezier(.16,1,.3,1); }
 
   .quote-card img { transition: transform 1.2s cubic-bezier(.16,1,.3,1); }
   .quote-card:hover img { transform: scale(1.06); }
   .quote-tint { transition: opacity .5s; }
   .quote-card:hover .quote-tint { opacity:0; }
 
-  .studio-disc { transition: transform .7s cubic-bezier(.16,1,.3,1); }
-  .studio:hover .studio-disc { transform: scale(1.1) rotate(6deg); }
-  .studio img { transition: transform 1.2s cubic-bezier(.16,1,.3,1); }
-  .studio:hover img { transform: scale(1.06); }
-
-  @media (min-width:768px){
-    .studio:nth-child(even){ margin-top:96px; }
+  /* Our studios */
+  .rooms-head { display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:24px 48px; margin-bottom:56px; }
+  .rooms-intro { margin:0; max-width:40ch; font-size:16px; line-height:1.7; color:var(--muted2); text-wrap:pretty; }
+  .rooms-row { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:32px; }
+  .room-card { display:flex; flex-direction:column; gap:22px; color:var(--fg); }
+  .room-card:hover { color:var(--fg); }
+  .room-shot, .academy-shot { position:relative; overflow:hidden; background:var(--surface); border:1px solid var(--border); }
+  .room-shot { aspect-ratio:4/5; }
+  .academy-shot { aspect-ratio:16/10; }
+  .room-shot img, .academy-shot img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  .room-name { margin:0; font-family:var(--display); text-transform:uppercase; font-size:clamp(28px,2.6vw,38px); line-height:1; letter-spacing:-.005em; transition:color .3s; }
+  .room-card:hover .room-name { color:var(--accent); }
+  .room-role { margin:10px 0 0; font-size:16px; line-height:1.55; color:color-mix(in srgb, var(--fg) 82%, transparent); text-wrap:pretty; }
+  .room-specs { list-style:none; margin:18px 0 0; padding:16px 0 0; border-top:1px solid var(--border); display:flex; flex-direction:column; gap:7px; font-size:14px; line-height:1.5; color:var(--muted2); }
+  .academy { margin-top:88px; padding-top:64px; border-top:1px solid var(--border); display:grid; grid-template-columns:minmax(0,1.2fr) minmax(0,1fr); gap:56px; align-items:center; }
+  .academy-title { font-size:clamp(32px,3.4vw,52px); }
+  .academy-list { list-style:none; margin:28px 0 0; padding:0; border-top:1px solid var(--border); }
+  .academy-list li { display:grid; grid-template-columns:7.5em minmax(0,1fr); gap:16px; align-items:baseline; padding:15px 0; border-bottom:1px solid var(--border); font-size:14px; line-height:1.5; color:var(--muted2); }
+  .academy-name { font-family:var(--display); text-transform:uppercase; font-size:22px; line-height:1; color:var(--fg); }
+  .academy-link { margin-top:32px; display:inline-flex; align-items:center; border:1px solid var(--accent); color:var(--accent); padding:14px 22px; font-family:var(--mono); font-size:10px; text-transform:uppercase; letter-spacing:.25em; transition:background .3s, color .3s; }
+  .academy-link:hover { background:var(--accent); color:var(--accent-fg); }
+  @media (max-width:900px){
+    /* phones/tablets: swipeable row, next card peeking */
+    .rooms-row { grid-template-columns:none; grid-auto-flow:column; grid-auto-columns:min(78%, 340px); gap:16px; overflow-x:auto; scroll-snap-type:x mandatory; margin:0 -24px; padding:0 24px 4px; scroll-padding:0 24px; scrollbar-width:none; overscroll-behavior-x:contain; }
+    .rooms-row::-webkit-scrollbar { display:none; }
+    .room-card { scroll-snap-align:start; }
+    .rooms-head { margin-bottom:36px; }
+    .academy { grid-template-columns:1fr; gap:28px; margin-top:56px; padding-top:48px; }
   }
+
   @media (max-width:900px){
     .nav-links{ display:none !important; }
     .hide-mobile{ display:none !important; }
     .about-grid{ grid-template-columns:1fr !important; }
-    .studio-grid{ grid-template-columns:1fr !important; }
     .stat-grid{ grid-template-columns:repeat(2,minmax(0,1fr)) !important; } .stat-grid > *:nth-child(n+3){ border-top:1px solid var(--border); }
     .foot-grid{ grid-template-columns:1fr 1fr !important; }
   }
@@ -234,7 +256,7 @@
   <!-- ABOUT + STATS -->
   <section id="about" style="position:relative;padding:96px 24px;border-bottom:1px solid var(--border);overflow:hidden;">
     <div class="yellow-tint vignette scanlines" style="position:absolute;inset:0;">
-      <img src="assets/story-console.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.6;filter:grayscale(.55) contrast(1.1) brightness(.55) sepia(.35);">
+      <img loading="lazy" decoding="async" src="assets/story-console.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.6;filter:grayscale(.55) contrast(1.1) brightness(.55) sepia(.35);">
     </div>
     <div style="position:absolute;inset:0;background:rgba(10,10,10,.6);"></div>
 
@@ -247,7 +269,7 @@
         </div>
         <figure style="margin:40px 0 0;position:relative;width:100%;max-width:1100px;text-align:center;">
           <div class="tinted-shot" style="position:relative;overflow:hidden;border:1px solid var(--border);aspect-ratio:16/9;background:#000;">
-            <img src="assets/studio-control-room.jpg" alt="Control room at Gray Spark Audio — chevron timber wall, nearfield monitors and mixing desk" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+            <img loading="lazy" decoding="async" src="assets/studio-control-room.jpg" alt="Control room at Gray Spark Audio — chevron timber wall, nearfield monitors and mixing desk" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
           </div>
           <figcaption style="margin:12px 0 0;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.2em;color:var(--muted);">Control room — Pune</figcaption>
         </figure>
@@ -290,7 +312,7 @@
               </div>
               <sc-if value="{{ s.img }}" hint-placeholder-val="{{ false }}">
                 <div class="hide-mobile svc-thumb" style="position:relative;overflow:hidden;border:1px solid var(--border);aspect-ratio:1/1;width:200px;background:#000;margin-right:64px;">
-                  <img data-src="{{ s.img }}" alt="{{ s.imgAlt }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+                  <img loading="lazy" decoding="async" data-src="{{ s.img }}" alt="{{ s.imgAlt }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
                 </div>
               </sc-if>
               <span class="svc-arrow hide-mobile" style="font-family:var(--display);font-size:32px;color:var(--accent);padding-top:4px;">→</span>
@@ -307,7 +329,7 @@
       <div style="position:absolute;inset:0;">
         <sc-for list="{{ portfolio }}" as="c">
           <div data-layer="" style="position:absolute;inset:0;opacity:0;transition:opacity .7s ease;">
-            <image-slot id="{{ c.slot }}" shape="rect" fit="cover" placeholder="{{ c.slotHint }}" style="position:absolute;inset:0;width:100%;height:100%;"></image-slot>
+            <img data-src="{{ c.img }}" data-poster="" alt="{{ c.imgAlt }}" loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
           </div>
         </sc-for>
       </div>
@@ -378,7 +400,7 @@
             <p style="margin:0 0 8px;flex:1;color:rgba(255,255,255,.68);line-height:1.8;font-size:15px;text-wrap:pretty;">{{ u.body }}</p>
             <sc-if value="{{ u.img }}" hint-placeholder-val="{{ false }}">
               <div class="tinted-shot" style="position:relative;overflow:hidden;border:1px solid var(--border);aspect-ratio:16/9;background:#000;">
-                <img data-src="{{ u.img }}" alt="{{ u.imgAlt }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+                <img loading="lazy" decoding="async" data-src="{{ u.img }}" alt="{{ u.imgAlt }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
               </div>
             </sc-if>
           </div>
@@ -454,7 +476,7 @@
         <sc-for list="{{ tour }}" as="c">
           <div data-layer="" style="position:absolute;inset:0;opacity:0;transition:opacity .7s ease;">
             <sc-if value="{{ c.img }}" hint-placeholder-val="{{ false }}">
-              <img data-src="{{ c.img }}" alt="{{ c.imgAlt }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+              <img loading="lazy" decoding="async" data-src="{{ c.img }}" alt="{{ c.imgAlt }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
             </sc-if>
           </div>
         </sc-for>
@@ -506,36 +528,45 @@
   <!-- STUDIO SPACES -->
   <section id="studios" style="padding:96px 24px;border-bottom:1px solid var(--border);">
     <div style="max-width:1440px;margin:0 auto;">
-      <div data-reveal="" style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:64px;">
+      <div data-reveal="" class="rooms-head">
         <div class="reveal">
           <p style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.25em;color:var(--accent);margin:0 0 12px;">07 / Studio spaces</p>
           <h2 style="font-family:var(--display);text-transform:uppercase;font-size:clamp(40px,6vw,96px);line-height:.95;letter-spacing:-.01em;margin:0;">Our studios.</h2>
         </div>
-        <p class="reveal" style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.2em;color:var(--muted);max-width:26ch;text-align:right;margin:0;">[ each room tuned<br>for a different job ]</p>
+        <p class="reveal rooms-intro">Six rooms under one roof: three for production and three for the Academy, each set up for a different job.</p>
       </div>
-      <div class="studio-grid" style="display:grid;grid-template-columns:repeat(2,1fr);column-gap:40px;row-gap:80px;">
-        <sc-for list="{{ studios }}" as="s" hint-placeholder-count="4">
-          <a href="facility/index.html" data-reveal="" class="studio hover-depth" style="display:grid;grid-template-columns:1fr 1.4fr;align-items:center;gap:24px;">
-            <div style="position:relative;padding-top:28px;">
-            <div class="image-zoom" style="position:relative;aspect-ratio:1;">
-              <div class="studio-disc" style="position:absolute;inset:0;border-radius:50%;background:var(--accent);"></div>
-              <img data-src="{{ s.img }}" alt="{{ s.name }}" style="position:relative;width:100%;height:100%;object-fit:cover;border-radius:50%;mix-blend-mode:multiply;">
-            </div>
-              <span style="position:absolute;top:0;left:0;z-index:2;font-family:var(--mono);font-size:10px;line-height:1.4;text-transform:uppercase;letter-spacing:.25em;color:var(--accent);background:var(--bg);padding:0 8px 6px 0;">● {{ s.n }}</span>
+
+      <div data-reveal="" data-stagger="" class="rooms-row">
+        <sc-for list="{{ rooms }}" as="r" hint-placeholder-count="3">
+          <a href="facility/index.html#rooms" class="room-card">
+            <div class="room-shot image-zoom">
+              <img loading="lazy" decoding="async" data-src="{{ r.img }}" alt="{{ r.imgAlt }}">
             </div>
             <div>
-              <p style="font-family:var(--display);font-size:clamp(28px,3.6vw,46px);text-transform:uppercase;line-height:1;margin:0;">{{ s.name }}</p>
-              <div style="margin-top:20px;height:1px;width:64px;background:var(--accent);"></div>
-              <ul style="margin:20px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px;">
-                <sc-for list="{{ s.specs }}" as="sp" hint-placeholder-count="4">
-                  <li style="display:flex;align-items:center;gap:12px;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.22em;color:var(--muted2);">
-                    <span style="width:5px;height:5px;flex:none;background:var(--accent);"></span>{{ sp }}
-                  </li>
-                </sc-for>
+              <p class="room-name">{{ r.name }}</p>
+              <p class="room-role">{{ r.role }}</p>
+              <ul class="room-specs">
+                <sc-for list="{{ r.specs }}" as="sp" hint-placeholder-count="3"><li>{{ sp }}</li></sc-for>
               </ul>
             </div>
           </a>
         </sc-for>
+      </div>
+
+      <div data-reveal="" class="academy">
+        <div class="academy-shot image-zoom reveal-left">
+          <img loading="lazy" decoding="async" src="assets/studio-xyz-room.jpg" alt="One of the Gray Spark Academy studios">
+        </div>
+        <div class="reveal-right">
+          <p class="room-name academy-title">Academy studios</p>
+          <p class="room-role">Three teaching rooms for Gray Spark Academy, each equipped for production, so students learn on working gear.</p>
+          <ul class="academy-list">
+            <sc-for list="{{ academyRooms }}" as="r" hint-placeholder-count="3">
+              <li><span class="academy-name">{{ r.name }}</span><span>{{ r.detail }}</span></li>
+            </sc-for>
+          </ul>
+          <a href="https://academy.gray-spark.com/" target="_blank" rel="noopener" class="academy-link">Visit the Academy</a>
+        </div>
       </div>
     </div>
   </section>
@@ -556,7 +587,7 @@
         </div>
       </div>
       <div class="reveal-right tinted-shot" style="position:relative;aspect-ratio:4/3;border:1px solid var(--border);overflow:hidden;">
-        <img src="assets/studio-a-neumann.jpg" alt="Studio A — Neumann-powered Dolby Atmos room with timber diffusion and overhead array" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+        <img loading="lazy" decoding="async" src="assets/studio-a-neumann.jpg" alt="Studio A — Neumann-powered Dolby Atmos room with timber diffusion and overhead array" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
         <span style="position:absolute;top:16px;left:16px;z-index:2;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.3em;color:var(--accent);background:rgba(10,10,10,.72);padding:6px 10px;pointer-events:none;">● Studio A — 7.1.4</span>
       </div>
     </div>
@@ -661,15 +692,24 @@ class Component extends DCLogic {
     ].map((s, i) => ({ ...s, num: pad(i + 1) }));
 
     const P = [
-      { n: "01", tag: "ICC Champions Trophy", title: "A global sports anthem, mixed for a billion viewers.", body: "Music and sound design for one of cricket's biggest stages \u2014 written, recorded and mixed in Baner.", slot: "gs-pf-icc", slotHint: "Drop an ICC Champions Trophy still" },
-      { n: "02", tag: "KIA", title: "A soundtrack that moves with the machine.", body: "Dynamic brand music and sound design built to carry a campaign across films, cutdowns and platforms.", slot: "gs-pf-kia", slotHint: "Drop a KIA campaign still" },
+      { n: "01", img: "assets/story-drums.jpg", tag: "ICC Champions Trophy", title: "A global sports anthem, mixed for a billion viewers.", body: "Music and sound design for one of cricket's biggest stages \u2014 written, recorded and mixed in Baner.", slot: "gs-pf-icc", slotHint: "Drop an ICC Champions Trophy still" },
+      { n: "02", img: "assets/studio-ads.jpg", tag: "KIA", title: "A soundtrack that moves with the machine.", body: "Dynamic brand music and sound design built to carry a campaign across films, cutdowns and platforms.", slot: "gs-pf-kia", slotHint: "Drop a KIA campaign still" },
       { n: "03", tag: "Easy Wanderlings", title: "The indie record that sounds like a Sunday.", body: "Recording, mix and master \u2014 wide, warm and unhurried, the way the band plays it live in the room.", yt: "-3V4OpteifI", slot: "gs-pf-wanderlings", slotHint: "Drop an Easy Wanderlings still" },
       { yt: "UOUMGKotXQ8", n: "04", tag: "BYOH \u2014 f16s", title: "A band record cut with the amps still ringing.", body: "Tracking, production and mix for one of the country's most distinctive rock outfits.", slot: "gs-pf-f16s", slotHint: "Drop a BYOH / f16s still" },
-      { n: "05", tag: "Dex \u2014 audio tours", title: "Thousands of narrated minutes, one consistent voice.", body: "AI-leveraged voice production, music and sound design for audio tours \u2014 produced at volume without losing the thread.", slot: "gs-pf-dex", slotHint: "Drop a Dex audio-tour still" },
+      { n: "05", img: "assets/music-ads-session.jpg", tag: "Dex \u2014 audio tours", title: "Thousands of narrated minutes, one consistent voice.", body: "AI-leveraged voice production, music and sound design for audio tours \u2014 produced at volume without losing the thread.", slot: "gs-pf-dex", slotHint: "Drop a Dex audio-tour still" },
       { n: "06", tag: "Netflix \u2014 Sacred Games", title: "The show that pressed record on prestige TV in India.", body: "Location recording, ADR and post \u2014 cut inside the live room while the sirens still rang in our ears.", yt: "gSyY8Aav2e0", slot: "gs-pf-sacred", slotHint: "Drop a Sacred Games still" },
       { yt: "50GJ7D_00NA", n: "07", tag: "Varshangalkku Shesham", title: "A feature that leans on its score to carry the years.", body: "Film music and sound design \u2014 dialogue, score and mix held to the frame from first cut to final print.", slot: "gs-pf-varsha", slotHint: "Drop a Varshangalkku Shesham still" }
     ];
-    const portfolio = P.map((c, i) => ({ ...c, railnum: pad(i + 1) }));
+    // Each chapter shows a still while its video loads (and instead of one on
+    // chapters without a video). Video chapters default to the YouTube
+    // thumbnail; give a chapter its own `img` to override. Interim studio
+    // photos stand in on ICC, KIA and Dex until the real stills are added.
+    const portfolio = P.map((c, i) => ({
+      ...c,
+      railnum: pad(i + 1),
+      img: c.img || (c.yt ? "https://i.ytimg.com/vi/" + c.yt + "/maxresdefault.jpg" : ""),
+      imgAlt: c.tag + " \u2014 project still"
+    }));
 
     const usps = [
       { title: "Collaborate with award-winning engineers, producers & composers", note: "the people make the record",
@@ -680,13 +720,18 @@ class Component extends DCLogic {
         img: "assets/studio-guitar-session.jpg", imgAlt: "Guitarist tracking an acoustic take in the live room", body: "Fifteen years of records, campaigns and films \u2014 for ICC, KIA, Samsung, SBI, Netflix and independent artists alike. Turnkey solutions, delivering convenience and quality under one roof." }
     ].map((u, i) => ({ ...u, num: pad(i + 1) }));
 
-    const studios = [
-      { n: "A", name: "Studio A", note: "the flagship", img: "assets/studio-a-live-room.jpg", specs: ["Spacious", "State of the art", "Outboard gear", "Mastering suite", "Neumann-powered Dolby Atmos 7.1.4"] },
-      { n: "B", name: "Studio B", note: "one mic, one take", img: "assets/studio-b-room.jpg", specs: ["Compact", "Vocal recording", "Dubbing", "Editing"] },
-      { n: "C", name: "Studio C", note: "the ideas room", img: "assets/studio-c-room.jpg", specs: ["Artist room", "Programming suite"] },
-      { n: "X", name: "Studio X", note: "class in session", img: "assets/studio-xyz-room.jpg", specs: ["Academy studio", "Spacious", "Equipped for production"] },
-      { n: "Y", name: "Studio Y", note: "practice room", img: "assets/studio-xyz-room.jpg", specs: ["Academy studio", "Production workstation", "Student sessions"] },
-      { n: "Z", name: "Studio Z", note: "lab hours", img: "assets/studio-xyz-room.jpg", specs: ["Academy studio", "Equipped for production", "Open to students"] }
+    const rooms = [
+      { name: "Studio A", img: "assets/studio-a-live-room.jpg", imgAlt: "Studio A live room with piano, drum kit and timber acoustic panels",
+        role: "The flagship tracking and mixing room.", specs: ["Spacious live room", "Outboard gear and mastering suite", "Neumann-powered Dolby Atmos 7.1.4"] },
+      { name: "Studio B", img: "assets/studio-b-room.jpg", imgAlt: "Studio B, a compact vocal and voice-over room",
+        role: "Compact room for vocals and voice-over.", specs: ["Vocal recording", "Dubbing", "Editing"] },
+      { name: "Studio C", img: "assets/studio-c-room.jpg", imgAlt: "Studio C artist and programming room",
+        role: "Artist room for writing and pre-production.", specs: ["Programming suite", "Arranging and demos"] }
+    ];
+    const academyRooms = [
+      { name: "Studio X", detail: "Spacious, equipped for production" },
+      { name: "Studio Y", detail: "Production workstations for student sessions" },
+      { name: "Studio Z", detail: "Equipped for production, open to students" }
     ];
 
     const T = [
@@ -722,7 +767,7 @@ class Component extends DCLogic {
     }));
     const quotes = [...Q, ...Q].map((q, i) => ({ ...q, num: pad((i % Q.length) + 1) }));
 
-    return { brands, stats, services, portfolio: portfolio.map((c) => { const [client, project] = String(c.tag || "").split(/\s+\u2014\s+|\s+—\s+/); return { ...c, client: client || c.tag, project: project || "" }; }), tour, usps, studios, atmosTags, quotes };
+    return { brands, stats, services, rooms, academyRooms, portfolio: portfolio.map((c) => { const [client, project] = String(c.tag || "").split(/\s+\u2014\s+|\s+—\s+/); return { ...c, client: client || c.tag, project: project || "" }; }), tour, usps, atmosTags, quotes };
   }
 
   renderVals() {
@@ -762,6 +807,24 @@ class Component extends DCLogic {
     this._vis = this._vis || {};
 
     this._buildStory("portfolio", data.portfolio);
+    // Not every video has a maxres thumbnail (YouTube serves a 120px grey stub
+    // or a 404). Fall back to hqdefault and crop its letterbox bars.
+    const pf = document.getElementById("portfolio");
+    if (pf) {
+      const fixThumb = (img) => {
+        const src = img.getAttribute("src") || "";
+        if (src.indexOf("/maxresdefault.jpg") < 0) return;
+        if (img.complete && img.naturalWidth > 120) return;
+        const alt = src.replace("/maxresdefault.jpg", "/hqdefault.jpg");
+        img.setAttribute("data-src", alt);
+        img.setAttribute("src", alt);
+        img.style.transform = "scale(1.34)";
+      };
+      const onImg = (e) => { if (e.target.hasAttribute && e.target.hasAttribute("data-poster")) fixThumb(e.target); };
+      pf.addEventListener("load", onImg, true);
+      pf.addEventListener("error", onImg, true);
+      pf.querySelectorAll("img[data-poster]").forEach((img) => { if (img.complete && img.getAttribute("src")) fixThumb(img); });
+    }
     if (this.props.heroVideo !== false) this._setupAmbient("top", this.props.heroVideoId ?? "gyTD9ICFeok");
     const firstYt = data.portfolio.find((c) => c.yt);
     if (firstYt) this._setupAmbient("portfolio", firstYt.yt);
@@ -843,7 +906,10 @@ class Component extends DCLogic {
     }, { threshold: 0 });
     io.observe(sec);
 
-    this._ytReady().then((YT) => {
+    // Build the player only when the section is about to scroll into view
+    // (within one screen), so phones don't load every reel's player and video
+    // up front alongside the hero.
+    const create = () => this._ytReady().then((YT) => {
       new YT.Player(host.firstElementChild, {
         videoId: firstId,
         width: "100%",
@@ -873,6 +939,10 @@ class Component extends DCLogic {
         }
       });
     });
+    const near = new IntersectionObserver((entries) => {
+      if (entries.some((en) => en.isIntersecting)) { near.disconnect(); create(); }
+    }, { rootMargin: "100% 0px 100% 0px" });
+    near.observe(sec);
   }
 
   _toggleSound(secId) {
@@ -940,7 +1010,7 @@ class Component extends DCLogic {
           const rec = this._players && this._players[id];
           const ch = chapters[active];
           if (rec && rec.ready) {
-            if (ch.yt) { let cur = ""; try { cur = (rec.player.getVideoData() || {}).video_id || ""; } catch (e) {} if (cur !== ch.yt) { try { rec.player.loadVideoById(ch.yt); } catch (e) {} } }
+            if (ch.yt) { let cur = ""; try { cur = (rec.player.getVideoData() || {}).video_id || ""; } catch (e) {} if (cur !== ch.yt) { if (fade) fade.style.opacity = "0"; try { rec.player.loadVideoById(ch.yt); } catch (e) {} } }
             else { try { rec.player.pauseVideo(); } catch (e) {} if (fade) fade.style.opacity = "0"; }
           } else if (!ch.yt && fade) fade.style.opacity = "0";
         }

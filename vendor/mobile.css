@@ -179,7 +179,6 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   /* Home: review cards fit the screen, Google summary box breathes less */
   #gs-root .quote-card { width: min(400px, 84vw) !important; }
   #gs-root .g-box { padding: 24px 20px !important; gap: 24px !important; }
-  #gs-root .studio-grid { row-gap: 56px !important; }
 
   /* Footer bottom row (socials) — bigger tap targets */
   #gs-root footer > div > div:last-child a.hover-underline { padding: 8px 0; }
