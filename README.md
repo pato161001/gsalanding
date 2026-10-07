@@ -62,8 +62,8 @@ script block — every host resolves directory indexes on its own.
   phone tweaks at 640px and 380px), so desktop is untouched. Below 900px:
   - the header gets a menu button and full-screen menu, built by `mobile.js`
     from the page's own `.nav-links` (so editing a page's nav updates its menu);
-  - the floating quick-contact rail becomes a bottom bar (WhatsApp / Call /
-    Enquire / Email — labels come from `data-label` on each link);
+  - the floating quick-contact rail stays vertical, as on desktop, but is
+    slightly smaller (44px buttons) and sits closer to the edge;
   - heroes, scroll reels and service rows reflow via hook classes in the
     markup: `.hero`, `.hero-body`, `.hero-facts`, `.reel-stage`, `.reel-tl`,
     `.reel-tr`, `.reel-sound`, `.reel-body`, `.reel-grid`, `.svc-grid`,
