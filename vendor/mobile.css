@@ -1,0 +1,214 @@
+/* ==========================================================================
+   GraySpark — mobile layer
+   Loaded by every page right after support.js. Everything here sits inside a
+   max-width media query, so desktop rendering is untouched.
+
+   Pages style with inline attributes, so overrides are scoped under #gs-root
+   (id specificity beats the pages' own <style> blocks) and use !important
+   where they have to beat an inline style. Hooks used below are plain classes
+   added to the markup: .hero / .hero-body, .reel-*, .svc-grid, .quick-contact,
+   .hover-hint, .g-box, .map-*. The menu (.gs-burger / .gs-drawer) is built by
+   vendor/mobile.js from each page's own header links.
+
+   Note: the runtime re-serialises inline styles (e.g. "font-size:9px" is in
+   the DOM as "font-size: 9px;"), so [style*=...] selectors use that form.
+   ========================================================================== */
+
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+.gs-burger, .gs-drawer { display: none; }
+
+@keyframes gs-m-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+/* --------------------------------------------------------------------------
+   Tablet + phone (matches the pages' own 900px breakpoint, where the inline
+   nav links are hidden)
+   -------------------------------------------------------------------------- */
+@media (max-width: 900px) {
+  :root { --mbar: calc(58px + env(safe-area-inset-bottom, 0px)); }
+
+  #gs-root { padding-bottom: var(--mbar); -webkit-tap-highlight-color: transparent; }
+
+  /* ---- Header: leave room for the menu button ---------------------------- */
+  #gs-root header > div { padding: 0 72px 0 20px !important; gap: 12px !important; }
+  #gs-root header > div > a:first-child img { height: 44px !important; }
+  #gs-root header > div > a:last-child { white-space: nowrap; flex: none; }
+  html.gs-menu-open #gs-root header { z-index: 82 !important; }
+
+  .gs-burger {
+    display: inline-flex; align-items: center; justify-content: center;
+    position: fixed; top: 14px; right: 16px; z-index: 85;
+    width: 44px; height: 44px; padding: 0; cursor: pointer;
+    background: transparent; color: var(--fg, #F4ECE2);
+    border: 1px solid color-mix(in srgb, var(--fg, #F4ECE2) 22%, transparent);
+  }
+  .gs-burger span { position: absolute; left: 12px; right: 12px; height: 1.5px; background: currentColor; transition: transform .35s cubic-bezier(.16,1,.3,1), opacity .2s; }
+  .gs-burger span:nth-child(1) { transform: translateY(-6px); }
+  .gs-burger span:nth-child(3) { transform: translateY(6px); }
+  .gs-burger[aria-expanded="true"] { border-color: var(--accent, #f46530); color: var(--accent, #f46530); }
+  .gs-burger[aria-expanded="true"] span:nth-child(1) { transform: rotate(45deg); }
+  .gs-burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .gs-burger[aria-expanded="true"] span:nth-child(3) { transform: rotate(-45deg); }
+  .gs-burger:focus-visible, .gs-drawer a:focus-visible { outline: 2px solid var(--accent, #f46530); outline-offset: 3px; }
+
+  /* ---- Full-screen menu ------------------------------------------------- */
+  .gs-drawer {
+    display: flex; flex-direction: column;
+    position: fixed; inset: 0; z-index: 80; overflow-y: auto; overscroll-behavior: contain;
+    padding: 96px 24px calc(24px + env(safe-area-inset-bottom, 0px));
+    background: var(--bg, #12191C); color: var(--fg, #F4ECE2);
+    opacity: 0; visibility: hidden; transform: translateY(-8px);
+    transition: opacity .3s ease, transform .45s cubic-bezier(.16,1,.3,1), visibility 0s linear .45s;
+  }
+  .gs-drawer.is-open { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
+  .gs-drawer-nav { display: flex; flex-direction: column; border-top: 1px solid var(--border, #2A3437); }
+  .gs-drawer-nav a {
+    display: flex; align-items: baseline; gap: 16px; padding: 13px 0;
+    border-bottom: 1px solid var(--border, #2A3437);
+    font-family: var(--display, 'Anton', sans-serif); font-size: clamp(30px, 9vw, 44px);
+    line-height: 1; letter-spacing: -.01em; text-transform: uppercase; color: var(--fg, #F4ECE2);
+  }
+  .gs-drawer-nav a .n { flex: none; width: 26px; font-family: var(--mono, monospace); font-size: 11px; letter-spacing: .2em; color: var(--accent, #f46530); }
+  .gs-drawer-nav a.is-active { color: var(--accent, #f46530); }
+  .gs-drawer.is-open .gs-drawer-nav a { animation: gs-m-in .55s cubic-bezier(.16,1,.3,1) both; }
+  .gs-drawer.is-open .gs-drawer-nav a:nth-child(2) { animation-delay: 30ms; }
+  .gs-drawer.is-open .gs-drawer-nav a:nth-child(3) { animation-delay: 60ms; }
+  .gs-drawer.is-open .gs-drawer-nav a:nth-child(4) { animation-delay: 90ms; }
+  .gs-drawer.is-open .gs-drawer-nav a:nth-child(5) { animation-delay: 120ms; }
+  .gs-drawer.is-open .gs-drawer-nav a:nth-child(6) { animation-delay: 150ms; }
+  .gs-drawer.is-open .gs-drawer-nav a:nth-child(7) { animation-delay: 180ms; }
+  .gs-drawer.is-open .gs-drawer-nav a:nth-child(8) { animation-delay: 210ms; }
+  .gs-drawer-foot { margin-top: auto; padding-top: 32px; display: flex; flex-direction: column; gap: 18px; }
+  .gs-drawer-cta {
+    display: flex; align-items: center; justify-content: center; gap: 10px; padding: 18px 20px;
+    background: var(--accent, #f46530); color: var(--accent-fg, #140B06);
+    font-family: var(--mono, monospace); font-size: 11px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase;
+  }
+  .gs-drawer-cta:hover { color: var(--accent-fg, #140B06); }
+  .gs-drawer-meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 16px; font-family: var(--mono, monospace); font-size: 11px; letter-spacing: .14em; color: var(--muted2, #ABB2B3); }
+  .gs-drawer-meta a { padding: 6px 0; }
+  html.gs-menu-open, html.gs-menu-open body { overflow: hidden; }
+
+  /* ---- Quick-contact rail -> bottom action bar --------------------------- */
+  #gs-root .quick-contact {
+    top: auto !important; bottom: 0 !important; left: 0 !important; right: 0 !important;
+    transform: none !important; flex-direction: row !important; gap: 0 !important;
+    padding: 0 0 env(safe-area-inset-bottom, 0px);
+    background: color-mix(in srgb, var(--surface, #0F1517) 90%, transparent);
+    -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+    border-top: 1px solid var(--border, #2A3437);
+  }
+  #gs-root .quick-contact > a {
+    flex: 1 1 0 !important; width: auto !important; height: 58px !important;
+    flex-direction: column; gap: 5px;
+    border-radius: 0 !important; border: 0 !important; border-left: 1px solid var(--border, #2A3437) !important;
+    background: transparent !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
+    color: var(--fg, #F4ECE2) !important;
+  }
+  #gs-root .quick-contact > a:first-child { border-left: 0 !important; }
+  #gs-root .quick-contact > a::after { content: attr(data-label); font-family: var(--mono, monospace); font-size: 10px; letter-spacing: .16em; text-transform: uppercase; line-height: 1; }
+  #gs-root .quick-contact > a[data-label="Enquire"] { background: var(--accent, #f46530) !important; color: var(--accent-fg, #140B06) !important; }
+  #gs-root .quick-contact svg { width: 19px; height: 19px; }
+
+  /* Back-to-top: compact square above the bar */
+  #gs-root #gs-top { bottom: calc(var(--mbar) + 12px) !important; right: 12px !important; width: 40px; height: 40px; padding: 0 !important; font-size: 0 !important; }
+  #gs-root #gs-top .gs-rec-dot { display: none; }
+  #gs-root #gs-top::after { content: "\2191"; font-family: var(--mono, monospace); font-size: 16px; font-weight: 700; }
+
+  /* ---- Heroes: let content set the height, never slide under the header -- */
+  #gs-root .hero {
+    height: auto !important; min-height: 100svh !important;
+    display: flex; flex-direction: column; justify-content: flex-end;
+  }
+  #gs-root .hero-body {
+    position: relative !important; width: 100%; box-sizing: border-box;
+    padding: 176px 24px calc(var(--mbar) + 28px) !important;
+  }
+  #gs-root .hero-body > div { margin-top: 24px !important; gap: 24px !important; }
+  #gs-root .hero-body p.gs-fadein { width: auto !important; height: auto !important; }
+
+  /* ---- Sticky scroll reels ---------------------------------------------- */
+  #gs-root .reel-stage { height: 100svh !important; }
+  #gs-root .reel-tl { top: 88px !important; left: 24px !important; }
+  #gs-root .reel-tr { top: 88px !important; right: 24px !important; }
+  #gs-root .reel-sound { top: 132px !important; right: 24px !important; padding: 10px 14px !important; }
+  #gs-root .reel-tl span:last-child { letter-spacing: .2em !important; }
+  #gs-root .reel-tr br, #gs-root .reel-tr br + span { display: none; }
+  #gs-root .reel-body { padding: 0 24px calc(var(--mbar) + 64px) !important; }
+  #gs-root .reel-grid { grid-template-columns: minmax(0, 1fr) !important; }
+
+  /* ---- Numbered service rows: drop the 64px number gutter ----------------- */
+  #gs-root .svc-grid { grid-template-columns: minmax(0, 1fr) !important; gap: 14px !important; padding-left: 0 !important; padding-right: 0 !important; }
+  #gs-root .svc-grid > span:first-child { padding-top: 0 !important; }
+
+  /* ---- Footer ----------------------------------------------------------- */
+  #gs-root .foot-grid { gap: 36px 24px !important; }
+  #gs-root .foot-grid > :nth-child(-n+2) { grid-column: 1 / -1; }
+  #gs-root .foot-grid a.hover-underline { padding: 7px 0; }
+  #gs-root footer a.hover-underline { overflow-wrap: anywhere; }
+
+  /* ---- Forms: 16px stops iOS zooming into fields on focus ----------------- */
+  #gs-root input, #gs-root select, #gs-root textarea { font-size: 16px !important; }
+
+  /* ---- Video lightbox: full width, close button inside the screen -------- */
+  #gs-root #gs-lightbox { padding: 16px !important; }
+  #gs-root #gs-lightbox > div { width: 100% !important; }
+  #gs-root #gs-lightbox button[aria-label="Close"] { top: -56px !important; right: 0 !important; }
+
+  /* ---- Contact map: stack the copy above the map ------------------------ */
+  #gs-root .map-wrap { aspect-ratio: auto !important; min-height: 0 !important; display: flex; flex-direction: column-reverse; }
+  #gs-root .map-wrap > image-slot { position: relative !important; inset: auto !important; height: 260px !important; }
+  #gs-root .map-fade { display: none; }
+  #gs-root .map-copy { position: relative !important; padding: 56px 24px 40px !important; }
+}
+
+/* --------------------------------------------------------------------------
+   Phones
+   -------------------------------------------------------------------------- */
+@media (max-width: 640px) {
+  /* Tighter vertical rhythm — 96px section padding is a lot of thumb travel */
+  #gs-root section[style*="padding: 96px 24px;"],
+  #gs-root section[style*="padding: 88px 24px;"] { padding-top: 64px !important; padding-bottom: 64px !important; }
+  #gs-root section[style*="padding: 96px 0px;"] { padding-top: 64px !important; padding-bottom: 64px !important; }
+  #gs-root footer[style*="padding: 96px 24px"], #gs-root footer[style*="padding: 80px 24px"] { padding-top: 64px !important; }
+
+  /* 9px uppercase mono is below comfortable reading size on a phone */
+  #gs-root [style*="font-size: 9px"] { font-size: 10px !important; }
+
+  /* Header CTA: keep it on one line next to the logo + menu button */
+  #gs-root header > div { padding-left: 16px !important; padding-right: 68px !important; }
+  #gs-root header > div > a:last-child { padding: 13px 12px !important; letter-spacing: .14em !important; }
+  .gs-burger { right: 12px; }
+
+  /* Hero type */
+  #gs-root .hero-body h1 { font-size: clamp(40px, 12.4vw, 60px) !important; }
+  #gs-root .hero-body h1 span[style*="font-size"] { font-size: inherit !important; }
+  #gs-root .hero-body p.gs-fadein { font-size: 16px !important; line-height: 1.65 !important; }
+  /* Facility hero facts: 2x2 grid instead of a ragged right-aligned stack */
+  #gs-root .hero-facts { display: grid !important; grid-template-columns: 1fr 1fr; gap: 20px 24px !important; width: 100%; }
+  #gs-root .hero-facts > div { text-align: left !important; }
+  #gs-root .hero-body .gs-fadein > a { flex: 1 1 auto; justify-content: center; }
+
+  /* Reels: room for captions that wrap more on a narrow screen */
+  #gs-root .reel-grid [data-caps] { min-height: 300px !important; }
+
+  /* Home: review cards fit the screen, Google summary box breathes less */
+  #gs-root .quote-card { width: min(400px, 84vw) !important; }
+  #gs-root .g-box { padding: 24px 20px !important; gap: 24px !important; }
+  #gs-root .studio-grid { row-gap: 56px !important; }
+
+  /* Footer bottom row (socials) — bigger tap targets */
+  #gs-root footer > div > div:last-child a.hover-underline { padding: 8px 0; }
+}
+
+@media (max-width: 380px) {
+  #gs-root .reel-tr { display: none; } /* the progress rail at the bottom carries the count */
+  #gs-root header > div > a:last-child { letter-spacing: .1em !important; padding: 10px !important; font-size: 9.5px !important; }
+  #gs-root header > div > a:last-child .gs-rec-dot { display: none; }
+  #gs-root header > div > a:first-child img { height: 38px !important; }
+}
+
+/* Touch screens can't hover: drop the hover hint, pause marquees on press */
+@media (hover: none) {
+  #gs-root .hover-hint { display: none !important; }
+  #gs-root .marquee-wrap:active .marquee, #gs-root .marquee-wrap:active .marquee-slow { animation-play-state: paused; }
+}

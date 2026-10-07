@@ -15,7 +15,8 @@ blog/               Blog
 pr/                 PR & awards
 contact/            Contact
 assets/             Photography
-vendor/             support.js (render runtime), image-slot.js (image placeholders)
+vendor/             support.js (render runtime), image-slot.js (image placeholders),
+                    mobile.css + mobile.js (phone/tablet layer, see below)
 ```
 
 ## Run locally
@@ -56,6 +57,22 @@ script block — every host resolves directory indexes on its own.
   logic. It is vendored deliberately so the site has no install step.
 - Hero background videos are muted YouTube embeds, autoplayed while the hero is
   on screen. IDs are set per page via `heroVideoId`.
+- **Mobile layer.** Every page links `vendor/mobile.css` and `vendor/mobile.js`
+  right after `support.js`. All of it sits behind `max-width: 900px` (with extra
+  phone tweaks at 640px and 380px), so desktop is untouched. Below 900px:
+  - the header gets a menu button and full-screen menu, built by `mobile.js`
+    from the page's own `.nav-links` (so editing a page's nav updates its menu);
+  - the floating quick-contact rail becomes a bottom bar (WhatsApp / Call /
+    Enquire / Email — labels come from `data-label` on each link);
+  - heroes, scroll reels and service rows reflow via hook classes in the
+    markup: `.hero`, `.hero-body`, `.hero-facts`, `.reel-stage`, `.reel-tl`,
+    `.reel-tr`, `.reel-sound`, `.reel-body`, `.reel-grid`, `.svc-grid`,
+    `.quick-contact`, `.hover-hint`, `.g-box`, `.map-wrap`/`.map-fade`/`.map-copy`.
+    Keep these classes when editing those blocks, and add them to new pages
+    built from the same patterns.
+  The runtime re-serialises inline styles (`font-size:9px` becomes
+  `font-size: 9px;` in the DOM), so the few `[style*=…]` selectors in
+  `mobile.css` use the spaced form.
 - Image placeholders (`<image-slot>`) mark spots awaiting final photography.
   Replace each with an `<img>` once real assets are ready.
 
