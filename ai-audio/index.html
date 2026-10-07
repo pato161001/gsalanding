@@ -21,14 +21,10 @@
   @keyframes gs-fade { from{opacity:0} to{opacity:1} }
   @keyframes gs-fadeup { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:none} }
   @keyframes gs-marquee { to { transform: translateX(-50%); } }
-  .tinted-shot img { filter: grayscale(.4) contrast(1.02) brightness(.86) sepia(.14); transition: filter .5s cubic-bezier(.16,1,.3,1); }
-  .tinted-shot::after { content:""; position:absolute; inset:0; background:var(--accent); mix-blend-mode:color; opacity:.1; transition:opacity .5s cubic-bezier(.16,1,.3,1); pointer-events:none; }
-  .tinted-shot:hover img { filter: none; }
-  .tinted-shot:hover::after { opacity: 0; }
-  body { margin:0; -webkit-font-smoothing:antialiased; background:#15272E; color:#F7F0E2; }
-  ::selection { background: var(--accent, #6F8F74); color: var(--accent-fg, #10201c); }
+  body { margin:0; -webkit-font-smoothing:antialiased; background:#12191C; color:#F4ECE2; }
+  ::selection { background: var(--accent, #f46530); color: var(--accent-fg, #140B06); }
   a { color: inherit; text-decoration: none; }
-  a:hover { color: var(--accent, #6F8F74); }
+  a:hover { color: var(--accent, #f46530); }
   .gs-rec-dot { animation: gs-rec 1.6s ease-in-out infinite; }
   .gs-fadein { animation: gs-fade 1.2s ease-out both; }
   .marquee { animation: gs-marquee 48s linear infinite; }
@@ -70,16 +66,30 @@
 </style>
 </helmet>
 
-<div id="gs-root" style="--bg:#15272E;--fg:#F7F0E2;--surface:#122127;--surface2:#2b3d43;--muted:#8fa0a3;--muted2:#a8b6b8;--border:#2f424a;--accent:#6F8F74;--accent-fg:#10201c;--display:'Anton',sans-serif;--body:'Archivo',ui-sans-serif,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;--script:'Caveat',cursive; background:var(--bg); color:var(--fg); font-family:var(--body); min-height:100vh; overflow-x:clip; position:relative;">
+<div id="gs-root" style="--bg:#12191C;--fg:#F4ECE2;--surface:#0F1517;--surface2:#262F33;--muted:#8E9799;--muted2:#ABB2B3;--border:#2A3437;--accent:#f46530;--accent-fg:#140B06;--display:'Anton',sans-serif;--body:'Archivo',ui-sans-serif,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;--script:'Caveat',cursive; background:var(--bg); color:var(--fg); font-family:var(--body); min-height:100vh; overflow-x:clip; position:relative;">
 
   <div class="grain" aria-hidden="true"></div>
+
+  <nav aria-label="Quick contact" style="position:fixed;right:14px;top:50%;transform:translateY(-50%);z-index:60;display:flex;flex-direction:column;gap:8px;">
+    <a href="https://wa.me/917775018077" target="_blank" rel="noopener" aria-label="WhatsApp" title="WhatsApp" style="width:52px;height:52px;display:flex;align-items:center;justify-content:center;border-radius:14px;background:color-mix(in srgb, var(--surface2) 60%, transparent);border:1px solid color-mix(in srgb, var(--fg) 10%, transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:var(--fg);transition:background .25s,color .25s;" style-hover="background:var(--accent);color:var(--accent-fg);">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1-.7-.3-1.4-.7-2-1.3-.5-.5-1-1.1-1.3-1.7-.1-.2 0-.4.1-.5l.4-.5.3-.4v-.5l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.6.6-.9 1.4-.9 2.2.1 1 .5 2 1.1 2.8 1.2 1.7 2.7 3 4.6 3.8.5.2 1 .4 1.5.5.6.2 1.2.1 1.7-.1.6-.3 1-.8 1.2-1.4.1-.3.1-.6 0-.9l-.5-.4z"></path></svg>
+    </a>
+    <a href="tel:+917775018077" aria-label="Call the studio" title="Call +91 77750 18077" style="width:52px;height:52px;display:flex;align-items:center;justify-content:center;border-radius:14px;background:color-mix(in srgb, var(--surface2) 60%, transparent);border:1px solid color-mix(in srgb, var(--fg) 10%, transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:var(--fg);transition:background .25s,color .25s;" style-hover="background:var(--accent);color:var(--accent-fg);">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"></path></svg>
+    </a>
+    <a href="../contact/index.html" aria-label="Inquiry form" title="Inquiry form" style="width:52px;height:52px;display:flex;align-items:center;justify-content:center;border-radius:14px;background:color-mix(in srgb, var(--surface2) 60%, transparent);border:1px solid color-mix(in srgb, var(--fg) 10%, transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:var(--fg);transition:background .25s,color .25s;" style-hover="background:var(--accent);color:var(--accent-fg);">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="1"></rect><path d="M8 8h8M8 12h8M8 16h5"></path></svg>
+    </a>
+    <a href="mailto:nikitab@gray-spark.com" aria-label="Email" title="nikitab@gray-spark.com" style="width:52px;height:52px;display:flex;align-items:center;justify-content:center;border-radius:14px;background:color-mix(in srgb, var(--surface2) 60%, transparent);border:1px solid color-mix(in srgb, var(--fg) 10%, transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:var(--fg);transition:background .25s,color .25s;" style-hover="background:var(--accent);color:var(--accent-fg);">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1"></rect><path d="m3 7 9 6 9-6"></path></svg>
+    </a>
+  </nav>
 
   <!-- NAV -->
   <header style="position:fixed;top:0;left:0;right:0;z-index:50;background:color-mix(in srgb, var(--bg) 72%, transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);">
     <div style="max-width:1440px;margin:0 auto;padding:0 24px;height:72px;display:flex;align-items:center;justify-content:space-between;gap:24px;">
-      <a href="../index.html" style="display:flex;align-items:baseline;gap:10px;line-height:1;text-transform:uppercase;">
-        <span style="font-family:var(--display);font-size:25px;letter-spacing:.01em;color:var(--fg);">GraySpark</span>
-        <span style="font-family:var(--display);font-size:16px;letter-spacing:.28em;color:var(--muted);">Audio</span>
+      <a href="../index.html" aria-label="GraySpark Audio — home" style="display:flex;align-items:center;line-height:0;">
+        <img src="../assets/grayspark-logo.png" alt="GraySpark Audio" style="height:52px;width:auto;display:block;">
       </a>
       <nav class="nav-links" style="display:flex;gap:26px;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.25em;color:var(--muted);">
         <a href="../studio/index.html" class="hover-underline">Studio</a>
@@ -115,10 +125,7 @@
     <div class="gs-fadein hide-mobile" style="position:absolute;top:96px;right:24px;z-index:10;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.3em;color:#fff;text-align:right;background:rgba(10,10,10,.55);padding:10px 14px;backdrop-filter:blur(4px);">Audiobooks &middot; Microdramas<br><span style="color:var(--accent);">Game sound</span></div>
 
     <div style="position:absolute;left:0;right:0;bottom:0;z-index:10;padding:0 24px 28px;max-width:1440px;margin:0 auto;">
-      <h1 style="font-family:var(--display);text-transform:uppercase;letter-spacing:-.01em;line-height:.88;font-size:clamp(44px,9vw,152px);margin:0;text-shadow:0 2px 24px rgba(0,0,0,.55);">
-        <span class="rise"><span>Your outsourced</span></span>
-        <span class="rise"><span><span class="glow-accent" style="color:var(--accent);font-style:italic;">audio</span> department.</span></span>
-      </h1>
+      <h1 style="font-family:var(--display);text-transform:uppercase;letter-spacing:-.01em;line-height:.88;font-size:clamp(44px,9vw,152px);margin:0;text-shadow:0 2px 24px rgba(0,0,0,.55);">AI-assisted audio production at scale.</h1>
       <div style="margin-top:32px;display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:32px;">
         <p class="gs-fadein" style="max-width:52ch;font-size:clamp(16px,1.4vw,20px);line-height:1.7;color:rgba(255,255,255,.78);margin:0;text-wrap:pretty;">AI voiceover, sound design and original music for audiobooks, microdramas and game sound. End-to-end audio production for narrative content.</p>
         <div class="gs-fadein" style="display:flex;flex-wrap:wrap;gap:12px;">
@@ -126,7 +133,6 @@
         </div>
       </div>
     </div>
-    <div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent);z-index:10;"></div>
   </section>
 
   <!-- A/B PLAYER -->
@@ -164,9 +170,9 @@
             </div>
           </div>
 
-          <div class="two-col" style="margin-top:30px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--border);border:1px solid var(--border);">
+          <div class="two-col" style="margin-top:30px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;padding:1px;">
             <sc-for list="{{ abSpecs }}" as="s" hint-placeholder-count="3">
-              <div style="background:var(--bg);padding:18px 20px;">
+              <div style="background:var(--bg);outline:1px solid var(--border);padding:18px 20px;">
                 <p style="margin:0;font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.26em;color:var(--muted);">{{ s.k }}</p>
                 <p style="margin:10px 0 0;font-size:14px;line-height:1.6;color:{{ s.color }};">{{ s.v }}</p>
               </div>
@@ -184,7 +190,7 @@
       <div data-reveal style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:40px;">
         <div class="reveal">
           <p style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.25em;color:var(--accent);margin:0 0 12px;">01 / Samples</p>
-          <h2 style="font-family:var(--display);text-transform:uppercase;font-size:clamp(36px,5.6vw,88px);line-height:.95;letter-spacing:-.01em;margin:0;">Four verticals,<br>one <span style="color:var(--accent);">pipeline.</span></h2>
+          <h2 style="font-family:var(--display);text-transform:uppercase;font-size:clamp(36px,5.6vw,88px);line-height:.95;letter-spacing:-.01em;margin:0;">What we produce.</h2>
         </div>
         <p class="reveal" style="font-family:var(--script);font-size:30px;color:var(--accent);transform:rotate(-2deg);margin:0;">press play &darr;</p>
       </div>
@@ -212,7 +218,7 @@
     <div style="max-width:1440px;margin:0 auto;">
       <div data-reveal style="margin-bottom:48px;">
         <p class="reveal" style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.25em;color:var(--accent);margin:0 0 12px;">02 / What we do</p>
-        <h2 class="reveal" style="font-family:var(--display);text-transform:uppercase;font-size:clamp(36px,5.6vw,88px);line-height:.95;letter-spacing:-.01em;margin:0;max-width:22ch;">You send a script. You get back a <span style="color:var(--accent);font-style:italic;">mastered episode.</span></h2>
+        <h2 class="reveal" style="font-family:var(--display);text-transform:uppercase;font-size:clamp(36px,5.6vw,88px);line-height:.95;letter-spacing:-.01em;margin:0;max-width:22ch;">How it works.</h2>
         <p class="reveal" style="margin:24px 0 0;max-width:56ch;color:color-mix(in srgb, var(--fg) 70%, transparent);line-height:1.8;font-size:15px;">Three disciplines that only work together. Taken separately they are services; taken together they are one pipeline.</p>
       </div>
       <div data-reveal style="border-top:1px solid var(--border);">
@@ -260,11 +266,11 @@
     <div style="max-width:1440px;margin:0 auto;">
       <div data-reveal style="margin-bottom:48px;">
         <p class="reveal" style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.25em;color:var(--accent);margin:0 0 12px;">03 / What we solve for you</p>
-        <h2 class="reveal" style="font-family:var(--display);text-transform:uppercase;font-size:clamp(36px,5.6vw,88px);line-height:.95;letter-spacing:-.01em;margin:0;max-width:20ch;">At volume, the hard part isn&rsquo;t <span style="color:var(--accent);font-style:italic;">creative.</span></h2>
+        <h2 class="reveal" style="font-family:var(--display);text-transform:uppercase;font-size:clamp(36px,5.6vw,88px);line-height:.95;letter-spacing:-.01em;margin:0;max-width:20ch;">Why work with us.</h2>
       </div>
-      <div data-reveal data-stagger style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:1px;background:var(--border);border:1px solid var(--border);">
+      <div data-reveal data-stagger style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:1px;padding:1px;">
         <sc-for list="{{ solve }}" as="s" hint-placeholder-count="3">
-          <div class="hover-lift" style="background:var(--bg);padding:40px 32px;display:flex;flex-direction:column;gap:18px;min-height:340px;">
+          <div class="hover-lift" style="background:var(--bg);outline:1px solid var(--border);padding:40px 32px;display:flex;flex-direction:column;gap:18px;min-height:340px;">
             <div style="display:flex;align-items:center;justify-content:space-between;">
               <span style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.3em;color:var(--accent);">{{ s.num }}</span>
               <span class="gs-rec-dot" style="width:8px;height:8px;border-radius:50%;background:var(--accent);"></span>
@@ -284,7 +290,7 @@
     <div data-reveal class="two-col" style="max-width:1440px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:64px;align-items:center;">
       <div class="reveal-left">
         <p style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.25em;color:var(--accent);margin:0 0 20px;">04 / About Gray Spark</p>
-        <h2 style="font-family:var(--display);text-transform:uppercase;font-size:clamp(32px,4.6vw,72px);line-height:.96;letter-spacing:-.01em;margin:0;max-width:18ch;">A studio, not a <span style="color:var(--accent);font-style:italic;">vendor.</span></h2>
+        <h2 style="font-family:var(--display);text-transform:uppercase;font-size:clamp(32px,4.6vw,72px);line-height:.96;letter-spacing:-.01em;margin:0;max-width:18ch;">About Gray Spark Audio.</h2>
         <p style="margin:28px 0 0;max-width:56ch;color:color-mix(in srgb, var(--fg) 72%, transparent);line-height:1.85;font-size:15px;text-wrap:pretty;">We&rsquo;re Gray Spark Audio, a recording studio in Pune specializing in the Art of Sound. Established in 2011 by Ronak Runwal, Gray Spark is a 5000 sq. ft. music production and audio post-production facility, just a couple of hours from Mumbai.</p>
         <p style="margin:20px 0 0;max-width:56ch;color:color-mix(in srgb, var(--fg) 72%, transparent);line-height:1.85;font-size:15px;text-wrap:pretty;">Home to six state-of-the-art studios, we serve both indie artists and commercial producers. At Gray Spark, we believe in turnkey solutions &mdash; delivering convenience and quality under one roof.</p>
         <a href="../facility/index.html" class="hover-underline" style="margin-top:28px;display:inline-flex;align-self:flex-start;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.26em;color:var(--accent);">See the facility &rarr;</a>
@@ -301,7 +307,7 @@
       <div data-reveal style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:40px;">
         <div class="reveal">
           <p style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.25em;color:var(--accent);margin:0 0 12px;">05 / Case studies</p>
-          <h2 style="font-family:var(--display);text-transform:uppercase;font-size:clamp(36px,5.6vw,88px);line-height:.95;letter-spacing:-.01em;margin:0;">Shipped at <span style="color:var(--accent);">scale.</span></h2>
+          <h2 style="font-family:var(--display);text-transform:uppercase;font-size:clamp(36px,5.6vw,88px);line-height:.95;letter-spacing:-.01em;margin:0;">Recent projects.</h2>
         </div>
         <p class="reveal" style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.26em;color:var(--muted);max-width:28ch;text-align:right;margin:0;">[ awaiting final numbers<br>and client sign-off ]</p>
       </div>
@@ -328,11 +334,11 @@
     <div data-reveal class="two-col" style="max-width:1440px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:64px;align-items:start;">
       <div class="reveal-left">
         <p style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.25em;color:var(--accent);margin:0 0 20px;">06 / The offer</p>
-        <h2 style="font-family:var(--display);text-transform:uppercase;font-size:clamp(38px,6vw,104px);line-height:.9;letter-spacing:-.01em;margin:0;max-width:14ch;">One episode, <span style="color:var(--accent);">free.</span></h2>
+        <h2 style="font-family:var(--display);text-transform:uppercase;font-size:clamp(38px,6vw,104px);line-height:.9;letter-spacing:-.01em;margin:0;max-width:14ch;">Try one episode free.</h2>
         <p style="margin:28px 0 0;max-width:50ch;color:color-mix(in srgb, var(--fg) 72%, transparent);line-height:1.85;font-size:16px;text-wrap:pretty;">Send us one episode or one chapter. We produce it end to end &mdash; voice, sound design, music, mastered &mdash; on a fixed turnaround. No commitment. If it isn&rsquo;t better than what you have, you&rsquo;ve lost nothing but a script.</p>
         <div style="margin-top:36px;display:flex;flex-wrap:wrap;gap:8px;">
           <sc-for list="{{ pilotTags }}" as="t" hint-placeholder-count="3">
-            <span style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.24em;color:var(--accent);border:1px solid var(--accent);padding:8px 12px;">{{ t }}</span>
+            <span style="font-family:var(--mono);font-size:11px;font-weight:400;text-transform:uppercase;letter-spacing:.18em;color:var(--accent);border:1px solid var(--accent);padding:8px 12px;">{{ t }}</span>
           </sc-for>
         </div>
       </div>
@@ -373,7 +379,7 @@
     <div class="reveal" style="max-width:1440px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:40px;">
       <div>
         <p style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.28em;margin:0 0 16px;">Still reading?</p>
-        <h2 style="font-family:var(--display);text-transform:uppercase;font-size:clamp(32px,5vw,80px);line-height:.94;letter-spacing:-.01em;margin:0;max-width:20ch;">One episode. Fixed turnaround. No commitment.</h2>
+        <h2 style="font-family:var(--display);text-transform:uppercase;font-size:clamp(32px,5vw,80px);line-height:.94;letter-spacing:-.01em;margin:0;max-width:20ch;">Get a free sample episode.</h2>
       </div>
       <div style="display:flex;flex-direction:column;gap:14px;">
         <a href="#pilot" style="display:inline-flex;align-items:center;gap:12px;border:2px solid var(--accent-fg);padding:20px 30px;font-family:var(--display);font-size:22px;text-transform:uppercase;transition:background .3s,color .3s;" style-hover="background:var(--accent-fg);color:var(--accent)">Send a script &rarr;</a>
@@ -388,12 +394,12 @@
       <div data-reveal class="foot-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:40px;">
         <div>
           <p style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.25em;color:var(--muted);margin:0 0 16px;">Location</p>
-          <p style="font-size:15px;line-height:1.7;max-width:26ch;margin:0;">3rd Floor, Shere-E-Punjab,<br>Baner Road, Baner,<br>Pune, MH 411045</p>
+          <p style="font-size:15px;line-height:1.7;max-width:26ch;margin:0;">Solitaire Business Hub, 312,<br>Balewadi High Street, Baner,<br>Pune, MH 411045</p>
         </div>
         <div>
           <p style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.25em;color:var(--muted);margin:0 0 16px;">Connect</p>
-          <a href="mailto:hello@graysparkaudio.com" class="hover-underline" style="display:inline-block;font-size:15px;">hello@graysparkaudio.com</a><br>
-          <a href="tel:+919823044556" class="hover-underline" style="display:inline-block;font-size:15px;margin-top:8px;">+91 98230 44556</a>
+          <a href="mailto:nikitab@gray-spark.com" class="hover-underline" style="display:inline-block;font-size:15px;">nikitab@gray-spark.com</a><br>
+          <a href="tel:+917775018077" class="hover-underline" style="display:inline-block;font-size:15px;margin-top:8px;">+91 77750 18077</a>
         </div>
         <div>
           <p style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.25em;color:var(--muted);margin:0 0 16px;">Pages</p>
@@ -485,7 +491,7 @@ class Component extends DCLogic {
     const solve = [
       { name: "Coordination", hook: "one point of contact instead of five",
         body: "At volume, most of the work stops being creative and starts becoming coordination. Narrators, editors, composers, all on different schedules. We take that on. You brief us once and we deliver finished episodes." },
-      { name: "Consistency", hook: "episode 200 sounds like episode 1",
+      { name: "Consistency", hook: "consistent sound across every episode",
         body: "We lock the specs at episode one \u2014 levels, tone, music balance, pronunciation \u2014 and hold them for the rest of the run. Nothing shifts when the schedule gets tight." },
       { name: "Built around your workflow", hook: "no new tools to learn",
         body: "We work to your specs, your naming conventions and your release schedule, and deliver into wherever your files already live. And if the pipeline doesn't exist yet, we'll build it with you." }
@@ -617,7 +623,7 @@ class Component extends DCLogic {
     return {
       "Original (voltage yellow)": { "--bg": "#0a0a0a", "--fg": "#fafafa", "--surface": "#0d0d0d", "--surface2": "#242424", "--muted": "#8f8f8f", "--muted2": "#a6a6a6", "--border": "#333", "--accent": "oklch(0.9 0.19 100)", "--accent-fg": "#0a0a0a" },
       "Clay on ink": { "--bg": "#15272E", "--fg": "#F7F0E2", "--surface": "#122127", "--surface2": "#2b3d43", "--muted": "#8fa0a3", "--muted2": "#a8b6b8", "--border": "#2f424a", "--accent": "#A2664B", "--accent-fg": "#F7F0E2" },
-      "Sage on ink": { "--bg": "#15272E", "--fg": "#F7F0E2", "--surface": "#122127", "--surface2": "#2b3d43", "--muted": "#8fa0a3", "--muted2": "#a8b6b8", "--border": "#2f424a", "--accent": "#6F8F74", "--accent-fg": "#10201c" },
+      "Sage on ink": { "--bg": "#12191C", "--fg": "#F4ECE2", "--surface": "#0F1517", "--surface2": "#262F33", "--muted": "#8E9799", "--muted2": "#ABB2B3", "--border": "#2A3437", "--accent": "#f46530", "--accent-fg": "#140B06" },
       "Clay on slate": { "--bg": "#2b3636", "--fg": "#F7F0E2", "--surface": "#26312f", "--surface2": "#3f4e4f", "--muted": "#9aa6a4", "--muted2": "#b3bdbb", "--border": "#3c4a48", "--accent": "#A2664B", "--accent-fg": "#F7F0E2" }
     };
   }

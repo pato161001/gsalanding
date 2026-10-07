@@ -23,10 +23,10 @@
   @keyframes gs-load { 0%{transform:translateX(-100%) scaleX(.4)} 50%{transform:translateX(0) scaleX(.6)} 100%{transform:translateX(100%) scaleX(.4)} }
   @keyframes gs-fadeup { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:none} }
 
-  body { margin:0; -webkit-font-smoothing:antialiased; background:#0a0a0a; color:#fafafa; }
-  ::selection { background: var(--accent, oklch(0.9 0.19 100)); color: var(--accent-fg, #0a0a0a); }
+  body { margin:0; -webkit-font-smoothing:antialiased; background:#12191C; color:#F4ECE2; }
+  ::selection { background: var(--accent, #f46530); color: var(--accent-fg, #140B06); }
   a { color: inherit; text-decoration: none; }
-  a:hover { color: var(--accent, oklch(0.9 0.19 100)); }
+  a:hover { color: var(--accent, #f46530); }
 
   .gs-rec-dot { animation: gs-rec 1.6s ease-in-out infinite; }
   .gs-sweep { animation: gs-sweep 10s ease-in-out infinite; }
@@ -87,19 +87,7 @@
   .svc-arrow { transition: transform .45s cubic-bezier(.16,1,.3,1); }
   .svc-row:hover .svc-name { color: var(--accent); }
   .svc-name { transition: color .45s; }
-  .svc-thumb img { filter: grayscale(.4) contrast(1.02) brightness(.86) sepia(.14); transition: filter .5s cubic-bezier(.16,1,.3,1); }
-  .svc-thumb::after { content:""; position:absolute; inset:0; background:var(--accent); mix-blend-mode:color; opacity:.1; transition:opacity .5s cubic-bezier(.16,1,.3,1); pointer-events:none; }
-  .svc-row:hover .svc-thumb img { filter: none; }
-  .svc-row:hover .svc-thumb::after { opacity: 0; }
-  .tinted-shot img { filter: grayscale(.4) contrast(1.02) brightness(.86) sepia(.14); transition: filter .5s cubic-bezier(.16,1,.3,1); }
-  .tinted-shot::after { content:""; position:absolute; inset:0; background:var(--accent); mix-blend-mode:color; opacity:.1; transition:opacity .5s cubic-bezier(.16,1,.3,1); pointer-events:none; }
-  .tinted-shot img, .tinted-shot image-slot { filter: grayscale(.4) contrast(1.02) brightness(.86) sepia(.14); transition: filter .5s cubic-bezier(.16,1,.3,1); }
-  .tinted-shot:hover img, .tinted-shot:hover image-slot { filter: none; }
-  .tinted-shot:hover::after { opacity: 0; }
   .studio-disc { transition: opacity .5s cubic-bezier(.16,1,.3,1); }
-  .studio img { filter: grayscale(.3) contrast(1.02) sepia(.12); transition: filter .5s cubic-bezier(.16,1,.3,1); }
-  .studio:hover img { filter: none; mix-blend-mode: normal; }
-  .studio:hover .studio-disc { opacity: 0; }
 
   .quote-card img { transition: transform 1.2s cubic-bezier(.16,1,.3,1); }
   .quote-card:hover img { transform: scale(1.06); }
@@ -112,8 +100,6 @@
   .studio:hover img { transform: scale(1.06); }
 
   @media (min-width:768px){
-    .stat:nth-child(even){ margin-top:32px; text-align:right; }
-    .stat:nth-child(even) .stat-num{ color: var(--accent); }
     .studio:nth-child(even){ margin-top:96px; }
   }
   @media (max-width:900px){
@@ -121,7 +107,7 @@
     .hide-mobile{ display:none !important; }
     .about-grid{ grid-template-columns:1fr !important; }
     .studio-grid{ grid-template-columns:1fr !important; }
-    .stat-grid{ grid-template-columns:repeat(2,1fr) !important; }
+    .stat-grid{ grid-template-columns:repeat(2,minmax(0,1fr)) !important; } .stat-grid > *:nth-child(n+3){ border-top:1px solid var(--border); }
     .foot-grid{ grid-template-columns:1fr 1fr !important; }
   }
 </style>
@@ -140,14 +126,28 @@
 </script>
 </helmet>
 
-<div id="gs-root" style="--bg:#0a0a0a;--fg:#fafafa;--surface:#0d0d0d;--surface2:#242424;--muted:#8f8f8f;--muted2:#a6a6a6;--border:#333;--accent:oklch(0.9 0.19 100);--accent-fg:#0a0a0a;--display:'Anton',sans-serif;--body:'Archivo',ui-sans-serif,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;--script:'Caveat',cursive; background:var(--bg); color:var(--fg); font-family:var(--body); min-height:100vh; overflow-x:clip; position:relative;">
+<div id="gs-root" style="--bg:#12191C;--fg:#F4ECE2;--surface:#0F1517;--surface2:#262F33;--muted:#8E9799;--muted2:#ABB2B3;--border:#2A3437;--accent:#f46530;--accent-fg:#140B06;--display:'Anton',sans-serif;--body:'Archivo',ui-sans-serif,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;--script:'Caveat',cursive; background:var(--bg); color:var(--fg); font-family:var(--body); min-height:100vh; overflow-x:clip; position:relative;">
 
   <div class="grain" aria-hidden="true"></div>
+
+  <nav aria-label="Quick contact" style="position:fixed;right:14px;top:50%;transform:translateY(-50%);z-index:60;display:flex;flex-direction:column;gap:8px;">
+    <a href="https://wa.me/917775018077" target="_blank" rel="noopener" aria-label="WhatsApp" title="WhatsApp" style="width:52px;height:52px;display:flex;align-items:center;justify-content:center;border-radius:14px;background:color-mix(in srgb, var(--surface2) 60%, transparent);border:1px solid color-mix(in srgb, var(--fg) 10%, transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:var(--fg);transition:background .25s,color .25s;" style-hover="background:var(--accent);color:var(--accent-fg);">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1-.7-.3-1.4-.7-2-1.3-.5-.5-1-1.1-1.3-1.7-.1-.2 0-.4.1-.5l.4-.5.3-.4v-.5l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.6.6-.9 1.4-.9 2.2.1 1 .5 2 1.1 2.8 1.2 1.7 2.7 3 4.6 3.8.5.2 1 .4 1.5.5.6.2 1.2.1 1.7-.1.6-.3 1-.8 1.2-1.4.1-.3.1-.6 0-.9l-.5-.4z"></path></svg>
+    </a>
+    <a href="tel:+917775018077" aria-label="Call the studio" title="Call +91 77750 18077" style="width:52px;height:52px;display:flex;align-items:center;justify-content:center;border-radius:14px;background:color-mix(in srgb, var(--surface2) 60%, transparent);border:1px solid color-mix(in srgb, var(--fg) 10%, transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:var(--fg);transition:background .25s,color .25s;" style-hover="background:var(--accent);color:var(--accent-fg);">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"></path></svg>
+    </a>
+    <a href="contact/index.html" aria-label="Inquiry form" title="Inquiry form" style="width:52px;height:52px;display:flex;align-items:center;justify-content:center;border-radius:14px;background:color-mix(in srgb, var(--surface2) 60%, transparent);border:1px solid color-mix(in srgb, var(--fg) 10%, transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:var(--fg);transition:background .25s,color .25s;" style-hover="background:var(--accent);color:var(--accent-fg);">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="1"></rect><path d="M8 8h8M8 12h8M8 16h5"></path></svg>
+    </a>
+    <a href="mailto:nikitab@gray-spark.com" aria-label="Email" title="nikitab@gray-spark.com" style="width:52px;height:52px;display:flex;align-items:center;justify-content:center;border-radius:14px;background:color-mix(in srgb, var(--surface2) 60%, transparent);border:1px solid color-mix(in srgb, var(--fg) 10%, transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:var(--fg);transition:background .25s,color .25s;" style-hover="background:var(--accent);color:var(--accent-fg);">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1"></rect><path d="m3 7 9 6 9-6"></path></svg>
+    </a>
+  </nav>
 
   <!-- LOADER -->
   <div id="gs-loader" style="position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;background:#0a0a0a;transition:opacity .7s ease;">
     <div class="grain" aria-hidden="true"></div>
-    <div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent);"></div>
     <div style="position:absolute;top:24px;left:24px;display:flex;align-items:center;gap:12px;">
       <span class="gs-rec-dot" style="width:10px;height:10px;border-radius:50%;background:var(--accent);"></span>
       <span style="font-family:var(--mono);font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--accent);">● REC — Loading reel</span>
@@ -155,7 +155,6 @@
     <div style="position:absolute;top:24px;right:24px;font-family:var(--mono);font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.5);text-align:right;">Take 001<br><span style="color:var(--accent);">48kHz · 24bit</span></div>
     <div style="position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 24px;">
       <p style="font-family:var(--display);text-transform:uppercase;letter-spacing:-.01em;line-height:.9;font-size:clamp(56px,10vw,140px);margin:0;">GraySpark<span class="glow-accent" style="color:var(--accent);">.</span></p>
-      <p style="margin:16px 0 0;font-family:var(--script);font-size:30px;color:var(--accent);transform:rotate(-2deg);">rolling tape…</p>
       <div style="margin-top:40px;width:240px;height:2px;background:rgba(255,255,255,.1);overflow:hidden;">
         <div style="height:100%;background:var(--accent);transform-origin:left;animation:gs-load 1.6s cubic-bezier(.16,1,.3,1) infinite;"></div>
       </div>
@@ -166,9 +165,8 @@
   <!-- NAV -->
   <header style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(10,10,10,.7);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);">
     <div style="max-width:1440px;margin:0 auto;padding:0 24px;height:72px;display:flex;align-items:center;justify-content:space-between;gap:24px;">
-      <a href="#top" style="display:flex;align-items:baseline;gap:10px;line-height:1;text-transform:uppercase;">
-        <span style="font-family:var(--display);font-size:25px;letter-spacing:.01em;color:#fff;">GraySpark</span>
-        <span style="font-family:var(--display);font-size:16px;letter-spacing:.28em;color:var(--muted);">Audio</span>
+      <a href="#top" aria-label="GraySpark Audio — home" style="display:flex;align-items:center;line-height:0;">
+        <img src="assets/grayspark-logo.png" alt="GraySpark Audio" style="height:52px;width:auto;display:block;">
       </a>
       <nav class="nav-links" style="display:flex;gap:26px;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.25em;color:var(--muted);">
         <a href="studio/index.html" class="hover-underline">Studio</a>
@@ -217,7 +215,6 @@
         </div>
       </div>
     </div>
-    <div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent);z-index:10;"></div>
   </section>
 
   <!-- BRAND LOGOS -->
@@ -255,16 +252,11 @@
       </div>
     </div>
 
-    <div data-reveal="" data-stagger="" class="stat-grid" style="position:relative;z-index:10;max-width:1440px;margin:56px auto 0;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:start;">
+    <div data-reveal="" data-stagger="" class="stat-grid" style="position:relative;z-index:10;max-width:1440px;margin:72px auto 0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--border);">
       <sc-for list="{{ stats }}" as="s" hint-placeholder-count="4">
-        <div class="stat" style="position:relative;">
-          <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.22em;color:var(--muted);">
-            <span style="width:8px;height:8px;border-radius:50%;background:var(--accent);"></span>
-            <span style="height:1px;flex:1;background:var(--border);max-width:80px;"></span>
-            <span>{{ s.short }}</span>
-          </div>
-          <p class="stat-num" style="font-family:var(--display);font-size:clamp(40px,7vw,88px);line-height:1;letter-spacing:-.01em;margin:0;text-shadow:0 2px 24px rgba(0,0,0,.55);">{{ s.num }}</p>
-          <p style="margin:12px 0 0;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.2em;color:var(--muted);">{{ s.label }}</p>
+        <div class="stat" style="padding:28px 24px 8px;border-left:1px solid var(--border);display:flex;flex-direction:column;gap:12px;">
+          <p class="stat-num" style="font-family:var(--display);font-size:clamp(44px,5.4vw,76px);line-height:1;letter-spacing:-.01em;margin:0;color:var(--fg);"><sc-for list="{{ s.parts }}" as="pt" hint-placeholder-count="1"><sc-if value="{{ pt.acc }}" hint-placeholder-val="{{ false }}"><span style="color:var(--accent);">{{ pt.t }}</span></sc-if><sc-if value="{{ pt.plain }}" hint-placeholder-val="{{ true }}"><span>{{ pt.t }}</span></sc-if></sc-for></p>
+          <p style="margin:0;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.18em;color:var(--accent);">{{ s.label }}</p>
         </div>
       </sc-for>
     </div>
@@ -276,9 +268,9 @@
       <div data-reveal="" style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:56px;">
         <div class="reveal">
           <p style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.25em;color:var(--accent);margin:0 0 12px;">02 / Our services</p>
-          <h2 style="font-family:var(--display);text-transform:uppercase;font-size:clamp(40px,6vw,96px);line-height:.95;letter-spacing:-.01em;margin:0;">Four ways we<br>make <span style="color:var(--accent);">sound.</span></h2>
+          <h2 style="font-family:var(--display);text-transform:uppercase;font-size:clamp(40px,6vw,96px);line-height:.95;letter-spacing:-.01em;margin:0;">Our services.</h2>
         </div>
-        <p class="reveal" style="font-family:var(--script);font-size:30px;color:var(--accent);transform:rotate(-2deg);margin:0;">pick a door →</p>
+        <p class="reveal" style="font-family:var(--script);font-size:30px;color:var(--accent);transform:rotate(-2deg);margin:0;">view all services →</p>
       </div>
       <div data-reveal="" style="border-top:1px solid var(--border);">
         <sc-for list="{{ services }}" as="s">
@@ -287,12 +279,12 @@
             <div style="display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:24px;align-items:start;">
               <div style="min-width:0;">
                 <p class="svc-name" style="font-family:var(--display);text-transform:uppercase;font-size:clamp(26px,3.4vw,48px);line-height:1;letter-spacing:-.01em;margin:0;">{{ s.name }}</p>
-                <p style="margin:16px 0 0;max-width:70ch;color:rgba(255,255,255,.66);line-height:1.8;font-size:15px;text-wrap:pretty;">{{ s.body }}</p>
-                <div style="margin-top:18px;display:flex;flex-wrap:wrap;gap:8px;">
+                <div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:8px;">
                   <sc-for list="{{ s.tags }}" as="t" hint-placeholder-count="3">
-                    <span style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.24em;color:var(--muted2);border:1px solid var(--border);padding:6px 10px;">{{ t }}</span>
+                    <span style="font-family:var(--mono);font-size:11px;font-weight:400;text-transform:uppercase;letter-spacing:.18em;color:var(--muted2);border:1px solid var(--border);background:transparent;padding:8px 12px;">{{ t }}</span>
                   </sc-for>
                 </div>
+                <p style="margin:18px 0 0;max-width:70ch;color:rgba(255,255,255,.66);line-height:1.8;font-size:15px;text-wrap:pretty;">{{ s.body }}</p>
               </div>
               <sc-if value="{{ s.img }}" hint-placeholder-val="{{ false }}">
                 <div class="hide-mobile svc-thumb" style="position:relative;overflow:hidden;border:1px solid var(--border);aspect-ratio:1/1;width:200px;background:#000;margin-right:64px;">
@@ -324,26 +316,31 @@
       </div>
       <div class="yellow-tint scanlines vignette" aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;"></div>
       <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg, rgba(10,10,10,.6) 0%, rgba(10,10,10,.1) 30%, rgba(10,10,10,.2) 60%, rgba(10,10,10,.92) 100%);"></div>
-      <div aria-hidden="true" style="position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent);z-index:10;"></div>
       <div style="position:absolute;top:24px;left:24px;z-index:20;display:flex;align-items:center;gap:12px;">
         <span class="gs-rec-dot" style="width:10px;height:10px;border-radius:50%;background:var(--accent);"></span>
-        <span style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.3em;color:var(--accent);">● PLAY — portfolio / reel</span>
+        <span style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.3em;color:var(--accent);">● Portfolio</span>
       </div>
-      <div style="position:absolute;top:24px;right:24px;z-index:20;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.3em;color:rgba(255,255,255,.7);text-align:right;">Project <span data-counter="">01</span> / 07<br><span style="color:var(--accent);">stereo · 48kHz</span></div>
+      <div style="position:absolute;top:24px;right:24px;z-index:20;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.3em;color:rgba(255,255,255,.7);text-align:right;">Project <span data-counter="">01</span> / 07</div>
       <div class="hide-mobile" style="position:absolute;top:96px;left:24px;z-index:20;">
         <p style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.3em;color:var(--accent);margin:0 0 8px;">03 / Portfolio</p>
-        <p style="font-family:var(--script);font-size:30px;color:var(--accent);transform:rotate(-2deg);margin:0;">scroll the reel ↓</p>
+        <p style="font-family:var(--script);font-size:30px;color:var(--accent);transform:rotate(-2deg);margin:0;">scroll to see more ↓</p>
       </div>
       <button type="button" data-sec="portfolio" onClick="{{ toggleSound }}" aria-label="Toggle sound" style="position:absolute;top:80px;right:24px;z-index:30;display:flex;align-items:center;gap:10px;background:rgba(10,10,10,.55);border:1px solid var(--accent);color:var(--accent);padding:10px 18px;cursor:pointer;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.3em;backdrop-filter:blur(4px);transition:background .3s ease,color .3s ease;" style-hover="background:var(--accent);color:var(--accent-fg);">● <span data-soundlabel="">unmute</span></button>
-      <div style="position:absolute;left:0;right:0;bottom:0;z-index:20;padding:0 24px 72px;max-width:1440px;margin:0 auto;">
-        <div style="display:grid;grid-template-columns:auto 1fr;gap:40px;align-items:flex-end;">
-          <div data-numeral="" class="hide-mobile" style="font-family:var(--display);font-size:clamp(56px,9vw,116px);line-height:1;color:var(--accent);margin:0;text-shadow:0 2px 24px rgba(0,0,0,.55);">01</div>
-          <div data-caps="" style="position:relative;min-height:220px;">
+      <div aria-hidden="true" style="position:absolute;left:0;right:0;bottom:0;height:70%;z-index:15;pointer-events:none;background:linear-gradient(to top, rgba(0,0,0,.82), rgba(0,0,0,.35) 55%, transparent);"></div>
+      <div style="position:absolute;left:0;right:0;bottom:0;z-index:20;padding:0 24px 64px;max-width:1440px;margin:0 auto;">
+        <div style="display:grid;grid-template-columns:auto 1fr;gap:clamp(24px,4vw,56px);align-items:flex-end;">
+          <div data-numeral="" class="hide-mobile" style="font-family:var(--mono);font-size:13px;letter-spacing:.3em;line-height:1;color:var(--accent);margin:0 0 10px;writing-mode:vertical-rl;transform:rotate(180deg);">01</div>
+          <div data-caps="" style="position:relative;min-height:clamp(170px,16vw,230px);">
             <sc-for list="{{ portfolio }}" as="c" hint-placeholder-count="7">
-              <div data-cap="" style="position:absolute;inset:0;opacity:0;transition:all .7s ease;">
-                <p style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.3em;color:var(--accent);margin:0 0 16px;">{{ c.tag }}</p>
-                <h3 style="font-family:var(--display);text-transform:uppercase;line-height:.95;letter-spacing:-.01em;font-size:clamp(30px,4.4vw,64px);margin:0;max-width:24ch;text-shadow:0 2px 24px rgba(0,0,0,.55);">{{ c.title }}</h3>
-                <p style="margin:20px 0 0;max-width:54ch;color:rgba(255,255,255,.82);line-height:1.7;font-size:clamp(14px,1.2vw,16px);text-wrap:pretty;">{{ c.body }}</p>
+              <div data-cap="" style="position:absolute;left:0;right:0;bottom:0;opacity:0;transition:all .7s ease;display:flex;flex-direction:column;gap:14px;">
+                <div style="display:flex;flex-wrap:wrap;align-items:baseline;column-gap:18px;row-gap:4px;">
+                  <h3 style="margin:0;font-family:var(--display);text-transform:uppercase;font-weight:400;line-height:.9;letter-spacing:.005em;font-size:clamp(40px,5.2vw,80px);color:var(--fg);text-shadow:0 4px 32px rgba(0,0,0,.5);">{{ c.client }}</h3>
+                  <span style="font-family:var(--script);font-size:clamp(26px,2.4vw,38px);line-height:1;color:var(--accent);transform:rotate(-4deg) translateY(-.15em);display:inline-block;">{{ c.project }}</span>
+                </div>
+                <div style="display:flex;align-items:flex-start;gap:16px;max-width:56ch;">
+                  <span style="flex:none;margin-top:.7em;width:24px;height:1px;background:rgba(255,255,255,.45);"></span>
+                  <p style="margin:0;color:rgba(255,255,255,.82);line-height:1.6;font-size:clamp(15px,1.15vw,17px);text-wrap:pretty;">{{ c.body }}</p>
+                </div>
               </div>
             </sc-for>
           </div>
@@ -365,11 +362,11 @@
     <div style="max-width:1440px;margin:0 auto;">
       <div data-reveal="" style="margin-bottom:56px;">
         <p class="reveal" style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.25em;color:var(--accent);margin:0 0 12px;">04 / Why Gray Spark</p>
-        <h2 class="reveal" style="font-family:var(--display);text-transform:uppercase;font-size:clamp(40px,6vw,96px);line-height:.95;letter-spacing:-.01em;margin:0;max-width:20ch;">Three reasons artists <span style="color:var(--accent);font-style:italic;">stay.</span></h2>
+        <h2 class="reveal" style="font-family:var(--display);text-transform:uppercase;font-size:clamp(40px,6vw,96px);line-height:.95;letter-spacing:-.01em;margin:0;max-width:20ch;">Why Gray Spark.</h2>
       </div>
-      <div data-reveal="" data-stagger="" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:1px;background:var(--border);border:1px solid var(--border);">
+      <div data-reveal="" data-stagger="" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:1px;padding:1px;">
         <sc-for list="{{ usps }}" as="u">
-          <div class="hover-lift" style="background:var(--bg);padding:40px 32px;display:flex;flex-direction:column;gap:20px;min-height:340px;">
+          <div class="hover-lift" style="background:var(--bg);outline:1px solid var(--border);padding:40px 32px;display:flex;flex-direction:column;gap:20px;min-height:340px;">
             <div style="display:flex;align-items:center;justify-content:space-between;">
               <span style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.3em;color:var(--accent);">{{ u.num }}</span>
               <span class="gs-rec-dot" style="width:8px;height:8px;border-radius:50%;background:var(--accent);"></span>
@@ -382,7 +379,6 @@
                 <img data-src="{{ u.img }}" alt="{{ u.imgAlt }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
               </div>
             </sc-if>
-            <p style="margin:0;font-family:var(--script);font-size:26px;color:var(--accent);transform:rotate(-1deg);">{{ u.note }}</p>
           </div>
         </sc-for>
       </div>
@@ -395,9 +391,8 @@
       <div style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;flex-wrap:wrap;">
         <div>
           <p style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.3em;color:var(--accent);margin:0 0 16px;">05 / Voices from the room</p>
-          <h2 style="font-family:var(--display);text-transform:uppercase;font-size:clamp(40px,7.4vw,124px);line-height:.88;letter-spacing:-.01em;max-width:15ch;margin:0;">What they said <span style="color:var(--accent);font-style:italic;">after</span> playback.</h2>
+          <h2 style="font-family:var(--display);text-transform:uppercase;font-size:clamp(40px,7.4vw,124px);line-height:.88;letter-spacing:-.01em;max-width:15ch;margin:0;">What our clients say.</h2>
         </div>
-        <p style="font-family:var(--script);font-size:clamp(28px,3vw,36px);color:var(--accent);transform:rotate(-2deg);max-width:18ch;margin:0;">unscripted. mostly unedited.</p>
       </div>
 
       <!-- GOOGLE REVIEWS -->
@@ -409,7 +404,7 @@
           </div>
           <div style="height:56px;width:1px;background:var(--border);"></div>
           <div>
-            <p style="margin:0;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.28em;color:var(--muted);">Google reviews</p>
+            <div style="display:flex;align-items:center;gap:10px;"><svg width="22" height="22" viewBox="0 0 48 48" aria-hidden="true" style="flex:none;display:block;"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"></path><path fill="#FF3D00" d="m6.3 14.7 6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"></path><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.5 39.6 16.2 44 24 44z"></path><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"></path></svg><p style="margin:0;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.28em;color:var(--muted2);">Google reviews</p><span style="display:inline-flex;align-items:center;gap:6px;padding:4px 10px 4px 6px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid var(--border);font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.2em;color:var(--fg);"><svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true" style="flex:none;display:block;"><circle cx="12" cy="12" r="11" fill="#1A73E8"></circle><path d="m7 12.5 3.2 3.2L17 9" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>Verified</span></div>
             <p style="margin:8px 0 0;font-size:16px;line-height:1.5;max-width:34ch;color:rgba(255,255,255,.82);">{{ googleCount }} reviews from artists, composers, agencies and brands.</p>
           </div>
         </div>
@@ -421,7 +416,7 @@
     <div style="margin-top:56px;padding-bottom:96px;">
       <div style="max-width:1440px;margin:0 auto;padding:0 24px;display:flex;align-items:baseline;justify-content:space-between;margin-bottom:32px;gap:24px;flex-wrap:wrap;">
         <p style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.3em;color:var(--muted2);margin:0;">verbatim from our Google listing</p>
-        <p style="font-family:var(--script);font-size:clamp(24px,2.5vw,30px);color:var(--accent);transform:rotate(-2deg);margin:0;">hover to hold →</p>
+        <p style="font-family:var(--script);font-size:clamp(24px,2.5vw,30px);color:var(--accent);transform:rotate(-2deg);margin:0;">hover to pause →</p>
       </div>
       <div class="marquee-wrap" style="-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);overflow:hidden;">
         <ul class="marquee" style="display:flex;width:max-content;gap:20px;padding-right:20px;margin:0;list-style:none;padding-left:0;">
@@ -435,7 +430,7 @@
                     <p style="margin:3px 0 0;font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.24em;color:var(--muted2);">{{ q.role }}</p>
                   </div>
                 </div>
-                <span style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.24em;color:var(--muted);flex:none;">Google</span>
+                <span title="Verified Google review" style="display:inline-flex;align-items:center;gap:6px;flex:none;"><svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true" style="flex:none;display:block;"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"></path><path fill="#FF3D00" d="m6.3 14.7 6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"></path><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.5 39.6 16.2 44 24 44z"></path><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"></path></svg><svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true" style="flex:none;display:block;"><circle cx="12" cy="12" r="11" fill="#1A73E8"></circle><path d="m7 12.5 3.2 3.2L17 9" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
               </div>
               <div style="display:flex;align-items:center;gap:10px;">
                 <span aria-hidden="true" style="font-size:14px;letter-spacing:.18em;color:var(--accent);">{{ q.stars }}</span>
@@ -451,7 +446,7 @@
   </section>
 
   <!-- VIDEO TOUR (sticky scroll reel) -->
-  <section id="tour" style="position:relative;border-bottom:1px solid var(--border);height:600vh;">
+  <section id="tour" style="position:relative;border-bottom:1px solid var(--border);height:800vh;">
     <div style="position:sticky;top:0;height:100vh;width:100%;overflow:hidden;background:#000;">
       <div style="position:absolute;inset:0;">
         <sc-for list="{{ tour }}" as="c">
@@ -469,7 +464,6 @@
       </div>
       <div class="yellow-tint scanlines vignette" aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;"></div>
       <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg, rgba(10,10,10,.6) 0%, rgba(10,10,10,.1) 30%, rgba(10,10,10,.2) 60%, rgba(10,10,10,.92) 100%);"></div>
-      <div aria-hidden="true" style="position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent);z-index:10;"></div>
       <div style="position:absolute;top:24px;left:24px;z-index:20;display:flex;align-items:center;gap:12px;">
         <span class="gs-rec-dot" style="width:10px;height:10px;border-radius:50%;background:var(--accent);"></span>
         <span style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.3em;color:var(--accent);">● PLAY — studio tour</span>
@@ -477,12 +471,13 @@
       <div style="position:absolute;top:24px;right:24px;z-index:20;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.3em;color:rgba(255,255,255,.7);text-align:right;">Room <span data-counter="">01</span> / 06<br><span style="color:var(--accent);">walkthrough · 5000 sq. ft.</span></div>
       <div class="hide-mobile" style="position:absolute;top:96px;left:24px;z-index:20;">
         <p style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.3em;color:var(--accent);margin:0 0 8px;">06 / Video tour</p>
-        <p style="font-family:var(--script);font-size:30px;color:var(--accent);transform:rotate(-2deg);margin:0;">walk the floor ↓</p>
+        <p style="font-family:var(--script);font-size:30px;color:var(--accent);transform:rotate(-2deg);margin:0;">scroll for the tour ↓</p>
       </div>
       <button type="button" data-sec="tour" onClick="{{ toggleSound }}" aria-label="Toggle sound" style="position:absolute;top:80px;right:24px;z-index:30;display:flex;align-items:center;gap:10px;background:rgba(10,10,10,.55);border:1px solid var(--accent);color:var(--accent);padding:10px 18px;cursor:pointer;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.3em;backdrop-filter:blur(4px);transition:background .3s ease,color .3s ease;" style-hover="background:var(--accent);color:var(--accent-fg);">● <span data-soundlabel="">unmute</span></button>
-      <div style="position:absolute;left:0;right:0;bottom:0;z-index:20;padding:0 24px 72px;max-width:1440px;margin:0 auto;">
-        <div style="display:grid;grid-template-columns:auto 1fr;gap:40px;align-items:flex-end;">
-          <div data-numeral="" class="hide-mobile" style="font-family:var(--display);font-size:clamp(56px,9vw,116px);line-height:1;color:var(--accent);margin:0;text-shadow:0 2px 24px rgba(0,0,0,.55);">01</div>
+      <div aria-hidden="true" style="position:absolute;left:0;right:0;bottom:0;height:70%;z-index:15;pointer-events:none;background:linear-gradient(to top, rgba(0,0,0,.82), rgba(0,0,0,.35) 55%, transparent);"></div>
+      <div style="position:absolute;left:0;right:0;bottom:0;z-index:20;padding:0 24px 64px;max-width:1440px;margin:0 auto;">
+        <div style="display:grid;grid-template-columns:auto 1fr;gap:clamp(24px,4vw,56px);align-items:flex-end;">
+          <div data-numeral="" class="hide-mobile" style="font-family:var(--mono);font-size:13px;letter-spacing:.3em;line-height:1;color:var(--accent);margin:0 0 10px;writing-mode:vertical-rl;transform:rotate(180deg);">01</div>
           <div data-caps="" style="position:relative;min-height:220px;">
             <sc-for list="{{ tour }}" as="c" hint-placeholder-count="6">
               <div data-cap="" style="position:absolute;inset:0;opacity:0;transition:all .7s ease;">
@@ -512,7 +507,7 @@
       <div data-reveal="" style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:64px;">
         <div class="reveal">
           <p style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.25em;color:var(--accent);margin:0 0 12px;">07 / Studio spaces</p>
-          <h2 style="font-family:var(--display);text-transform:uppercase;font-size:clamp(40px,6vw,96px);line-height:.95;letter-spacing:-.01em;margin:0;">Six rooms,<br>one door.</h2>
+          <h2 style="font-family:var(--display);text-transform:uppercase;font-size:clamp(40px,6vw,96px);line-height:.95;letter-spacing:-.01em;margin:0;">Our studios.</h2>
         </div>
         <p class="reveal" style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.2em;color:var(--muted);max-width:26ch;text-align:right;margin:0;">[ each room tuned<br>for a different job ]</p>
       </div>
@@ -527,7 +522,6 @@
               <span style="position:absolute;top:0;left:0;z-index:2;font-family:var(--mono);font-size:10px;line-height:1.4;text-transform:uppercase;letter-spacing:.25em;color:var(--accent);background:var(--bg);padding:0 8px 6px 0;">● {{ s.n }}</span>
             </div>
             <div>
-              <p style="font-family:var(--script);font-size:30px;color:var(--accent);transform:rotate(-2deg);margin:0 0 8px;">{{ s.note }}</p>
               <p style="font-family:var(--display);font-size:clamp(28px,3.6vw,46px);text-transform:uppercase;line-height:1;margin:0;">{{ s.name }}</p>
               <div style="margin-top:20px;height:1px;width:64px;background:var(--accent);"></div>
               <ul style="margin:20px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px;">
@@ -555,7 +549,7 @@
         <p style="margin:20px 0 0;max-width:56ch;color:rgba(255,255,255,.72);line-height:1.8;font-size:15px;text-wrap:pretty;">Studio A runs live film and OTT work, independent music releases, advertising and branded content, including large-scale campaigns mixed in Dolby Atmos.</p>
         <div style="margin-top:32px;display:flex;flex-wrap:wrap;gap:8px;">
           <sc-for list="{{ atmosTags }}" as="t" hint-placeholder-count="3">
-            <span style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.24em;color:var(--accent);border:1px solid var(--accent);padding:8px 12px;">{{ t }}</span>
+            <span style="font-family:var(--mono);font-size:11px;font-weight:400;text-transform:uppercase;letter-spacing:.18em;color:var(--accent);border:1px solid var(--accent);padding:8px 12px;">{{ t }}</span>
           </sc-for>
         </div>
       </div>
@@ -571,18 +565,18 @@
     <div style="max-width:1440px;margin:0 auto;">
       <div data-reveal="">
         <p class="reveal" style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.25em;color:var(--accent);margin:0 0 24px;">08 / Contact</p>
-        <h2 class="reveal" style="font-family:var(--display);text-transform:uppercase;font-size:clamp(44px,8vw,148px);line-height:.88;letter-spacing:-.01em;max-width:15ch;margin:0;">Start your next <span style="color:var(--accent);">sonic chapter.</span></h2>
+        <h2 class="reveal" style="font-family:var(--display);text-transform:uppercase;font-size:clamp(44px,8vw,148px);line-height:.88;letter-spacing:-.01em;max-width:15ch;margin:0;">Start your project.</h2>
         <a href="contact/index.html" class="reveal hover-lift" style="margin-top:40px;display:inline-flex;align-items:center;gap:16px;background:var(--accent);color:var(--accent-fg);padding:20px 32px;font-family:var(--display);font-size:22px;text-transform:uppercase;">Book a session <span>→</span></a>
       </div>
       <div data-reveal="" class="foot-grid" style="margin-top:80px;display:grid;grid-template-columns:repeat(4,1fr);gap:40px;border-top:1px solid var(--border);padding-top:56px;">
         <div>
           <p style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.25em;color:var(--muted);margin:0 0 16px;">Location</p>
-          <p style="font-size:15px;line-height:1.7;max-width:26ch;margin:0;">3rd Floor, Shere-E-Punjab,<br>Baner Road, Baner,<br>Pune, MH 411045</p>
+          <p style="font-size:15px;line-height:1.7;max-width:26ch;margin:0;">Solitaire Business Hub, 312,<br>Balewadi High Street, Baner,<br>Pune, MH 411045</p>
         </div>
         <div>
           <p style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.25em;color:var(--muted);margin:0 0 16px;">Connect</p>
-          <a href="mailto:hello@graysparkaudio.com" class="hover-underline" style="display:inline-block;font-size:15px;">hello@graysparkaudio.com</a><br>
-          <a href="tel:+919823044556" class="hover-underline" style="display:inline-block;font-size:15px;margin-top:8px;">+91 98230 44556</a>
+          <a href="mailto:nikitab@gray-spark.com" class="hover-underline" style="display:inline-block;font-size:15px;">nikitab@gray-spark.com</a><br>
+          <a href="tel:+917775018077" class="hover-underline" style="display:inline-block;font-size:15px;margin-top:8px;">+91 77750 18077</a>
         </div>
         <div>
           <p style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.25em;color:var(--muted);margin:0 0 16px;">Pages</p>
@@ -643,17 +637,17 @@ class Component extends DCLogic {
     }));
 
     const stats = [
-      { num: "+ 5000", short: "sq. ft.", label: "sq. ft. in Baner, Pune" },
-      { num: "06", short: "studios", label: "dedicated studio spaces" },
-      { num: "15", short: "years", label: "years since 2011" },
-      { num: "7.1.4", short: "atmos", label: "Dolby Atmos in Studio A" }
-    ];
+      { num: "5000+", label: "Sq. ft. in Baner, Pune" },
+      { num: "6", label: "Studio spaces" },
+      { num: "15+", label: "Years since 2011" },
+      { num: "7.1.4", label: "Dolby Atmos \u2014 Studio A" }
+    ].map((s) => ({ ...s, parts: s.num.split(/([+.])/).filter(Boolean).map((t) => ({ t, acc: /[+.]/.test(t), plain: !/[+.]/.test(t) })) }));
 
     const services = [
-      { name: "Studio", href: "studio/index.html", tags: ["Recording", "Music production", "Mix & master", "Film music", "Sound design"],
+      { name: "Recording Studio", href: "studio/index.html", tags: ["Recording", "Music production", "Mix & master", "Film music", "Sound design"],
         img: "assets/studio-engineer-desk.jpg", imgAlt: "Engineer at the mixing desk in a Gray Spark control room",
         body: "From recording and music production to mixing, mastering and sound design, Gray Spark Audio brings together the people, spaces and expertise to take your project from idea to finished work. We work with artists, filmmakers and brands, with experienced engineers, producers and composers guiding every project. Our studios also support Dolby Atmos 7.1.4, 7.1 and 5.1 mixing for immersive, platform-ready audio." },
-      { name: "Music for Advertising", href: "studio/index.html#ads", tags: ["Jingles", "MOGOs", "Brand anthems"],
+      { name: "Audio for Advertising", href: "studio/index.html#ads", tags: ["Jingles", "MOGOs", "Brand anthems"],
         img: "assets/music-ads-session.jpg", imgAlt: "Vocalist tracking to picture in a Gray Spark booth",
         body: "We create custom, brand-aligned music and sound design that gives every campaign its own identity. From catchy jingles and MOGOs (musical logos) to full-fledged brand anthems, we craft music that connects with audiences and strengthens brand recall. Our work includes campaigns for ICC Champions Trophy, KIA, Samsung and SBI, amongst others." },
       { name: "AI Leveraged Music & Sound Design", href: "ai-audio/index.html", tags: ["Audiobooks", "Podcasts", "Microdramas", "Audio tours"],
@@ -668,10 +662,10 @@ class Component extends DCLogic {
       { n: "01", tag: "ICC Champions Trophy", title: "A global sports anthem, mixed for a billion viewers.", body: "Music and sound design for one of cricket's biggest stages \u2014 written, recorded and mixed in Baner.", slot: "gs-pf-icc", slotHint: "Drop an ICC Champions Trophy still" },
       { n: "02", tag: "KIA", title: "A soundtrack that moves with the machine.", body: "Dynamic brand music and sound design built to carry a campaign across films, cutdowns and platforms.", slot: "gs-pf-kia", slotHint: "Drop a KIA campaign still" },
       { n: "03", tag: "Easy Wanderlings", title: "The indie record that sounds like a Sunday.", body: "Recording, mix and master \u2014 wide, warm and unhurried, the way the band plays it live in the room.", yt: "-3V4OpteifI", slot: "gs-pf-wanderlings", slotHint: "Drop an Easy Wanderlings still" },
-      { n: "04", tag: "BYOH \u2014 f16s", title: "A band record cut with the amps still ringing.", body: "Tracking, production and mix for one of the country's most distinctive rock outfits.", slot: "gs-pf-f16s", slotHint: "Drop a BYOH / f16s still" },
+      { yt: "UOUMGKotXQ8", n: "04", tag: "BYOH \u2014 f16s", title: "A band record cut with the amps still ringing.", body: "Tracking, production and mix for one of the country's most distinctive rock outfits.", slot: "gs-pf-f16s", slotHint: "Drop a BYOH / f16s still" },
       { n: "05", tag: "Dex \u2014 audio tours", title: "Thousands of narrated minutes, one consistent voice.", body: "AI-leveraged voice production, music and sound design for audio tours \u2014 produced at volume without losing the thread.", slot: "gs-pf-dex", slotHint: "Drop a Dex audio-tour still" },
       { n: "06", tag: "Netflix \u2014 Sacred Games", title: "The show that pressed record on prestige TV in India.", body: "Location recording, ADR and post \u2014 cut inside the live room while the sirens still rang in our ears.", yt: "gSyY8Aav2e0", slot: "gs-pf-sacred", slotHint: "Drop a Sacred Games still" },
-      { n: "07", tag: "Varshangalkku Shesham", title: "A feature that leans on its score to carry the years.", body: "Film music and sound design \u2014 dialogue, score and mix held to the frame from first cut to final print.", slot: "gs-pf-varsha", slotHint: "Drop a Varshangalkku Shesham still" }
+      { yt: "50GJ7D_00NA", n: "07", tag: "Varshangalkku Shesham", title: "A feature that leans on its score to carry the years.", body: "Film music and sound design \u2014 dialogue, score and mix held to the frame from first cut to final print.", slot: "gs-pf-varsha", slotHint: "Drop a Varshangalkku Shesham still" }
     ];
     const portfolio = P.map((c, i) => ({ ...c, railnum: pad(i + 1) }));
 
@@ -688,16 +682,20 @@ class Component extends DCLogic {
       { n: "A", name: "Studio A", note: "the flagship", img: "assets/studio-a-live-room.jpg", specs: ["Spacious", "State of the art", "Outboard gear", "Mastering suite", "Neumann-powered Dolby Atmos 7.1.4"] },
       { n: "B", name: "Studio B", note: "one mic, one take", img: "assets/studio-b-room.jpg", specs: ["Compact", "Vocal recording", "Dubbing", "Editing"] },
       { n: "C", name: "Studio C", note: "the ideas room", img: "assets/studio-c-room.jpg", specs: ["Artist room", "Programming suite"] },
-      { n: "XYZ", name: "Studios X, Y & Z", note: "class in session", img: "assets/studio-xyz-room.jpg", specs: ["Dedicated space for Academy students", "Spacious", "Equipped for production"] }
+      { n: "X", name: "Studio X", note: "class in session", img: "assets/studio-xyz-room.jpg", specs: ["Academy studio", "Spacious", "Equipped for production"] },
+      { n: "Y", name: "Studio Y", note: "practice room", img: "assets/studio-xyz-room.jpg", specs: ["Academy studio", "Production workstation", "Student sessions"] },
+      { n: "Z", name: "Studio Z", note: "lab hours", img: "assets/studio-xyz-room.jpg", specs: ["Academy studio", "Equipped for production", "Open to students"] }
     ];
 
     const T = [
-      { n: "01", tag: "Front of house", title: "You come in through the lounge, not a lobby.", body: "Artists, producers and clients share the same first room \u2014 coffee, couches and a door straight onto the floor.", img: "assets/studio-control-room.jpg", imgAlt: "The Gray Spark control room seen on entry" },
-      { n: "02", tag: "Studio A \u2014 live room", title: "The flagship room, built to be played in.", body: "A Neumann-powered Dolby Atmos 7.1.4 room with a live floor big enough for a rhythm section and a mastering suite next door.", img: "assets/studio-a-live-room.jpg", imgAlt: "Studio A live room" },
-      { n: "03", tag: "Studio B \u2014 vocal booth", title: "One mic, one take, no bleed.", body: "Compact and dead quiet \u2014 vocals, dubbing and editing, with a sightline straight to the engineer.", img: "assets/studio-b-room.jpg", imgAlt: "Studio B vocal booth" },
-      { n: "04", tag: "Studio C \u2014 ideas room", title: "Where the session starts before it starts.", body: "An artist and programming room for writing, arranging and demoing without burning floor time.", img: "assets/studio-c-room.jpg", imgAlt: "Studio C artist and programming room" },
-      { n: "05", tag: "Studios X, Y & Z", title: "Class in session, all day.", body: "Three rooms dedicated to Academy students \u2014 fully equipped for production, so learning happens on real gear.", img: "assets/studio-xyz-room.jpg", imgAlt: "Academy studios X, Y and Z" },
-      { n: "06", tag: "The racks", title: "Fifteen years of gear, all patchable.", body: "Outboard racks, monitoring and a machine room that keeps every room fed from the same signal path.", img: "assets/studio-gear-desk.jpg", imgAlt: "Outboard racks and studio desk" }
+      { n: "01", tag: "Front of house", title: "Reception and lounge.", body: "Artists, producers and clients share the same first room \u2014 coffee, couches and a door straight onto the floor.", img: "assets/studio-control-room.jpg", imgAlt: "The Gray Spark control room seen on entry" },
+      { n: "02", tag: "Studio A \u2014 live room", title: "Our main recording and Dolby Atmos room.", body: "A Neumann-powered Dolby Atmos 7.1.4 room with a live floor big enough for a rhythm section and a mastering suite next door.", img: "assets/studio-a-live-room.jpg", imgAlt: "Studio A live room" },
+      { n: "03", tag: "Studio B \u2014 vocal booth", title: "A dedicated room for vocals and voice-over.", body: "Compact and dead quiet \u2014 vocals, dubbing and editing, with a sightline straight to the engineer.", img: "assets/studio-b-room.jpg", imgAlt: "Studio B vocal booth" },
+      { n: "04", tag: "Studio C \u2014 ideas room", title: "A room for writing and pre-production.", body: "An artist and programming room for writing, arranging and demoing without burning floor time.", img: "assets/studio-c-room.jpg", imgAlt: "Studio C artist and programming room" },
+      { n: "05", tag: "Studio X \u2014 Academy", title: "Academy studio for classes.", body: "The first Academy room \u2014 fully equipped for production, so learning happens on real gear.", img: "assets/studio-xyz-room.jpg", imgAlt: "Academy Studio X" },
+      { n: "06", tag: "Studio Y \u2014 Academy", title: "Academy practice room.", body: "A dedicated room for students to practise production and work on assignments.", img: "assets/studio-xyz-room.jpg", imgAlt: "Academy Studio Y" },
+      { n: "07", tag: "Studio Z \u2014 Academy", title: "Academy lab room.", body: "Kept open for students to take projects further between sessions.", img: "assets/studio-xyz-room.jpg", imgAlt: "Academy Studio Z" },
+      { n: "08", tag: "The racks", title: "Outboard gear and machine room.", body: "Outboard racks, monitoring and a machine room that keeps every room fed from the same signal path.", img: "assets/studio-gear-desk.jpg", imgAlt: "Outboard racks and studio desk" }
     ];
     // One ambient walkthrough clip runs behind the whole reel; swap per-room ids
     // into T when the individual room films are shot.
@@ -722,7 +720,7 @@ class Component extends DCLogic {
     }));
     const quotes = [...Q, ...Q].map((q, i) => ({ ...q, num: pad((i % Q.length) + 1) }));
 
-    return { brands, stats, services, portfolio, tour, usps, studios, atmosTags, quotes };
+    return { brands, stats, services, portfolio: portfolio.map((c) => { const [client, project] = String(c.tag || "").split(/\s+\u2014\s+|\s+—\s+/); return { ...c, client: client || c.tag, project: project || "" }; }), tour, usps, studios, atmosTags, quotes };
   }
 
   renderVals() {
@@ -899,7 +897,7 @@ class Component extends DCLogic {
     return {
       "Original (voltage yellow)": { "--bg": "#0a0a0a", "--fg": "#fafafa", "--surface": "#0d0d0d", "--surface2": "#242424", "--muted": "#8f8f8f", "--muted2": "#a6a6a6", "--border": "#333", "--accent": "oklch(0.9 0.19 100)", "--accent-fg": "#0a0a0a" },
       "Clay on ink": { "--bg": "#15272E", "--fg": "#F7F0E2", "--surface": "#122127", "--surface2": "#2b3d43", "--muted": "#8fa0a3", "--muted2": "#a8b6b8", "--border": "#2f424a", "--accent": "#A2664B", "--accent-fg": "#F7F0E2" },
-      "Sage on ink": { "--bg": "#15272E", "--fg": "#F7F0E2", "--surface": "#122127", "--surface2": "#2b3d43", "--muted": "#8fa0a3", "--muted2": "#a8b6b8", "--border": "#2f424a", "--accent": "#6F8F74", "--accent-fg": "#10201c" },
+      "Sage on ink": { "--bg": "#12191C", "--fg": "#F4ECE2", "--surface": "#0F1517", "--surface2": "#262F33", "--muted": "#8E9799", "--muted2": "#ABB2B3", "--border": "#2A3437", "--accent": "#f46530", "--accent-fg": "#140B06" },
       "Clay on slate": { "--bg": "#2b3636", "--fg": "#F7F0E2", "--surface": "#26312f", "--surface2": "#3f4e4f", "--muted": "#9aa6a4", "--muted2": "#b3bdbb", "--border": "#3c4a48", "--accent": "#A2664B", "--accent-fg": "#F7F0E2" }
     };
   }

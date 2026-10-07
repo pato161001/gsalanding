@@ -20,14 +20,10 @@
   @keyframes gs-rise { from{transform:translateY(110%)} to{transform:none} }
   @keyframes gs-fade { from{opacity:0} to{opacity:1} }
   @keyframes gs-fadeup { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:none} }
-  .tinted-shot img { filter: grayscale(.4) contrast(1.02) brightness(.86) sepia(.14); transition: filter .5s cubic-bezier(.16,1,.3,1); }
-  .tinted-shot::after { content:""; position:absolute; inset:0; background:var(--accent); mix-blend-mode:color; opacity:.1; transition:opacity .5s cubic-bezier(.16,1,.3,1); pointer-events:none; }
-  .tinted-shot:hover img { filter: none; }
-  .tinted-shot:hover::after { opacity: 0; }
-  body { margin:0; -webkit-font-smoothing:antialiased; background:#15272E; color:#F7F0E2; }
-  ::selection { background: var(--accent, #6F8F74); color: var(--accent-fg, #10201c); }
+  body { margin:0; -webkit-font-smoothing:antialiased; background:#12191C; color:#F4ECE2; }
+  ::selection { background: var(--accent, #f46530); color: var(--accent-fg, #140B06); }
   a { color: inherit; text-decoration: none; }
-  a:hover { color: var(--accent, #6F8F74); }
+  a:hover { color: var(--accent, #f46530); }
   .gs-rec-dot { animation: gs-rec 1.6s ease-in-out infinite; }
   .gs-fadein { animation: gs-fade 1.2s ease-out both; }
   .rise { display:block; overflow:hidden; }
@@ -84,16 +80,30 @@
 </script>
 </helmet>
 
-<div id="gs-root" style="--bg:#15272E;--fg:#F7F0E2;--surface:#122127;--surface2:#2b3d43;--muted:#8fa0a3;--muted2:#a8b6b8;--border:#2f424a;--accent:#6F8F74;--accent-fg:#10201c;--display:'Anton',sans-serif;--body:'Archivo',ui-sans-serif,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;--script:'Caveat',cursive; background:var(--bg); color:var(--fg); font-family:var(--body); min-height:100vh; overflow-x:clip; position:relative;">
+<div id="gs-root" style="--bg:#12191C;--fg:#F4ECE2;--surface:#0F1517;--surface2:#262F33;--muted:#8E9799;--muted2:#ABB2B3;--border:#2A3437;--accent:#f46530;--accent-fg:#140B06;--display:'Anton',sans-serif;--body:'Archivo',ui-sans-serif,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;--script:'Caveat',cursive; background:var(--bg); color:var(--fg); font-family:var(--body); min-height:100vh; overflow-x:clip; position:relative;">
 
   <div class="grain" aria-hidden="true"></div>
+
+  <nav aria-label="Quick contact" style="position:fixed;right:14px;top:50%;transform:translateY(-50%);z-index:60;display:flex;flex-direction:column;gap:8px;">
+    <a href="https://wa.me/917775018077" target="_blank" rel="noopener" aria-label="WhatsApp" title="WhatsApp" style="width:52px;height:52px;display:flex;align-items:center;justify-content:center;border-radius:14px;background:color-mix(in srgb, var(--surface2) 60%, transparent);border:1px solid color-mix(in srgb, var(--fg) 10%, transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:var(--fg);transition:background .25s,color .25s;" style-hover="background:var(--accent);color:var(--accent-fg);">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1-.7-.3-1.4-.7-2-1.3-.5-.5-1-1.1-1.3-1.7-.1-.2 0-.4.1-.5l.4-.5.3-.4v-.5l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.6.6-.9 1.4-.9 2.2.1 1 .5 2 1.1 2.8 1.2 1.7 2.7 3 4.6 3.8.5.2 1 .4 1.5.5.6.2 1.2.1 1.7-.1.6-.3 1-.8 1.2-1.4.1-.3.1-.6 0-.9l-.5-.4z"></path></svg>
+    </a>
+    <a href="tel:+917775018077" aria-label="Call the studio" title="Call +91 77750 18077" style="width:52px;height:52px;display:flex;align-items:center;justify-content:center;border-radius:14px;background:color-mix(in srgb, var(--surface2) 60%, transparent);border:1px solid color-mix(in srgb, var(--fg) 10%, transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:var(--fg);transition:background .25s,color .25s;" style-hover="background:var(--accent);color:var(--accent-fg);">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"></path></svg>
+    </a>
+    <a href="../contact/index.html" aria-label="Inquiry form" title="Inquiry form" style="width:52px;height:52px;display:flex;align-items:center;justify-content:center;border-radius:14px;background:color-mix(in srgb, var(--surface2) 60%, transparent);border:1px solid color-mix(in srgb, var(--fg) 10%, transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:var(--fg);transition:background .25s,color .25s;" style-hover="background:var(--accent);color:var(--accent-fg);">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="1"></rect><path d="M8 8h8M8 12h8M8 16h5"></path></svg>
+    </a>
+    <a href="mailto:nikitab@gray-spark.com" aria-label="Email" title="nikitab@gray-spark.com" style="width:52px;height:52px;display:flex;align-items:center;justify-content:center;border-radius:14px;background:color-mix(in srgb, var(--surface2) 60%, transparent);border:1px solid color-mix(in srgb, var(--fg) 10%, transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:var(--fg);transition:background .25s,color .25s;" style-hover="background:var(--accent);color:var(--accent-fg);">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1"></rect><path d="m3 7 9 6 9-6"></path></svg>
+    </a>
+  </nav>
 
   <!-- NAV -->
   <header style="position:fixed;top:0;left:0;right:0;z-index:50;background:color-mix(in srgb, var(--bg) 72%, transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);">
     <div style="max-width:1440px;margin:0 auto;padding:0 24px;height:72px;display:flex;align-items:center;justify-content:space-between;gap:24px;">
-      <a href="../index.html" style="display:flex;align-items:baseline;gap:10px;line-height:1;text-transform:uppercase;">
-        <span style="font-family:var(--display);font-size:25px;letter-spacing:.01em;color:var(--fg);">GraySpark</span>
-        <span style="font-family:var(--display);font-size:16px;letter-spacing:.28em;color:var(--muted);">Audio</span>
+      <a href="../index.html" aria-label="GraySpark Audio — home" style="display:flex;align-items:center;line-height:0;">
+        <img src="../assets/grayspark-logo.png" alt="GraySpark Audio" style="height:52px;width:auto;display:block;">
       </a>
       <nav class="nav-links" style="display:flex;gap:26px;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.25em;color:var(--muted);">
         <a href="../studio/index.html" class="hover-underline">Studio</a>
@@ -145,7 +155,6 @@
         </div>
       </div>
     </div>
-    <div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent);z-index:10;"></div>
   </section>
 
   <!-- ROOMS -->
@@ -154,9 +163,8 @@
       <div data-reveal style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:64px;">
         <div class="reveal">
           <p style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.25em;color:var(--accent);margin:0 0 12px;">01 / The rooms</p>
-          <h2 style="font-family:var(--display);text-transform:uppercase;font-size:clamp(40px,6vw,96px);line-height:.95;letter-spacing:-.01em;margin:0;">Every room<br>tuned for a <span style="color:var(--accent);">job.</span></h2>
+          <h2 style="font-family:var(--display);text-transform:uppercase;font-size:clamp(40px,6vw,96px);line-height:.95;letter-spacing:-.01em;margin:0;">Our studios.</h2>
         </div>
-        <p class="reveal" style="font-family:var(--script);font-size:30px;color:var(--accent);transform:rotate(-2deg);margin:0;">all interconnected &darr;</p>
       </div>
 
       <div style="display:flex;flex-direction:column;gap:96px;">
@@ -170,7 +178,6 @@
                 <span style="position:absolute;top:16px;left:16px;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.3em;color:var(--accent);background:color-mix(in srgb, var(--bg) 80%, transparent);padding:6px 10px;pointer-events:none;">&#9679; {{ r.n }}</span>
               </div>
               <div class="reveal">
-                <p style="margin:0;font-family:var(--script);font-size:30px;color:var(--accent);transform:rotate(-2deg);">{{ r.note }}</p>
                 <h3 style="margin:8px 0 0;font-family:var(--display);text-transform:uppercase;font-size:clamp(32px,4.4vw,64px);line-height:1;letter-spacing:-.01em;">{{ r.name }}</h3>
                 <div style="margin-top:20px;height:1px;width:64px;background:var(--accent);"></div>
                 <p style="margin:22px 0 0;max-width:46ch;color:color-mix(in srgb, var(--fg) 70%, transparent);line-height:1.8;font-size:15px;text-wrap:pretty;">{{ r.body }}</p>
@@ -190,7 +197,7 @@
   </section>
 
   <!-- VIDEO TOUR (sticky scroll reel) -->
-  <section id="tour" style="position:relative;border-bottom:1px solid var(--border);height:600vh;">
+  <section id="tour" style="position:relative;border-bottom:1px solid var(--border);height:800vh;">
     <div style="position:sticky;top:0;height:100vh;width:100%;overflow:hidden;background:#000;">
       <div style="position:absolute;inset:0;">
         <sc-for list="{{ tour }}" as="c">
@@ -208,7 +215,6 @@
       </div>
       <div class="yellow-tint scanlines vignette" aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;"></div>
       <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg, rgba(10,10,10,.6) 0%, rgba(10,10,10,.1) 30%, rgba(10,10,10,.2) 60%, rgba(10,10,10,.92) 100%);"></div>
-      <div aria-hidden="true" style="position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent);z-index:10;"></div>
       <div style="position:absolute;top:24px;left:24px;z-index:20;display:flex;align-items:center;gap:12px;">
         <span class="gs-rec-dot" style="width:10px;height:10px;border-radius:50%;background:var(--accent);"></span>
         <span style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.3em;color:var(--accent);">● PLAY — studio tour</span>
@@ -216,7 +222,7 @@
       <div style="position:absolute;top:24px;right:24px;z-index:20;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.3em;color:rgba(255,255,255,.7);text-align:right;">Room <span data-counter="">01</span> / 06<br><span style="color:var(--accent);">walkthrough · 5000 sq. ft.</span></div>
       <div class="hide-mobile" style="position:absolute;top:96px;left:24px;z-index:20;">
         <p style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.3em;color:var(--accent);margin:0 0 8px;">02 / Studio tour</p>
-        <p style="font-family:var(--script);font-size:30px;color:var(--accent);transform:rotate(-2deg);margin:0;">walk the floor ↓</p>
+        <p style="font-family:var(--script);font-size:30px;color:var(--accent);transform:rotate(-2deg);margin:0;">scroll for the tour ↓</p>
       </div>
       <button type="button" data-sec="tour" onClick="{{ toggleSound }}" aria-label="Toggle sound" style="position:absolute;top:80px;right:24px;z-index:30;display:flex;align-items:center;gap:10px;background:rgba(10,10,10,.55);border:1px solid var(--accent);color:var(--accent);padding:10px 18px;cursor:pointer;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.3em;backdrop-filter:blur(4px);transition:background .3s ease,color .3s ease;" style-hover="background:var(--accent);color:var(--accent-fg);">● <span data-soundlabel="">unmute</span></button>
       <div style="position:absolute;left:0;right:0;bottom:0;z-index:20;padding:0 24px 72px;max-width:1440px;margin:0 auto;">
@@ -251,7 +257,7 @@
       <div data-reveal style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:40px;">
         <div class="reveal">
           <p style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.25em;color:var(--accent);margin:0 0 12px;">03 / Gallery</p>
-          <h2 style="font-family:var(--display);text-transform:uppercase;font-size:clamp(40px,6vw,96px);line-height:.95;letter-spacing:-.01em;margin:0;">Inside the <span style="color:var(--accent);font-style:italic;">rooms.</span></h2>
+          <h2 style="font-family:var(--display);text-transform:uppercase;font-size:clamp(40px,6vw,96px);line-height:.95;letter-spacing:-.01em;margin:0;">Studio details.</h2>
         </div>
         <p class="reveal" style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.26em;color:var(--muted);max-width:26ch;text-align:right;margin:0;">nine frames from<br>the working floor</p>
       </div>
@@ -273,11 +279,11 @@
       <div data-reveal class="two-col" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:64px;align-items:start;">
         <div class="reveal-left">
           <p style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.25em;color:var(--accent);margin:0 0 20px;">04 / Microphones</p>
-          <h2 style="font-family:var(--display);text-transform:uppercase;font-size:clamp(34px,5vw,80px);line-height:.94;letter-spacing:-.01em;margin:0;max-width:16ch;">The right mic, <span style="color:var(--accent);font-style:italic;">moved</span> properly.</h2>
+          <h2 style="font-family:var(--display);text-transform:uppercase;font-size:clamp(34px,5vw,80px);line-height:.94;letter-spacing:-.01em;margin:0;max-width:16ch;">Microphones.</h2>
           <p style="margin:28px 0 0;max-width:50ch;color:color-mix(in srgb, var(--fg) 70%, transparent);line-height:1.85;font-size:15px;text-wrap:pretty;">A locker built over fifteen years &mdash; large-diaphragm condensers for vocals, ribbons for brass and guitar cabs, dynamics for drums, and matched pairs for rooms and orchestral work. As a Neumann partner, our monitoring and mic selection is specified alongside the manufacturer.</p>
           <div style="margin-top:32px;display:flex;flex-wrap:wrap;gap:8px;">
             <sc-for list="{{ micTags }}" as="t" hint-placeholder-count="4">
-              <span style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.24em;color:var(--accent);border:1px solid var(--accent);padding:8px 12px;">{{ t }}</span>
+              <span style="font-family:var(--mono);font-size:11px;font-weight:400;text-transform:uppercase;letter-spacing:.18em;color:var(--accent);border:1px solid var(--accent);padding:8px 12px;">{{ t }}</span>
             </sc-for>
           </div>
         </div>
@@ -294,13 +300,13 @@
       <div data-reveal style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:48px;">
         <div class="reveal">
           <p style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.25em;color:var(--accent);margin:0 0 12px;">05 / Equipment</p>
-          <h2 style="font-family:var(--display);text-transform:uppercase;font-size:clamp(40px,6vw,96px);line-height:.95;letter-spacing:-.01em;margin:0;">What&rsquo;s on the <span style="color:var(--accent);">floor.</span></h2>
+          <h2 style="font-family:var(--display);text-transform:uppercase;font-size:clamp(40px,6vw,96px);line-height:.95;letter-spacing:-.01em;margin:0;">Equipment.</h2>
         </div>
         <a href="../contact/index.html" class="reveal" style="display:inline-flex;align-items:center;gap:10px;border:1px solid var(--accent);color:var(--accent);padding:14px 22px;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.25em;transition:background .3s,color .3s;" style-hover="background:var(--accent);color:var(--accent-fg);">Request the full list &rarr;</a>
       </div>
-      <div data-reveal data-stagger style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:1px;background:var(--border);border:1px solid var(--border);">
+      <div data-reveal data-stagger style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:1px;padding:1px;">
         <sc-for list="{{ equipment }}" as="e" hint-placeholder-count="6">
-          <div style="background:var(--bg);padding:32px 28px;">
+          <div style="background:var(--bg);outline:1px solid var(--border);padding:32px 28px;">
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
               <span style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.3em;color:var(--accent);">{{ e.num }}</span>
               <span style="width:8px;height:8px;border-radius:50%;background:var(--accent);"></span>
@@ -324,7 +330,7 @@
       <div data-reveal style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:40px;">
         <div class="reveal">
           <p style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.25em;color:var(--accent);margin:0 0 12px;">06 / Instagram</p>
-          <h2 style="font-family:var(--display);text-transform:uppercase;font-size:clamp(34px,5vw,80px);line-height:.95;letter-spacing:-.01em;margin:0;">From the floor, <span style="color:var(--accent);font-style:italic;">daily.</span></h2>
+          <h2 style="font-family:var(--display);text-transform:uppercase;font-size:clamp(34px,5vw,80px);line-height:.95;letter-spacing:-.01em;margin:0;">On Instagram.</h2>
         </div>
         <a href="https://www.instagram.com/graysparkaudio/" target="_blank" rel="noopener" class="reveal" style="display:inline-flex;align-items:center;gap:10px;border:1px solid var(--accent);color:var(--accent);padding:14px 22px;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.25em;transition:background .3s,color .3s;" style-hover="background:var(--accent);color:var(--accent-fg);">@graysparkaudio &rarr;</a>
       </div>
@@ -344,7 +350,7 @@
     <div class="reveal" style="max-width:1440px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:40px;">
       <div>
         <p style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.28em;margin:0 0 16px;">Come see it</p>
-        <h2 style="font-family:var(--display);text-transform:uppercase;font-size:clamp(32px,5vw,80px);line-height:.94;letter-spacing:-.01em;margin:0;max-width:20ch;">Book a walkthrough. We&rsquo;ll play a track on the mains.</h2>
+        <h2 style="font-family:var(--display);text-transform:uppercase;font-size:clamp(32px,5vw,80px);line-height:.94;letter-spacing:-.01em;margin:0;max-width:20ch;">Book a studio visit.</h2>
       </div>
       <a href="../contact/index.html" style="display:inline-flex;align-items:center;gap:12px;border:2px solid var(--accent-fg);padding:20px 30px;font-family:var(--display);font-size:22px;text-transform:uppercase;transition:background .3s,color .3s;" style-hover="background:var(--accent-fg);color:var(--accent)">Get in touch &rarr;</a>
     </div>
@@ -356,12 +362,12 @@
       <div data-reveal class="foot-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:40px;">
         <div>
           <p style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.25em;color:var(--muted);margin:0 0 16px;">Location</p>
-          <p style="font-size:15px;line-height:1.7;max-width:26ch;margin:0;">3rd Floor, Shere-E-Punjab,<br>Baner Road, Baner,<br>Pune, MH 411045</p>
+          <p style="font-size:15px;line-height:1.7;max-width:26ch;margin:0;">Solitaire Business Hub, 312,<br>Balewadi High Street, Baner,<br>Pune, MH 411045</p>
         </div>
         <div>
           <p style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.25em;color:var(--muted);margin:0 0 16px;">Connect</p>
-          <a href="mailto:hello@graysparkaudio.com" class="hover-underline" style="display:inline-block;font-size:15px;">hello@graysparkaudio.com</a><br>
-          <a href="tel:+919823044556" class="hover-underline" style="display:inline-block;font-size:15px;margin-top:8px;">+91 98230 44556</a>
+          <a href="mailto:nikitab@gray-spark.com" class="hover-underline" style="display:inline-block;font-size:15px;">nikitab@gray-spark.com</a><br>
+          <a href="tel:+917775018077" class="hover-underline" style="display:inline-block;font-size:15px;margin-top:8px;">+91 77750 18077</a>
         </div>
         <div>
           <p style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.25em;color:var(--muted);margin:0 0 16px;">Pages</p>
@@ -414,9 +420,15 @@ class Component extends DCLogic {
       { n: "C", name: "Studio C", note: "the ideas room", img: "../assets/studio-c-room.jpg", imgAlt: "Studio C artist and programming room",
         body: "An artist room and programming suite \u2014 where arrangements get built, beats get written and a rough idea becomes something worth tracking properly next door.",
         specs: ["Artist room", "Programming suite"] },
-      { n: "XYZ", name: "Studios X, Y & Z", note: "class in session", img: "../assets/studio-xyz-room.jpg", imgAlt: "Academy studios X, Y and Z",
-        body: "Three dedicated studio spaces for Academy students \u2014 spacious, equipped for production, and sitting inside a working facility so students learn next door to real sessions.",
-        specs: ["Dedicated Academy spaces", "Spacious", "Equipped for production"] }
+      { n: "X", name: "Studio X", note: "class in session", img: "../assets/studio-xyz-room.jpg", imgAlt: "Academy Studio X",
+        body: "The first of three Academy rooms \u2014 spacious, equipped for production, and sitting inside a working facility so students learn next door to real sessions.",
+        specs: ["Academy studio", "Spacious", "Equipped for production"] },
+      { n: "Y", name: "Studio Y", note: "practice room", img: "../assets/studio-xyz-room.jpg", imgAlt: "Academy Studio Y",
+        body: "A dedicated Academy room for students to practise production and work on assignments between classes.",
+        specs: ["Academy studio", "Production workstation", "Student sessions"] },
+      { n: "Z", name: "Studio Z", note: "lab hours", img: "../assets/studio-xyz-room.jpg", imgAlt: "Academy Studio Z",
+        body: "The third Academy room \u2014 kept open for lab hours so students can take projects further on real gear.",
+        specs: ["Academy studio", "Equipped for production", "Open to students"] }
     ];
 
     const gallery = [
@@ -443,12 +455,14 @@ class Component extends DCLogic {
     ].map((e, i) => ({ ...e, num: pad(i + 1) }));
 
     const T = [
-      { n: "01", tag: "Front of house", title: "You come in through the lounge, not a lobby.", body: "Artists, producers and clients share the same first room \u2014 coffee, couches and a door straight onto the floor.", img: "../assets/studio-control-room.jpg", imgAlt: "The Gray Spark control room seen on entry" },
-      { n: "02", tag: "Studio A \u2014 live room", title: "The flagship room, built to be played in.", body: "A Neumann-powered Dolby Atmos 7.1.4 room with a live floor big enough for a rhythm section and a mastering suite next door.", img: "../assets/studio-a-live-room.jpg", imgAlt: "Studio A live room" },
-      { n: "03", tag: "Studio B \u2014 vocal booth", title: "One mic, one take, no bleed.", body: "Compact and dead quiet \u2014 vocals, dubbing and editing, with a sightline straight to the engineer.", img: "../assets/studio-b-room.jpg", imgAlt: "Studio B vocal booth" },
-      { n: "04", tag: "Studio C \u2014 ideas room", title: "Where the session starts before it starts.", body: "An artist and programming room for writing, arranging and demoing without burning floor time.", img: "../assets/studio-c-room.jpg", imgAlt: "Studio C artist and programming room" },
-      { n: "05", tag: "Studios X, Y & Z", title: "Class in session, all day.", body: "Three rooms dedicated to Academy students \u2014 fully equipped for production, so learning happens on real gear.", img: "../assets/studio-xyz-room.jpg", imgAlt: "Academy studios X, Y and Z" },
-      { n: "06", tag: "The racks", title: "Fifteen years of gear, all patchable.", body: "Outboard racks, monitoring and a machine room that keeps every room fed from the same signal path.", img: "../assets/studio-gear-desk.jpg", imgAlt: "Outboard racks and studio desk" }
+      { n: "01", tag: "Front of house", title: "Reception and lounge.", body: "Artists, producers and clients share the same first room \u2014 coffee, couches and a door straight onto the floor.", img: "../assets/studio-control-room.jpg", imgAlt: "The Gray Spark control room seen on entry" },
+      { n: "02", tag: "Studio A \u2014 live room", title: "Our main recording and Dolby Atmos room.", body: "A Neumann-powered Dolby Atmos 7.1.4 room with a live floor big enough for a rhythm section and a mastering suite next door.", img: "../assets/studio-a-live-room.jpg", imgAlt: "Studio A live room" },
+      { n: "03", tag: "Studio B \u2014 vocal booth", title: "A dedicated room for vocals and voice-over.", body: "Compact and dead quiet \u2014 vocals, dubbing and editing, with a sightline straight to the engineer.", img: "../assets/studio-b-room.jpg", imgAlt: "Studio B vocal booth" },
+      { n: "04", tag: "Studio C \u2014 ideas room", title: "A room for writing and pre-production.", body: "An artist and programming room for writing, arranging and demoing without burning floor time.", img: "../assets/studio-c-room.jpg", imgAlt: "Studio C artist and programming room" },
+      { n: "05", tag: "Studio X \u2014 Academy", title: "Academy studio for classes.", body: "The first Academy room \u2014 fully equipped for production, so learning happens on real gear.", img: "../assets/studio-xyz-room.jpg", imgAlt: "Academy Studio X" },
+      { n: "06", tag: "Studio Y \u2014 Academy", title: "Academy practice room.", body: "A dedicated room for students to practise production and work on assignments.", img: "../assets/studio-xyz-room.jpg", imgAlt: "Academy Studio Y" },
+      { n: "07", tag: "Studio Z \u2014 Academy", title: "Academy lab room.", body: "Kept open for students to take projects further between sessions.", img: "../assets/studio-xyz-room.jpg", imgAlt: "Academy Studio Z" },
+      { n: "08", tag: "The racks", title: "Outboard gear and machine room.", body: "Outboard racks, monitoring and a machine room that keeps every room fed from the same signal path.", img: "../assets/studio-gear-desk.jpg", imgAlt: "Outboard racks and studio desk" }
     ];
     // One ambient walkthrough clip runs behind the whole reel; swap per-room ids
     // into T when the individual room films are shot.
@@ -660,7 +674,7 @@ class Component extends DCLogic {
     return {
       "Original (voltage yellow)": { "--bg": "#0a0a0a", "--fg": "#fafafa", "--surface": "#0d0d0d", "--surface2": "#242424", "--muted": "#8f8f8f", "--muted2": "#a6a6a6", "--border": "#333", "--accent": "oklch(0.9 0.19 100)", "--accent-fg": "#0a0a0a" },
       "Clay on ink": { "--bg": "#15272E", "--fg": "#F7F0E2", "--surface": "#122127", "--surface2": "#2b3d43", "--muted": "#8fa0a3", "--muted2": "#a8b6b8", "--border": "#2f424a", "--accent": "#A2664B", "--accent-fg": "#F7F0E2" },
-      "Sage on ink": { "--bg": "#15272E", "--fg": "#F7F0E2", "--surface": "#122127", "--surface2": "#2b3d43", "--muted": "#8fa0a3", "--muted2": "#a8b6b8", "--border": "#2f424a", "--accent": "#6F8F74", "--accent-fg": "#10201c" },
+      "Sage on ink": { "--bg": "#12191C", "--fg": "#F4ECE2", "--surface": "#0F1517", "--surface2": "#262F33", "--muted": "#8E9799", "--muted2": "#ABB2B3", "--border": "#2A3437", "--accent": "#f46530", "--accent-fg": "#140B06" },
       "Clay on slate": { "--bg": "#2b3636", "--fg": "#F7F0E2", "--surface": "#26312f", "--surface2": "#3f4e4f", "--muted": "#9aa6a4", "--muted2": "#b3bdbb", "--border": "#3c4a48", "--accent": "#A2664B", "--accent-fg": "#F7F0E2" }
     };
   }
