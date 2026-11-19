@@ -4,6 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>GraySpark Audio — Recording, Mixing & Audio Post</title>
+<link rel="preconnect" href="https://www.youtube.com">
+<link rel="preconnect" href="https://i.ytimg.com">
+<link rel="preconnect" href="https://www.google.com">
+<link rel="preconnect" href="https://player.vimeo.com">
+<link rel="preconnect" href="https://f.vimeocdn.com">
+<link rel="preconnect" href="https://vod-adaptive-ak.vimeocdn.com">
+<script id="gs-yt-api" src="https://www.youtube.com/iframe_api" async></script>
 <script src="vendor/support.js"></script>
 <link rel="stylesheet" href="vendor/mobile.css">
 <script src="vendor/mobile.js" defer></script>
@@ -11,8 +18,6 @@
 <body>
 <x-dc>
 <helmet>
-<link rel="preconnect" href="https://www.youtube.com">
-<link rel="preconnect" href="https://i.ytimg.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Archivo:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Caveat:wght@400;700&amp;display=swap" rel="stylesheet">
@@ -710,6 +715,20 @@ class Component extends DCLogic {
   }
 
   componentDidMount() {
+    window.addEventListener("message", (e) => {
+      if (e.origin !== "https://player.vimeo.com") return;
+      let d = e.data;
+      if (typeof d === "string") { try { d = JSON.parse(d); } catch (err) { return; } }
+      if (!d || d.event !== "ready") return;
+      document.querySelectorAll("[data-vimeo] iframe").forEach((f) => {
+        if (f.contentWindow !== e.source) return;
+        f._gsReady = true;
+        const sec = f.closest("section");
+        const on = !!(this._soundOn && sec && this._soundOn[sec.id]);
+        this._vimeoSound(f, on);
+        this._vimeoCmd(f, f._gsPlay ? "play" : "pause");
+      });
+    });
     const data = this.getData();
 
     const loader = document.getElementById("gs-loader");
@@ -860,6 +879,7 @@ class Component extends DCLogic {
         events: {
           onReady: (e) => {
             try { e.target.mute(); } catch (err) {}
+            if (this._soundOn && this._soundOn[secId]) { try { e.target.unMute(); } catch (err) {} }
             const f = e.target.getIframe();
             if (f) f.style.cssText += ";width:100%;height:100%;position:absolute;top:0;left:0;pointer-events:none;border:0;";
             this._players[secId] = { player: e.target, ready: true, fade: fade };
@@ -883,19 +903,32 @@ class Component extends DCLogic {
     });
     const near = new IntersectionObserver((entries) => {
       if (entries.some((en) => en.isIntersecting)) { near.disconnect(); create(); }
-    }, { rootMargin: "100% 0px 100% 0px" });
+    }, { rootMargin: "250% 0px 250% 0px" });
     near.observe(sec);
   }
 
+  // Sound is a per-section setting: the button flips it, and every player in
+  // the section (YouTube, plus any Vimeo chapter in the portfolio reel)
+  // follows it, including players that load after the click.
   _toggleSound(secId) {
-    const rec = this._players && this._players[secId];
-    if (!rec || !rec.ready) return;
+    this._soundOn = this._soundOn || {};
+    const on = !this._soundOn[secId];
+    this._soundOn[secId] = on;
     const sec = document.getElementById(secId);
     const label = sec && sec.querySelector("[data-soundlabel]");
-    try {
-      if (rec.player.isMuted()) { rec.player.unMute(); if (label) label.textContent = "mute"; }
-      else { rec.player.mute(); if (label) label.textContent = "unmute"; }
-    } catch (e) {}
+    if (label) label.textContent = on ? "mute" : "unmute";
+    const rec = this._players && this._players[secId];
+    if (rec && rec.ready) { try { on ? rec.player.unMute() : rec.player.mute(); } catch (e) {} }
+    if (sec) sec.querySelectorAll("[data-vimeo] iframe").forEach((f) => this._vimeoSound(f, on));
+  }
+
+  _vimeoCmd(frame, method, value) {
+    try { frame.contentWindow.postMessage(JSON.stringify(value === undefined ? { method: method } : { method: method, value: value }), "https://player.vimeo.com"); } catch (e) {}
+  }
+
+  _vimeoSound(frame, on) {
+    this._vimeoCmd(frame, "setMuted", !on);
+    if (on) this._vimeoCmd(frame, "setVolume", 1);
   }
 
   _closeVideo() {
@@ -957,17 +990,19 @@ class Component extends DCLogic {
           } else if (!ch.yt && fade) fade.style.opacity = "0";
         }
         layers.forEach((el, i) => { el.style.opacity = i === active ? "1" : "0"; });
-        // Vimeo chapters: mount a muted background player only while that
-        // chapter is showing and the reel is on screen; remove it otherwise.
+        // Vimeo chapters: load the player early (once the reel is within a few
+        // screens) and keep it, so it is ready when its chapter comes up. It
+        // plays only while its chapter is showing and pauses otherwise.
+        const nearReel = rect.top < window.innerHeight * 3 && rect.bottom > -window.innerHeight;
         const onScreen = rect.top < window.innerHeight && rect.bottom > 0;
         sec.querySelectorAll("[data-vimeo]").forEach((vh) => {
-          const layer = vh.closest("[data-layer]");
-          const want = onScreen && layers.indexOf(layer) === active;
-          if (want && !vh.firstElementChild) {
-            vh.innerHTML = '<iframe src="https://player.vimeo.com/video/' + encodeURIComponent(vh.getAttribute("data-vimeo")) + '?background=1&autoplay=1&muted=1&loop=1&dnt=1" allow="autoplay; fullscreen; picture-in-picture" title="Project video" style="position:absolute;inset:0;width:100%;height:100%;border:0;"></iframe>';
-          } else if (!want && vh.firstElementChild) {
-            vh.innerHTML = "";
+          if (nearReel && !vh.firstElementChild) {
+            vh.innerHTML = '<iframe src="https://player.vimeo.com/video/' + encodeURIComponent(vh.getAttribute("data-vimeo")) + '?autoplay=0&muted=1&loop=1&controls=0&title=0&byline=0&portrait=0&autopause=0&dnt=1" allow="autoplay; fullscreen; picture-in-picture" title="Project video" style="position:absolute;inset:0;width:100%;height:100%;border:0;"></iframe>';
           }
+          const f = vh.firstElementChild;
+          if (!f) return;
+          const want = onScreen && layers.indexOf(vh.closest("[data-layer]")) === active;
+          if (f._gsPlay !== want) { f._gsPlay = want; if (f._gsReady) this._vimeoCmd(f, want ? "play" : "pause"); }
         });
         caps.forEach((el, i) => { el.style.opacity = i === active ? "1" : "0"; el.style.transform = "translateY(" + (i === active ? 0 : 24) + "px)"; el.style.filter = "blur(" + (i === active ? 0 : 6) + "px)"; });
         nums.forEach((el, i) => { el.style.color = i === active ? "var(--accent)" : "rgba(255,255,255,0.4)"; });
