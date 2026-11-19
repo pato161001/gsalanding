@@ -199,56 +199,33 @@
     </div>
   </section>
 
-  <!-- VIDEO TOUR (sticky scroll reel) -->
-  <section id="tour" style="position:relative;border-bottom:1px solid var(--border);height:800vh;">
-    <div class="reel-stage" style="position:sticky;top:0;height:100vh;width:100%;overflow:hidden;background:#000;">
-      <div style="position:absolute;inset:0;">
-        <sc-for list="{{ tour }}" as="c">
-          <div data-layer="" style="position:absolute;inset:0;opacity:0;transition:opacity .7s ease;">
-            <sc-if value="{{ c.img }}" hint-placeholder-val="{{ false }}">
-              <img loading="lazy" decoding="async" data-src="{{ c.img }}" alt="{{ c.imgAlt }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
-            </sc-if>
-          </div>
-        </sc-for>
-      </div>
-      <div data-videofade="" aria-hidden="true" style="position:absolute;inset:0;overflow:hidden;pointer-events:none;opacity:0;transition:opacity .8s ease;background:#000;">
-        <div data-videohost="" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:max(100vw,178vh,1352px);height:max(100vh,760px,56.25vw);">
-          <div style="width:100%;height:100%;"></div>
+  <!-- VIDEO TOUR (single film) -->
+  <section id="tour" style="padding:96px 24px;border-bottom:1px solid var(--border);">
+    <div style="max-width:1440px;margin:0 auto;display:flex;flex-direction:column;gap:40px;">
+      <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px;">
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <p style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.3em;color:var(--accent);margin:0;">02 / Studio tour</p>
+          <h2 style="font-family:var(--display);text-transform:uppercase;font-size:clamp(40px,6vw,96px);line-height:.95;letter-spacing:-.01em;margin:0;">Walk through the studio.</h2>
         </div>
+        <p style="margin:0;max-width:44ch;color:var(--muted2);line-height:1.7;font-size:16px;text-wrap:pretty;">A short film of the whole 5,000 sq. ft. facility — reception, Studios A, B and C, the Academy rooms and the racks.</p>
       </div>
-      <div class="yellow-tint scanlines vignette" aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;"></div>
-      <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg, rgba(10,10,10,.6) 0%, rgba(10,10,10,.1) 30%, rgba(10,10,10,.2) 60%, rgba(10,10,10,.92) 100%);"></div>
-      <div class="reel-tl" style="position:absolute;top:24px;left:24px;z-index:20;display:flex;align-items:center;gap:12px;">
-        <span class="gs-rec-dot" style="width:10px;height:10px;border-radius:50%;background:var(--accent);"></span>
-        <span style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.3em;color:var(--accent);">● PLAY — studio tour</span>
-      </div>
-      <div class="reel-tr" style="position:absolute;top:24px;right:24px;z-index:20;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.3em;color:rgba(255,255,255,.7);text-align:right;">Room <span data-counter="">01</span> / 06<br><span style="color:var(--accent);">walkthrough · 5000 sq. ft.</span></div>
-      <div class="hide-mobile" style="position:absolute;top:96px;left:24px;z-index:20;">
-        <p style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.3em;color:var(--accent);margin:0 0 8px;">02 / Studio tour</p>
-        <p style="font-family:var(--script);font-size:30px;color:var(--accent);transform:rotate(-2deg);margin:0;">scroll for the tour ↓</p>
-      </div>
-      <button class="reel-sound" type="button" data-sec="tour" onClick="{{ toggleSound }}" aria-label="Toggle sound" style="position:absolute;top:80px;right:24px;z-index:30;display:flex;align-items:center;gap:10px;background:rgba(10,10,10,.55);border:1px solid var(--accent);color:var(--accent);padding:10px 18px;cursor:pointer;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.3em;backdrop-filter:blur(4px);transition:background .3s ease,color .3s ease;" style-hover="background:var(--accent);color:var(--accent-fg);">● <span data-soundlabel="">unmute</span></button>
-      <div class="reel-body" style="position:absolute;left:0;right:0;bottom:0;z-index:20;padding:0 24px 72px;max-width:1440px;margin:0 auto;">
-        <div class="reel-grid" style="display:grid;grid-template-columns:auto 1fr;gap:40px;align-items:flex-end;">
-          <div data-numeral="" class="hide-mobile" style="font-family:var(--display);font-size:clamp(56px,9vw,116px);line-height:1;color:var(--accent);margin:0;text-shadow:0 2px 24px rgba(0,0,0,.55);">01</div>
-          <div data-caps="" style="position:relative;min-height:220px;">
-            <sc-for list="{{ tour }}" as="c" hint-placeholder-count="6">
-              <div data-cap="" style="position:absolute;inset:0;opacity:0;transition:all .7s ease;">
-                <p style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.3em;color:var(--accent);margin:0 0 16px;">{{ c.tag }}</p>
-                <h3 style="font-family:var(--display);text-transform:uppercase;line-height:.95;letter-spacing:-.01em;font-size:clamp(30px,4.4vw,64px);margin:0;max-width:24ch;text-shadow:0 2px 24px rgba(0,0,0,.55);">{{ c.title }}</h3>
-                <p style="margin:20px 0 0;max-width:54ch;color:rgba(255,255,255,.82);line-height:1.7;font-size:clamp(14px,1.2vw,16px);text-wrap:pretty;">{{ c.body }}</p>
-              </div>
-            </sc-for>
+      <div data-tourframe="" style="position:relative;width:100%;aspect-ratio:16/9;background:#000;overflow:hidden;border:1px solid var(--border);">
+        <img loading="lazy" decoding="async" src="https://i.ytimg.com/vi/xswVSJNWMOs/maxresdefault.jpg" alt="Gray Spark studio tour" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+        <div data-videofade="" aria-hidden="true" style="position:absolute;inset:0;overflow:hidden;pointer-events:none;opacity:0;transition:opacity .8s ease;background:#000;">
+          <div data-videohost="" style="position:absolute;inset:0;">
+            <div style="width:100%;height:100%;"></div>
           </div>
         </div>
-        <div style="margin-top:36px;display:flex;align-items:center;gap:12px;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.25em;color:rgba(255,255,255,.6);">
-          <sc-for list="{{ tour }}" as="c" hint-placeholder-count="6">
-            <div style="display:flex;align-items:center;gap:10px;flex:1;min-width:0;">
-              <span data-railnum="" style="color:rgba(255,255,255,.4);">{{ c.railnum }}</span>
-              <div style="position:relative;flex:1;height:1px;background:rgba(255,255,255,.15);overflow:hidden;"><span data-railbar="" style="position:absolute;top:0;bottom:0;left:0;width:0;background:var(--accent);transition:width .5s;"></span></div>
-            </div>
-          </sc-for>
+        <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg, rgba(10,10,10,.35) 0%, rgba(10,10,10,0) 35%, rgba(10,10,10,0) 60%, rgba(10,10,10,.7) 100%);"></div>
+        <div style="position:absolute;top:20px;left:20px;display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.3em;color:#fff;">
+          <span class="gs-rec-dot" style="width:8px;height:8px;border-radius:50%;background:var(--accent);"></span>
+          <span>Preview</span>
         </div>
+        <button type="button" data-yt="xswVSJNWMOs" onClick="{{ playTour }}" aria-label="Watch the full studio tour" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);display:flex;align-items:center;gap:14px;background:var(--accent);color:var(--accent-fg);border:0;border-radius:999px;padding:18px 30px 18px 24px;cursor:pointer;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.25em;box-shadow:0 16px 48px rgba(0,0,0,.45);transition:transform .3s ease;" style-hover="transform:translate(-50%,-50%) scale(1.05);">
+          <span style="width:0;height:0;border-left:14px solid currentColor;border-top:9px solid transparent;border-bottom:9px solid transparent;"></span>
+          <span>Watch the tour</span>
+        </button>
+        <button type="button" data-sec="tour" onClick="{{ toggleSound }}" aria-label="Toggle sound" style="position:absolute;bottom:20px;right:20px;display:flex;align-items:center;gap:8px;background:rgba(10,10,10,.55);border:1px solid rgba(255,255,255,.4);border-radius:999px;color:#fff;padding:8px 16px;cursor:pointer;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.25em;backdrop-filter:blur(4px);" style-hover="border-color:var(--accent);color:var(--accent);">● <span data-soundlabel="">unmute</span></button>
       </div>
     </div>
   </section>
@@ -423,13 +400,13 @@ class Component extends DCLogic {
       { n: "C", name: "Studio C", note: "the ideas room", img: "../assets/studio-c-room.jpg", imgAlt: "Studio C artist and programming room",
         body: "An artist room and programming suite \u2014 where arrangements get built, beats get written and a rough idea becomes something worth tracking properly next door.",
         specs: ["Artist room", "Programming suite"] },
-      { n: "X", name: "Studio X", note: "class in session", img: "../assets/studio-xyz-room.jpg", imgAlt: "Academy Studio X",
+      { n: "X", name: "Studio X", note: "class in session", img: "../assets/studio-x-room-2.jpg", imgAlt: "Academy Studio X",
         body: "The first of three Academy rooms \u2014 spacious, equipped for production, and sitting inside a working facility so students learn next door to real sessions.",
         specs: ["Academy studio", "Spacious", "Equipped for production"] },
-      { n: "Y", name: "Studio Y", note: "practice room", img: "../assets/studio-xyz-room.jpg", imgAlt: "Academy Studio Y",
+      { n: "Y", name: "Studio Y", note: "practice room", img: "../assets/studio-y-room.jpg", imgAlt: "Academy Studio Y",
         body: "A dedicated Academy room for students to practise production and work on assignments between classes.",
         specs: ["Academy studio", "Production workstation", "Student sessions"] },
-      { n: "Z", name: "Studio Z", note: "lab hours", img: "../assets/studio-xyz-room.jpg", imgAlt: "Academy Studio Z",
+      { n: "Z", name: "Studio Z", note: "lab hours", img: "../assets/studio-z-room.jpg", imgAlt: "Academy Studio Z",
         body: "The third Academy room \u2014 kept open for lab hours so students can take projects further on real gear.",
         specs: ["Academy studio", "Equipped for production", "Open to students"] }
     ];
@@ -462,9 +439,9 @@ class Component extends DCLogic {
       { n: "02", tag: "Studio A \u2014 live room", title: "Our main recording and Dolby Atmos room.", body: "A Neumann-powered Dolby Atmos 7.1.4 room with a live floor big enough for a rhythm section and a mastering suite next door.", img: "../assets/studio-a-live-room.jpg", imgAlt: "Studio A live room" },
       { n: "03", tag: "Studio B \u2014 vocal booth", title: "A dedicated room for vocals and voice-over.", body: "Compact and dead quiet \u2014 vocals, dubbing and editing, with a sightline straight to the engineer.", img: "../assets/studio-b-room.jpg", imgAlt: "Studio B vocal booth" },
       { n: "04", tag: "Studio C \u2014 ideas room", title: "A room for writing and pre-production.", body: "An artist and programming room for writing, arranging and demoing without burning floor time.", img: "../assets/studio-c-room.jpg", imgAlt: "Studio C artist and programming room" },
-      { n: "05", tag: "Studio X \u2014 Academy", title: "Academy studio for classes.", body: "The first Academy room \u2014 fully equipped for production, so learning happens on real gear.", img: "../assets/studio-xyz-room.jpg", imgAlt: "Academy Studio X" },
-      { n: "06", tag: "Studio Y \u2014 Academy", title: "Academy practice room.", body: "A dedicated room for students to practise production and work on assignments.", img: "../assets/studio-xyz-room.jpg", imgAlt: "Academy Studio Y" },
-      { n: "07", tag: "Studio Z \u2014 Academy", title: "Academy lab room.", body: "Kept open for students to take projects further between sessions.", img: "../assets/studio-xyz-room.jpg", imgAlt: "Academy Studio Z" },
+      { n: "05", tag: "Studio X \u2014 Academy", title: "Academy studio for classes.", body: "The first Academy room \u2014 fully equipped for production, so learning happens on real gear.", img: "../assets/studio-x-room-2.jpg", imgAlt: "Academy Studio X" },
+      { n: "06", tag: "Studio Y \u2014 Academy", title: "Academy practice room.", body: "A dedicated room for students to practise production and work on assignments.", img: "../assets/studio-y-room.jpg", imgAlt: "Academy Studio Y" },
+      { n: "07", tag: "Studio Z \u2014 Academy", title: "Academy lab room.", body: "Kept open for students to take projects further between sessions.", img: "../assets/studio-z-room.jpg", imgAlt: "Academy Studio Z" },
       { n: "08", tag: "The racks", title: "Outboard gear and machine room.", body: "Outboard racks, monitoring and a machine room that keeps every room fed from the same signal path.", img: "../assets/studio-gear-desk.jpg", imgAlt: "Outboard racks and studio desk" }
     ];
     // One ambient walkthrough clip runs behind the whole reel; swap per-room ids
@@ -483,7 +460,8 @@ class Component extends DCLogic {
 
   renderVals() {
     return Object.assign({}, this.getData(), {
-      toggleSound: (e) => { e.stopPropagation(); this._toggleSound(e.currentTarget.getAttribute("data-sec")); }
+      toggleSound: (e) => { e.stopPropagation(); this._toggleSound(e.currentTarget.getAttribute("data-sec")); },
+      playTour: () => this._playTour()
     });
   }
 
@@ -536,6 +514,23 @@ class Component extends DCLogic {
             if (e.data === 0) { try { e.target.seekTo(0); e.target.playVideo(); } catch (err) {} }
           }
         }
+      });
+    });
+  }
+
+  _playTour() {
+    const frame = document.querySelector("#tour [data-tourframe]");
+    if (!frame) return;
+    const rec = this._players && this._players.tour;
+    if (rec && rec.player && rec.player.destroy) { try { rec.player.destroy(); } catch (e) {} }
+    if (this._players) delete this._players.tour;
+    frame.innerHTML = '<div style="position:absolute;inset:0;"><div></div></div>';
+    const mount = frame.firstElementChild.firstElementChild;
+    this._ytReady().then((YT) => {
+      new YT.Player(mount, {
+        videoId: "xswVSJNWMOs", width: "100%", height: "100%",
+        playerVars: { autoplay: 1, rel: 0, playsinline: 1, modestbranding: 1 },
+        events: { onReady: (e) => { const f = e.target.getIframe(); if (f) f.style.cssText += ";position:absolute;inset:0;width:100%;height:100%;border:0;"; try { e.target.playVideo(); } catch (err) {} } }
       });
     });
   }
@@ -656,10 +651,7 @@ class Component extends DCLogic {
   componentDidMount() {
     this._players = this._players || {};
     this._vis = this._vis || {};
-    const tourData = this.getData().tour;
-    this._buildStory("tour", tourData);
-    const firstTourYt = tourData.find((c) => c.yt);
-    if (firstTourYt) this._setupAmbient("tour", firstTourYt.yt);
+    this._setupAmbient("tour", "xswVSJNWMOs");
     this._setupHeroVideo(this.props.heroVideoId ?? "gyTD9ICFeok");
     // Reveal-on-scroll: re-scanned on scroll/resize so sections rendered after
     // mount (and tall blocks that never cross a percentage threshold) still fire.
