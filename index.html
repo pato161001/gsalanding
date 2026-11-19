@@ -300,6 +300,9 @@
         <sc-for list="{{ portfolio }}" as="c">
           <div data-layer="" style="position:absolute;inset:0;opacity:0;transition:opacity .7s ease;">
             <img data-src="{{ c.img }}" data-poster="" alt="{{ c.imgAlt }}" loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+            <sc-if value="{{ c.vimeo }}" hint-placeholder-val="{{ false }}">
+              <div data-vimeo="{{ c.vimeo }}" aria-hidden="true" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:max(100vw,178vh,1352px);height:max(100vh,760px,56.25vw);pointer-events:none;"></div>
+            </sc-if>
           </div>
         </sc-for>
       </div>
@@ -619,18 +622,19 @@ class Component extends DCLogic {
     ].map((s, i) => ({ ...s, num: pad(i + 1) }));
 
     const P = [
-      { n: "01", img: "assets/story-drums.jpg", tag: "ICC Champions Trophy", title: "A global sports anthem, mixed for a billion viewers.", body: "Music and sound design for one of cricket's biggest stages \u2014 written, recorded and mixed in Baner.", slot: "gs-pf-icc", slotHint: "Drop an ICC Champions Trophy still" },
-      { n: "02", img: "assets/studio-ads.jpg", tag: "KIA", title: "A soundtrack that moves with the machine.", body: "Dynamic brand music and sound design built to carry a campaign across films, cutdowns and platforms.", slot: "gs-pf-kia", slotHint: "Drop a KIA campaign still" },
+      { n: "01", vimeo: "1246516925", img: "assets/story-drums.jpg", tag: "ICC Champions Trophy", title: "A global sports anthem, mixed for a billion viewers.", body: "Music and sound design for one of cricket's biggest stages \u2014 written, recorded and mixed in Baner.", slot: "gs-pf-icc", slotHint: "Drop an ICC Champions Trophy still" },
+      { yt: "7Sdabn2S-PQ", n: "02", tag: "KIA", title: "A soundtrack that moves with the machine.", body: "Dynamic brand music and sound design built to carry a campaign across films, cutdowns and platforms.", slot: "gs-pf-kia", slotHint: "Drop a KIA campaign still" },
       { n: "03", tag: "Easy Wanderlings", title: "The indie record that sounds like a Sunday.", body: "Recording, mix and master \u2014 wide, warm and unhurried, the way the band plays it live in the room.", yt: "-3V4OpteifI", slot: "gs-pf-wanderlings", slotHint: "Drop an Easy Wanderlings still" },
       { yt: "UOUMGKotXQ8", n: "04", tag: "BYOH \u2014 f16s", title: "A band record cut with the amps still ringing.", body: "Tracking, production and mix for one of the country's most distinctive rock outfits.", slot: "gs-pf-f16s", slotHint: "Drop a BYOH / f16s still" },
       { n: "05", img: "assets/music-ads-session.jpg", tag: "Dex \u2014 audio tours", title: "Thousands of narrated minutes, one consistent voice.", body: "AI-leveraged voice production, music and sound design for audio tours \u2014 produced at volume without losing the thread.", slot: "gs-pf-dex", slotHint: "Drop a Dex audio-tour still" },
       { n: "06", tag: "Netflix \u2014 Sacred Games", title: "The show that pressed record on prestige TV in India.", body: "Location recording, ADR and post \u2014 cut inside the live room while the sirens still rang in our ears.", yt: "gSyY8Aav2e0", slot: "gs-pf-sacred", slotHint: "Drop a Sacred Games still" },
-      { yt: "50GJ7D_00NA", n: "07", tag: "Varshangalkku Shesham", title: "A feature that leans on its score to carry the years.", body: "Film music and sound design \u2014 dialogue, score and mix held to the frame from first cut to final print.", slot: "gs-pf-varsha", slotHint: "Drop a Varshangalkku Shesham still" }
+      { yt: "50GJ7D_00NA", n: "07", img: "assets/varshangalkku-shesham.jpg", tag: "Varshangalkku Shesham", title: "A feature that leans on its score to carry the years.", body: "Film music and sound design \u2014 dialogue, score and mix held to the frame from first cut to final print.", slot: "gs-pf-varsha", slotHint: "Drop a Varshangalkku Shesham still" }
     ];
     // Each chapter shows a still while its video loads (and instead of one on
-    // chapters without a video). Video chapters default to the YouTube
-    // thumbnail; give a chapter its own `img` to override. Interim studio
-    // photos stand in on ICC, KIA and Dex until the real stills are added.
+    // chapters without a video). YouTube chapters (`yt`) default to the video's
+    // thumbnail; give a chapter its own `img` to override. Vimeo chapters
+    // (`vimeo`) play a muted background embed over their `img`. Interim studio
+    // photos stand in on ICC and Dex until the real stills are added.
     const portfolio = P.map((c, i) => ({
       ...c,
       railnum: pad(i + 1),
@@ -953,6 +957,18 @@ class Component extends DCLogic {
           } else if (!ch.yt && fade) fade.style.opacity = "0";
         }
         layers.forEach((el, i) => { el.style.opacity = i === active ? "1" : "0"; });
+        // Vimeo chapters: mount a muted background player only while that
+        // chapter is showing and the reel is on screen; remove it otherwise.
+        const onScreen = rect.top < window.innerHeight && rect.bottom > 0;
+        sec.querySelectorAll("[data-vimeo]").forEach((vh) => {
+          const layer = vh.closest("[data-layer]");
+          const want = onScreen && layers.indexOf(layer) === active;
+          if (want && !vh.firstElementChild) {
+            vh.innerHTML = '<iframe src="https://player.vimeo.com/video/' + encodeURIComponent(vh.getAttribute("data-vimeo")) + '?background=1&autoplay=1&muted=1&loop=1&dnt=1" allow="autoplay; fullscreen; picture-in-picture" title="Project video" style="position:absolute;inset:0;width:100%;height:100%;border:0;"></iframe>';
+          } else if (!want && vh.firstElementChild) {
+            vh.innerHTML = "";
+          }
+        });
         caps.forEach((el, i) => { el.style.opacity = i === active ? "1" : "0"; el.style.transform = "translateY(" + (i === active ? 0 : 24) + "px)"; el.style.filter = "blur(" + (i === active ? 0 : 6) + "px)"; });
         nums.forEach((el, i) => { el.style.color = i === active ? "var(--accent)" : "rgba(255,255,255,0.4)"; });
         bars.forEach((el, i) => { el.style.width = i < active ? "100%" : i === active ? Math.min(100, Math.max(0, (p * chapters.length - i) * 100)) + "%" : "0%"; });
