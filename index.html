@@ -306,7 +306,7 @@
           <div data-layer="" style="position:absolute;inset:0;opacity:0;transition:opacity .7s ease;">
             <img data-src="{{ c.img }}" data-poster="" alt="{{ c.imgAlt }}" loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
             <sc-if value="{{ c.vimeo }}" hint-placeholder-val="{{ false }}">
-              <div data-vimeo="{{ c.vimeo }}" aria-hidden="true" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:max(100vw,178vh,1352px);height:max(100vh,760px,56.25vw);pointer-events:none;"></div>
+              <div data-vimeo="{{ c.vimeo }}" aria-hidden="true" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:max(100vw,178vh,1352px);height:max(100vh,760px,56.25vw);pointer-events:none;opacity:0;transition:opacity .8s ease;"></div>
             </sc-if>
           </div>
         </sc-for>
@@ -627,7 +627,7 @@ class Component extends DCLogic {
     ].map((s, i) => ({ ...s, num: pad(i + 1) }));
 
     const P = [
-      { n: "01", vimeo: "1246516925", img: "assets/story-drums.jpg", tag: "ICC Champions Trophy", title: "A global sports anthem, mixed for a billion viewers.", body: "Music and sound design for one of cricket's biggest stages \u2014 written, recorded and mixed in Baner.", slot: "gs-pf-icc", slotHint: "Drop an ICC Champions Trophy still" },
+      { n: "01", vimeo: "1246516925", img: "assets/icc-champions-trophy.jpg", imgAlt: "India lift the ICC Champions Trophy 2025", tag: "ICC Champions Trophy", title: "A global sports anthem, mixed for a billion viewers.", body: "Music and sound design for one of cricket's biggest stages \u2014 written, recorded and mixed in Baner.", slot: "gs-pf-icc", slotHint: "Drop an ICC Champions Trophy still" },
       { yt: "7Sdabn2S-PQ", n: "02", tag: "KIA", title: "A soundtrack that moves with the machine.", body: "Dynamic brand music and sound design built to carry a campaign across films, cutdowns and platforms.", slot: "gs-pf-kia", slotHint: "Drop a KIA campaign still" },
       { n: "03", tag: "Easy Wanderlings", title: "The indie record that sounds like a Sunday.", body: "Recording, mix and master \u2014 wide, warm and unhurried, the way the band plays it live in the room.", yt: "-3V4OpteifI", slot: "gs-pf-wanderlings", slotHint: "Drop an Easy Wanderlings still" },
       { yt: "UOUMGKotXQ8", n: "04", tag: "BYOH \u2014 f16s", title: "A band record cut with the amps still ringing.", body: "Tracking, production and mix for one of the country's most distinctive rock outfits.", slot: "gs-pf-f16s", slotHint: "Drop a BYOH / f16s still" },
@@ -638,13 +638,13 @@ class Component extends DCLogic {
     // Each chapter shows a still while its video loads (and instead of one on
     // chapters without a video). YouTube chapters (`yt`) default to the video's
     // thumbnail; give a chapter its own `img` to override. Vimeo chapters
-    // (`vimeo`) play a muted background embed over their `img`. Interim studio
-    // photos stand in on ICC and Dex until the real stills are added.
+    // (`vimeo`) play a muted background embed over their `img`. An interim studio
+    // photo stands in on Dex until its real still is added.
     const portfolio = P.map((c, i) => ({
       ...c,
       railnum: pad(i + 1),
       img: c.img || (c.yt ? "https://i.ytimg.com/vi/" + c.yt + "/maxresdefault.jpg" : ""),
-      imgAlt: c.tag + " \u2014 project still"
+      imgAlt: c.imgAlt || c.tag + " \u2014 project still"
     }));
 
     const usps = [
@@ -719,10 +719,14 @@ class Component extends DCLogic {
       if (e.origin !== "https://player.vimeo.com") return;
       let d = e.data;
       if (typeof d === "string") { try { d = JSON.parse(d); } catch (err) { return; } }
-      if (!d || d.event !== "ready") return;
+      if (!d || !d.event) return;
       document.querySelectorAll("[data-vimeo] iframe").forEach((f) => {
         if (f.contentWindow !== e.source) return;
+        // Keep the chapter's still showing until the video is actually playing.
+        if (d.event === "playing") { f.parentElement.style.opacity = "1"; return; }
+        if (d.event !== "ready") return;
         f._gsReady = true;
+        this._vimeoCmd(f, "addEventListener", "playing");
         const sec = f.closest("section");
         const on = !!(this._soundOn && sec && this._soundOn[sec.id]);
         this._vimeoSound(f, on);
