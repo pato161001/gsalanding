@@ -631,15 +631,14 @@ class Component extends DCLogic {
       { yt: "7Sdabn2S-PQ", n: "02", tag: "KIA", title: "A soundtrack that moves with the machine.", body: "Dynamic brand music and sound design built to carry a campaign across films, cutdowns and platforms.", slot: "gs-pf-kia", slotHint: "Drop a KIA campaign still" },
       { n: "03", tag: "Easy Wanderlings", title: "The indie record that sounds like a Sunday.", body: "Recording, mix and master \u2014 wide, warm and unhurried, the way the band plays it live in the room.", yt: "-3V4OpteifI", slot: "gs-pf-wanderlings", slotHint: "Drop an Easy Wanderlings still" },
       { yt: "UOUMGKotXQ8", n: "04", tag: "BYOH \u2014 f16s", title: "A band record cut with the amps still ringing.", body: "Tracking, production and mix for one of the country's most distinctive rock outfits.", slot: "gs-pf-f16s", slotHint: "Drop a BYOH / f16s still" },
-      { n: "05", img: "assets/music-ads-session.jpg", tag: "Dex \u2014 audio tours", title: "Thousands of narrated minutes, one consistent voice.", body: "AI-leveraged voice production, music and sound design for audio tours \u2014 produced at volume without losing the thread.", slot: "gs-pf-dex", slotHint: "Drop a Dex audio-tour still" },
+      { yt: "4fuTJMyEHWk", n: "05", tag: "Dex \u2014 audio tours", title: "Thousands of narrated minutes, one consistent voice.", body: "AI-leveraged voice production, music and sound design for audio tours \u2014 produced at volume without losing the thread.", slot: "gs-pf-dex", slotHint: "Drop a Dex audio-tour still" },
       { n: "06", tag: "Netflix \u2014 Sacred Games", title: "The show that pressed record on prestige TV in India.", body: "Location recording, ADR and post \u2014 cut inside the live room while the sirens still rang in our ears.", yt: "gSyY8Aav2e0", slot: "gs-pf-sacred", slotHint: "Drop a Sacred Games still" },
       { yt: "50GJ7D_00NA", n: "07", img: "assets/varshangalkku-shesham.jpg", tag: "Varshangalkku Shesham", title: "A feature that leans on its score to carry the years.", body: "Film music and sound design \u2014 dialogue, score and mix held to the frame from first cut to final print.", slot: "gs-pf-varsha", slotHint: "Drop a Varshangalkku Shesham still" }
     ];
     // Each chapter shows a still while its video loads (and instead of one on
     // chapters without a video). YouTube chapters (`yt`) default to the video's
     // thumbnail; give a chapter its own `img` to override. Vimeo chapters
-    // (`vimeo`) play a muted background embed over their `img`. An interim studio
-    // photo stands in on Dex until its real still is added.
+    // (`vimeo`) play over their `img` once the video starts.
     const portfolio = P.map((c, i) => ({
       ...c,
       railnum: pad(i + 1),
